@@ -4,23 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { Login } from "@/lib/AuthService";
+import { Signup } from "@/lib/AuthService";
+import { Inputs } from "@/types";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from "universal-cookie";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-type Inputs = {
-  email: string;
-  password: string;
-};
-
-type LoginResponse = {
+type SignUpResponse = {
   message: string;
   status: string;
   token: string;
 };
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const {
     register,
     handleSubmit,
@@ -31,9 +28,11 @@ const LoginPage = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { email, password } = data;
+    const { email, password, username } = data;
 
-    const res: LoginResponse = await (await Login(email, password)).json();
+    const res: SignUpResponse = await (
+      await Signup(email, password, username!)
+    ).json();
 
     if (res.token) {
       cookies.set("token", res.token);
@@ -49,7 +48,7 @@ const LoginPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-2/3 md:w-1/3 lg:w-1/4 h-auto flex flex-col gap-4"
       >
-        <h1 className="text-center font-bold text-3xl mb-8">Login</h1>
+        <h1 className="text-center font-bold text-3xl mb-8">Sign up</h1>
         <div className="flex flex-col gap-2 w-full">
           <Label>Email</Label>
           <Input
@@ -59,6 +58,20 @@ const LoginPage = () => {
             })}
             type="email"
             id="email"
+          />
+          {errors.email && (
+            <Label className="text-red-500">{errors.email.message}</Label>
+          )}
+        </div>
+        <div className="flex flex-col gap-2 w-full">
+          <Label>Username</Label>
+          <Input
+            defaultValue=""
+            {...register("username", {
+              required: "Please enter your username",
+            })}
+            type="text"
+            id="username"
           />
           {errors.email && (
             <Label className="text-red-500">{errors.email.message}</Label>
@@ -90,10 +103,19 @@ const LoginPage = () => {
             </Label>
           )}
         </div>
-        <Button>Login</Button>
+        <Button>Sign Up</Button>
+        <div className="flex items-center w-full gap-2">
+          <Label>Already have an account?</Label>
+          <Link
+            className="text-xs font-medium text-blue-600 hover:underline"
+            href="/login"
+          >
+            Login
+          </Link>
+        </div>
       </form>
     </div>
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
