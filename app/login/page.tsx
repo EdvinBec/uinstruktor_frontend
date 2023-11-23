@@ -40,6 +40,7 @@ const LoginPage = () => {
 
     if (success.token) {
       cookies.set("token", success.token);
+      router.push("/protected");
     } else {
       console.log(success);
     }
