@@ -5,10 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { login } from "@/lib/AuthService";
+import Cookies from "universal-cookie";
 
 type Inputs = {
   email: string;
   password: string;
+};
+
+type Success = {
+  message: string;
+  status: string;
+  token: string;
 };
 
 const LoginPage = () => {
@@ -18,7 +27,23 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {};
+  const cookies = new Cookies();
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { email, password } = data;
+
+    const res = await login(email, password);
+
+    const success: Success = await res.json();
+
+    if (success.token) {
+      cookies.set("token", success.token);
+    } else {
+      console.log(success);
+    }
+  };
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
