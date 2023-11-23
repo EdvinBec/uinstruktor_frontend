@@ -1,7 +1,7 @@
-const baseURL = "http://46.150.38.29:5000/api/auth/login";
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const Login = (email: string, password: string) => {
-  const result = fetch(baseURL, {
+  const result = fetch(baseURL + "/api/auth/login", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
