@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/AuthService";
+import { Login } from "@/lib/AuthService";
 import Cookies from "universal-cookie";
 
 type Inputs = {
@@ -14,7 +14,7 @@ type Inputs = {
   password: string;
 };
 
-type Success = {
+type LoginResponse = {
   message: string;
   status: string;
   token: string;
@@ -28,21 +28,18 @@ const LoginPage = () => {
   } = useForm<Inputs>();
 
   const cookies = new Cookies();
-
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password } = data;
 
-    const res = await login(email, password);
+    const res: LoginResponse = await (await Login(email, password)).json();
 
-    const success: Success = await res.json();
-
-    if (success.token) {
-      cookies.set("token", success.token);
-      router.push("/protected");
+    if (res.token) {
+      cookies.set("token", res.token);
+      router.push("/explore");
     } else {
-      console.log(success);
+      console.log(res);
     }
   };
 

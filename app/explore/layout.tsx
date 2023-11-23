@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
 
-const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
+const ExploreLayout = ({ children }: { children: React.ReactNode }) => {
   const cookies = new Cookies();
   const router = useRouter();
   return (
@@ -24,4 +24,4 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default ProtectedLayout;
+export default ExploreLayout;

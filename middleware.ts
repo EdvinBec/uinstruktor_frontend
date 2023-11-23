@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { authRoutes, protectedRoutes } from "./lib/AuthService";
+import { authRoutes, protectedRoutes } from "./lib/routes";
 
 export const middleware = async (request: NextRequest) => {
   const currentUserToken = request.cookies.get("token")?.value;
@@ -13,6 +13,6 @@ export const middleware = async (request: NextRequest) => {
   }
 
   if (authRoutes.includes(request.nextUrl.pathname) && currentUserToken) {
-    return NextResponse.redirect(new URL("/protected", request.url));
+    return NextResponse.redirect(new URL("/explore", request.url));
   }
 };
