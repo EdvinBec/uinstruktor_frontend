@@ -19,8 +19,6 @@ import { Hourglass } from 'lucide-react';
 import { fetchAIPrompt } from '@/lib/ai';
 import { Assigment, getAssigmentData } from '@/lib/class';
 
-const api = 'http://46.150.38.29:5000/api';
-
 type TestCase = {
   input: string;
   expectedOutput: string;
@@ -65,7 +63,6 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
     uploadCode(code, assigmentID, 'C++')
       .then(async (response) => {
         const result = await response.json();
-        console.log(result);
         if (result.compile_status) {
           setAPIResponse(result);
         }
@@ -80,7 +77,6 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
     fetchAIPrompt(code)
       .then(async (response) => {
         const result = await response.json();
-        console.log(result);
         setAPIResponse(result.result.choices[0].message.content);
       })
       .finally(() => {

@@ -10,8 +10,8 @@ export interface Assigment {
   assigmentID: string;
   title: string;
   description: string;
-  time_created: Date;
-  time_expiration: Date;
+  timeCreated: Date;
+  timeExpiration: Date;
   classID: string;
   codeTemplate: string;
 }
