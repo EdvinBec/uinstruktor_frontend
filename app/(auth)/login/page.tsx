@@ -21,6 +21,7 @@ type LoginResponse = {
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   const {
     register,
@@ -51,6 +52,11 @@ const LoginPage = () => {
       router.push("/explore");
     } else {
       console.log(res);
+      if (res.message === "auth/wrong-password") {
+        setAuthError("Oops! Wrong password. Please try again.");
+      } else if (res.message === "auth/wrong-email") {
+        setAuthError("Oops! Wrong email. Please try again.");
+      }
     }
   };
 
@@ -95,7 +101,9 @@ const LoginPage = () => {
                 Please enter password that is shorter than 32 characters
               </Label>
             )}
+            {authError && <Label className="text-red-500">{authError}</Label>}
           </div>
+
           <Button>Login</Button>
           <div className="flex items-center w-full gap-2">
             <Label>Don{"'"}t have an account yet?</Label>
