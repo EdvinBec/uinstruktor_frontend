@@ -12,7 +12,12 @@ export const Login = (email: string, password: string) => {
   return result;
 };
 
-export const Signup = (email: string, password: string, username: string) => {
+export const Signup = (
+  email: string,
+  password: string,
+  username: string,
+  role: string
+) => {
   const result = fetch(baseURL + "/api/auth/register", {
     method: "POST",
     headers: {
@@ -22,6 +27,7 @@ export const Signup = (email: string, password: string, username: string) => {
       username: username,
       password: password,
       email: email,
+      role: role,
     }),
   });
 
