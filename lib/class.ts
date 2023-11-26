@@ -14,6 +14,7 @@ export interface Assigment {
   timeExpiration: Date;
   classID: string;
   codeTemplate: string;
+  lang: string;
 }
 
 export async function getClasses(username: string) {
@@ -41,6 +42,21 @@ export async function getAssigmentData(assigmentID: string) {
     throw new Error('Failed to assigment data.');
   }
   return (await result.json()) as Assigment;
+}
+
+export async function joinNewClass(classID: string, username: string) {
+  const result = await fetch(baseURL + `/api/class/join`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ classID: classID, username: username }),
+  });
+  if (!result.ok) {
+    throw new Error('Failed to retrieve assignments');
+  } else {
+    return true;
+  }
 }
 
 export async function getAssigments(classID: string) {
