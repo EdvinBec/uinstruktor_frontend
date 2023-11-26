@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-2/3 md:w-1/3 lg:w-1/4 h-auto flex flex-col gap-4"
