@@ -15,13 +15,13 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             key={index}
             href={`${params.slug}/assigment/${assigment.assigmentID}`}
           >
-            <Card className="p-2">
+            <Card className="p-2 h-full">
               <CardHeader>{assigment.title}</CardHeader>
               <CardDescription>
-                <div className="flex flex-row gap-4 items-center">
+                <p className="flex flex-row gap-4 items-center">
                   <Clock />
                   {new Date(assigment.timeExpiration).toLocaleString()}
-                </div>
+                </p>
               </CardDescription>
             </Card>
           </Link>

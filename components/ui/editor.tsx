@@ -18,6 +18,7 @@ import { uploadCode } from '@/lib/code';
 import { Hourglass } from 'lucide-react';
 import { fetchAIPrompt } from '@/lib/ai';
 import { Assigment, getAssigmentData } from '@/lib/class';
+import { useTheme } from 'next-themes';
 
 type TestCase = {
   input: string;
@@ -38,6 +39,7 @@ interface APICodeResponse {
 }
 
 export default function EditorPage({ assigmentID }: { assigmentID: string }) {
+  const { theme } = useTheme();
   const [assigment, setAssigment] = useState<Assigment>();
   const [code, setCode] = useState('');
   const [APIResponse, setAPIResponse] = useState<APICodeResponse>();
@@ -87,7 +89,6 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
         //setWaiting(false);
       });
   }
-
   return (
     <div className="p-4">
       <div className="flex flex-row">
@@ -148,6 +149,7 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
             autoClosingBrackets: 'always',
             autoClosingQuotes: 'always',
             autoClosingComments: 'always',
+            theme: theme === 'light' ? 'vs' : 'vs-dark',
           }}
           height="90vh"
           width="60%"

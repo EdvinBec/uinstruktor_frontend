@@ -38,6 +38,7 @@ async function getCurrentUser() {
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const user = await getCurrentUser();
+  console.log(user);
   const classes = await getClasses(user as string);
 
   return (
@@ -67,10 +68,10 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="grid gap-6 p-4">
+      <div className="grid grid-cols-5 grid-rows-2 gap-6 p-4">
         {classes.map((subject, index) => (
           <Link key={index} className="" href={`/class/${subject.classID}`}>
-            <Card className="">
+            <Card className="h-full" style={{ height: '100%' }}>
               <CardHeader>
                 <CardTitle>{subject.className}</CardTitle>
                 <CardDescription>{subject.classCreator}</CardDescription>
