@@ -38,7 +38,6 @@ async function getCurrentUser() {
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const user = await getCurrentUser();
-  console.log(user);
   const classes = await getClasses(user as string);
 
   return (
