@@ -7,7 +7,7 @@ import Navbar from "@/components/ui/Navbar";
 
 const ExploreLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen px-4 py-2">
       <Navbar />
       {children}
     </div>
