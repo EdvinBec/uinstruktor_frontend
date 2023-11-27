@@ -11,7 +11,7 @@ export const GetJwtSecretKey = () => {
 export const decryptToken = async (token: string) => {
   try {
     const { payload } = await jwtVerify(token, GetJwtSecretKey());
-    return payload.username as string;
+    return payload.username;
   } catch (error) {}
 };
 

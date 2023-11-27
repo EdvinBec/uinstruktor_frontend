@@ -25,8 +25,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { SubmitHandler } from 'react-hook-form';
-import { Inputs } from '@/types';
 
 async function getCurrentUser() {
   const cookieStore = cookies();
@@ -38,6 +36,7 @@ async function getCurrentUser() {
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const user = await getCurrentUser();
+  console.log(user);
   const classes = await getClasses(user as string);
 
   return (
@@ -45,9 +44,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       <div className="flex flex-row space-x-2 items-center">
         <h1 className="text-4xl">Classes:</h1>
         <Dialog>
-          <DialogTrigger>
-            <Button>Join new class</Button>
-          </DialogTrigger>
+          <DialogTrigger>Join</DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Class ID</DialogTitle>
