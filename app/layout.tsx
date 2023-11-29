@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Provider } from "react-redux";
+import { store } from "@/store";
+import ReduxProvider from "@/lib/redux-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="uinstruktor-theme"
         >
-          {children}
+          <ReduxProvider>{children}</ReduxProvider>
         </ThemeProvider>
       </body>
     </html>
