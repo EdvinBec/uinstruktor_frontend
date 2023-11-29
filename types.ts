@@ -10,3 +10,22 @@ export type UserToken = {
   iat: Date;
   exp: Date;
 };
+export interface ApiResponse {
+  message: string;
+  status: 'success' | 'error' | 'denied';
+}
+export interface ApiResponseError extends ApiResponse {
+  err: unknown;
+}
+export interface ApiResponseData<T> extends ApiResponse {
+  data: T | T[];
+}
+export type CodeProblem = {
+  problemID: string;
+  title: string;
+  description: string;
+  timeCreated: Date;
+  userCodeTemplate: string;
+  serverCodeTemplate: string;
+  lang: string;
+};
