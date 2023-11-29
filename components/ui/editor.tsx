@@ -107,11 +107,11 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
               AI Help
             </Button>
           </div>
-          <div className="p-2 overflow-scroll h-[80vh]">
+          <div className="p-2 ">
             {APIResponse !== undefined ? (
               <>
                 <h2 className="text-xl">Output: </h2>
-                <>
+                <div className="space-y-4 overflow-scroll h-[65vh]">
                   {!error ? (
                     APIResponse.result.testCases.map((testCase, index) => (
                       <Card key={index}>
@@ -135,7 +135,7 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
                   ) : (
                     <p>{APIResponse.err}</p>
                   )}
-                </>
+                </div>
               </>
             ) : (
               ''
