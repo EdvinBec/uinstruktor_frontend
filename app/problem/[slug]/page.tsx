@@ -31,6 +31,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState(false);
   const [apiResponse, setApiResponse] = useState<ApiResponseCompiler>();
+  const [selectedTab, setSelectedTab] = useState('details');
 
   useEffect(() => {
     fetchProblem('0bf67ec5a8d41cff38c953d3').then((response) => {
@@ -69,6 +70,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
         }
       })
       .finally(() => {
+        setSelectedTab('testCases');
         setWaiting(false);
       });
   }
@@ -79,13 +81,24 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className=" flex flex-row">
-      <Tabs defaultValue="details" className="w-1/2">
+      <Tabs defaultValue="details" value={selectedTab} className="w-1/2">
         <TabsList>
-          <TabsTrigger color="red" value="details">
+          <TabsTrigger
+            color="red"
+            value="details"
+            onClick={() => setSelectedTab('details')}
+          >
             Details
           </TabsTrigger>
-          <TabsTrigger value="testCases">Tests</TabsTrigger>
-          <TabsTrigger value="output">Output</TabsTrigger>
+          <TabsTrigger
+            value="testCases"
+            onClick={() => setSelectedTab('testCases')}
+          >
+            Tests
+          </TabsTrigger>
+          <TabsTrigger onClick={() => setSelectedTab('output')} value="output">
+            Output
+          </TabsTrigger>
         </TabsList>
         <div className="p-2 inline-flex">
           <Button onClick={handleUploadCode}>

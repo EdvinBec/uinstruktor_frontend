@@ -45,6 +45,8 @@ export default function EditorPage({ assigmentID }: { assigmentID: string }) {
   const [APIResponse, setAPIResponse] = useState<APICodeResponse>();
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState(false);
+
+  
   useEffect(() => {
     getAssigmentData(assigmentID).then((data) => {
       setAssigment(data);
