@@ -29,3 +29,19 @@ export type CodeProblem = {
   serverCodeTemplate: string;
   lang: string;
 };
+export type TestCase = {
+  input: string;
+  expectedOutput: string;
+  actualOutput: string;
+  matching: boolean;
+};
+
+export interface ApiResponseCompiler extends ApiResponse {
+  compile_status: boolean;
+  id: string;
+  message: string;
+  result: {
+    testCases: TestCase[];
+  };
+  err: string;
+}
