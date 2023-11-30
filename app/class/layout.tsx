@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Navbar from '@/components/ui/Navbar';
+import Navbar from "@/components/Navbar";
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   return (

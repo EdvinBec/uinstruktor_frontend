@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/Navbar";
 import { Inputs } from "@/types";
 import { createContext, useState } from "react";
 

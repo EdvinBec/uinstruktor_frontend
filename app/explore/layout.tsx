@@ -1,15 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Cookies from "universal-cookie";
-import { useRouter } from "next/navigation";
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 const ExploreLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col h-screen px-4 py-2">
-      <Navbar />
-      {children}
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex flex-col w-full h-screen">
+        <Navbar />
+        {children}
+      </div>
     </div>
   );
 };
