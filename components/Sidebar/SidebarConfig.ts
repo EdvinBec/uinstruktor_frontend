@@ -1,7 +1,17 @@
+import {
+  LayoutTemplate,
+  LucideIcon,
+  ClipboardListIcon,
+  HelpCircle,
+  PlusCircle,
+  Shapes,
+} from "lucide-react";
+
 export type SidebarItem = {
   label: string;
   href: string;
   variant: "default" | "active";
+  icon: LucideIcon;
 };
 
 export const SidebarItems: SidebarItem[] = [
@@ -9,16 +19,19 @@ export const SidebarItems: SidebarItem[] = [
     label: "Explore",
     href: "/explore",
     variant: "default",
+    icon: LayoutTemplate,
   },
   {
     label: "Problems",
-    href: "/explore",
+    href: "/problems",
     variant: "default",
+    icon: ClipboardListIcon,
   },
   {
     label: "Tutorials",
-    href: "/explore",
+    href: "/tutorials",
     variant: "default",
+    icon: HelpCircle,
   },
 ];
 
@@ -27,11 +40,13 @@ export const TeacherSidebarItems: SidebarItem[] = [
     label: "My Classrooms",
     href: "/my-classrooms",
     variant: "default",
+    icon: Shapes,
   },
   {
     label: "Create new classroom",
     href: "/create-new-classroom",
     variant: "default",
+    icon: PlusCircle,
   },
 ];
 
@@ -40,5 +55,12 @@ export const StudentSidebarItems: SidebarItem[] = [
     label: "My Classrooms",
     href: "/my-classrooms-student",
     variant: "default",
+    icon: Shapes,
+  },
+  {
+    label: "Join new classroom",
+    href: "/join-classroom",
+    variant: "default",
+    icon: PlusCircle,
   },
 ];

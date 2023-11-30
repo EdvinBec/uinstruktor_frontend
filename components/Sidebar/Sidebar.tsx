@@ -1,26 +1,37 @@
-import { RootState } from "@/store";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { Button } from "../ui/button";
-import { X } from "lucide-react";
+//Redux
 import { toggle } from "@/slices/SidebarStatus";
+import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+
+//UI Components
+import { Button } from "../ui/button";
+import SidebarButton from "./SidebarButton";
+
+//Icons
+import { Bot, X } from "lucide-react";
+
+//Hooks
+import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+
+//Other
 import {
   SidebarItem,
   SidebarItems,
   StudentSidebarItems,
   TeacherSidebarItems,
 } from "./SidebarConfig";
-import useAuth from "@/hooks/useAuth";
 import Cookies from "universal-cookie";
-import { useRouter } from "next/navigation";
+import SignOutButton from "../SignOutButton";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarStatus.isOpen);
 
   const dispatch = useDispatch();
   const auth = useAuth();
-  const cookies = new Cookies();
   const router = useRouter();
+
+  const cookies = new Cookies();
 
   return (
     <div
@@ -28,13 +39,12 @@ const Sidebar = () => {
         isOpen && "w-2/4"
       } ${!isOpen && "w-0 "}`}
     >
-      <div>
-        <div
-          className={`w-full flex items-center justify-between pt-2 px-4 ${
-            !isOpen && "hidden"
-          }`}
-        >
-          <h1 className="font-bold text-xl">UInstruktor</h1>
+      <div className={`${!isOpen && "hidden"}`}>
+        <div className={`w-full flex items-center justify-between pt-2 px-4`}>
+          <div className="flex items-center gap-2">
+            <Bot />
+            <h1 className="text-sm font-bold mt-1">UInstruktor</h1>
+          </div>
           <Button
             variant="ghost"
             size="icon"
@@ -46,51 +56,54 @@ const Sidebar = () => {
           </Button>
         </div>
         <div className={`mt-8 ${!isOpen && "hidden"}`}>
-          {SidebarItems.map((item: SidebarItem, itemIdx: number) => {
-            return (
-              <div
-                key={itemIdx}
-                className="w-full py-2 px-4 hover:bg-white hover:bg-opacity-5 cursor-pointer"
-              >
-                <Link href={item.href}>{item.label}</Link>
-              </div>
-            );
-          })}
+          <div>
+            <h1 className="ml-4 text-sm tracking-wide font-medium">Overview</h1>
+            {SidebarItems.map((item: SidebarItem, itemIdx: number) => {
+              return (
+                <SidebarButton
+                  key={itemIdx}
+                  icon={item.icon}
+                  label={item.label}
+                  href={item.href}
+                />
+              );
+            })}
+          </div>
           {auth?.role == "teacher" &&
             TeacherSidebarItems.map((item: SidebarItem, itemIdx: number) => {
               return (
-                <div
+                <SidebarButton
                   key={itemIdx}
-                  className="w-full py-2 px-4 hover:bg-white hover:bg-opacity-5 cursor-pointer"
-                >
-                  <Link href={item.href}>{item.label}</Link>
-                </div>
+                  icon={item.icon}
+                  label={item.label}
+                  href={item.href}
+                />
               );
             })}
-          {auth?.role == "student" &&
-            StudentSidebarItems.map((item: SidebarItem, itemIdx: number) => {
-              return (
-                <div
-                  key={itemIdx}
-                  className="w-full py-2 px-4 hover:bg-white hover:bg-opacity-5 cursor-pointer"
-                >
-                  <Link href={item.href}>{item.label}</Link>
-                </div>
-              );
-            })}
+          <div>
+            <h1 className="ml-4 mt-4 text-sm tracking-wide font-medium">
+              Student
+            </h1>
+            {auth?.role == "student" &&
+              StudentSidebarItems.map((item: SidebarItem, itemIdx: number) => {
+                return (
+                  <SidebarButton
+                    key={itemIdx}
+                    icon={item.icon}
+                    label={item.label}
+                    href={item.href}
+                  />
+                );
+              })}
+          </div>
         </div>
       </div>
-      <Button
+      <SignOutButton
         variant="secondary"
-        className="mx-4 mb-4 dark:bg-white dark:text-black dark:hover:bg-white dark:hover:opacity-80 transition-all ease-in-out duration-100"
-        onClick={() => {
-          cookies.remove("token");
-          router.refresh();
-          dispatch(toggle());
-        }}
-      >
-        Sign Out
-      </Button>
+        classname={`${
+          !isOpen && "hidden"
+        } mx-4 mb-4 dark:bg-white dark:text-black dark:hover:bg-white dark:hover:opacity-80 transition-all ease-in-out duration-100`}
+      />
     </div>
   );
 };
