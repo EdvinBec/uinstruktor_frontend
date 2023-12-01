@@ -21,20 +21,14 @@ export const uploadCode = (code: string, assigmentId: string, lang: string) => {
   });
   return result;
 };
-export const uploadCodeProblem = (
-  code: string,
-  problemID: string,
-  lang: string,
-) => {
-  const result = fetch(baseURL + '/api/code/submission', {
+export const uploadCodeProblem = (problem: CodeProblem) => {
+  const result = fetch(baseURL + '/api/code/problem/new', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
     body: JSON.stringify({
-      lang: lang,
-      source: code,
-      problemID: problemID,
+      ...problem,
     }),
   });
   return result;

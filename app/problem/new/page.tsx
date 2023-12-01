@@ -6,10 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import CodeEditor from '@/components/ui/code-editor';
+import { Button } from '@/components/ui/button';
+import { uploadCodeProblem } from '@/lib/code';
 
 const NewProblemPage = () => {
   const [problem, setProblem] = useState({
     description: '',
+    problemID: '',
+    timeCreated: new Date(),
     title: '',
     userCodeTemplate: `class Resitev {
   public:
@@ -33,6 +37,10 @@ int main() {
     lang: '',
   });
 
+  function handleUploadProblem() {
+    uploadCodeProblem(problem).then(() => {});
+  }
+
   function handleSetProblemDescription(text: string) {
     setProblem({ ...problem, description: text });
   }
@@ -50,12 +58,15 @@ int main() {
   function handleSetProblemTitle(title: string) {
     setProblem({ ...problem, title: title });
   }
-  
+
   return (
     <div>
       <div className="flex-row flex">
         <div className="w-1/2 p-4 space-y-4 h-full">
-          <h1 className="text-4xl pb-4">Create a new problem</h1>
+          <div className="flex flex-row space-x-4">
+            <h1 className="text-4xl pb-4">Create a new problem</h1>
+            <Button onClick={handleUploadProblem}>Create</Button>
+          </div>
           <Label htmlFor="problemInput">
             Problem title:
             <Input
@@ -64,7 +75,11 @@ int main() {
               id="problemInput"
             />
           </Label>
-          <TextEditor setValue={handleSetProblemDescription} />
+
+          <TextEditor
+            editableClassName="bg-neutral-700 p-2 rounded-lg"
+            setValue={handleSetProblemDescription}
+          />
         </div>
         <Separator orientation="vertical" />
         <div className="w-1/2">
