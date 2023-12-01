@@ -28,7 +28,40 @@ export const uploadCodeProblem = (problem: CodeProblem) => {
       'Content-type': 'application/json',
     },
     body: JSON.stringify({
-      ...problem,
+      problem: { ...problem },
+    }),
+  });
+  return result;
+};
+
+export const uploadCodeProblemCode = (
+  code: string,
+  problemID: string,
+  lang: string,
+) => {
+  const result = fetch(baseURL + '/api/code/submission', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ lang: lang, source: code, problemID: problemID }),
+  });
+  return result;
+};
+
+export const uploadTestCases = (
+  testCases: {
+    input: string;
+    output: string;
+  }[],
+) => {
+  const result = fetch(baseURL + '/api/code/testcases/submit', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      testCases: testCases,
     }),
   });
   return result;
