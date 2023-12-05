@@ -39,7 +39,19 @@ const CodeEditor = ({
         'editor.background': '#1c1b22',
       },
     });
-    monaco.editor.setTheme('dark');
+    monaco.editor.defineTheme('light', {
+      base: 'vs',
+      inherit: true,
+      rules: [{ token: '', background: '#ffffff' }],
+      colors: {
+        'editor.background': '#ffffff',
+      },
+    });
+    if (theme === 'dark') {
+      monaco.editor.setTheme('light');
+    } else {
+      monaco.editor.setTheme('dark');
+    }
   }
 
   return (

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { uploadCodeProblem } from '@/lib/code';
 import Codetag from '@/components/ui/code';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 type TestCase = {
   input: string;
@@ -46,7 +47,9 @@ int main() {
   const [testCases, setTestCases] = useState<TestCase[]>([]);
 
   function handleUploadProblem() {
-    uploadCodeProblem(problem).then(() => {});
+    uploadCodeProblem(problem, testCases).then((res) => {
+      console.log(res);
+    });
   }
 
   function handleSetProblemDescription(text: string) {
@@ -108,7 +111,7 @@ int main() {
           </Label>
 
           <TextEditor
-            editableClassName="bg-neutral-700 p-2 rounded-lg"
+            editableClassName="bg-neutral-100 dark:bg-neutral-700 p-2 rounded-lg"
             setValue={handleSetProblemDescription}
           />
         </div>
@@ -152,9 +155,9 @@ int main() {
                 <Button onClick={incrementTestCases}>Add test case</Button>
                 <Button onClick={decrementTestCases}>Remove test case</Button>
               </div>
-              <div className="space-y-4 p-2 overflow-scroll h-[70vh]">
+              <ScrollArea className="space-y-4 p-2 h-[70vh]">
                 {testCases.map((testCase, index) => (
-                  <Card className="w-1/2" key={index}>
+                  <Card className="w-1/2 my-2" key={index}>
                     <CardHeader>Test case {index + 1}</CardHeader>
                     <CardContent>
                       <Label>
@@ -178,7 +181,7 @@ int main() {
                     </CardContent>
                   </Card>
                 ))}
-              </div>
+              </ScrollArea>
             </TabsContent>
           </Tabs>
         </div>

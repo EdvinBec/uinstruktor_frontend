@@ -3,9 +3,15 @@ import {
   ApiResponseData,
   ApiResponseError,
   CodeProblem,
+  TestCase,
 } from '@/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+type TestCase = {
+  input: string;
+  output: string;
+};
 
 export const uploadCode = (code: string, assigmentId: string, lang: string) => {
   const result = fetch(baseURL + '/api/code/submission', {
@@ -21,7 +27,10 @@ export const uploadCode = (code: string, assigmentId: string, lang: string) => {
   });
   return result;
 };
-export const uploadCodeProblem = (problem: CodeProblem) => {
+export const uploadCodeProblem = async (
+  problem: CodeProblem,
+  testCases: TestCase[],
+) => {
   const result = fetch(baseURL + '/api/code/problem/new', {
     method: 'POST',
     headers: {
@@ -29,9 +38,10 @@ export const uploadCodeProblem = (problem: CodeProblem) => {
     },
     body: JSON.stringify({
       problem: { ...problem },
+      testCases: testCases,
     }),
   });
-  return result;
+  return (await result).json();
 };
 
 export const uploadCodeProblemCode = (
