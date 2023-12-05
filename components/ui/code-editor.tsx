@@ -24,32 +24,31 @@ const CodeEditor = ({
   const { theme } = useTheme();
   const editorRef = useRef(null);
 
-  // Color theme doesnt work without this function
   function handleEditorDidMount(editor: any, monaco: Monaco) {
-    monaco.editor.defineTheme('dark', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [
-        {
-          token: '',
-          background: '#1c1b22',
+    if (theme === 'light') {
+      monaco.editor.defineTheme('light', {
+        base: 'vs',
+        inherit: true,
+        rules: [{ token: '', background: '#ffffff' }],
+        colors: {
+          'editor.background': '#ffffff',
         },
-      ],
-      colors: {
-        'editor.background': '#1c1b22',
-      },
-    });
-    monaco.editor.defineTheme('light', {
-      base: 'vs',
-      inherit: true,
-      rules: [{ token: '', background: '#ffffff' }],
-      colors: {
-        'editor.background': '#ffffff',
-      },
-    });
-    if (theme === 'dark') {
+      });
       monaco.editor.setTheme('light');
     } else {
+      monaco.editor.defineTheme('dark', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [
+          {
+            token: '',
+            background: '#1c1b22',
+          },
+        ],
+        colors: {
+          'editor.background': '#1c1b22',
+        },
+      });
       monaco.editor.setTheme('dark');
     }
   }

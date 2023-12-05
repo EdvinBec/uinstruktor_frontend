@@ -85,7 +85,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className=" flex flex-row">
+    <div className="flex flex-row">
       <Tabs defaultValue="details" value={selectedTab} className="w-1/2">
         <TabsList>
           <TabsTrigger
