@@ -22,6 +22,7 @@ const NavbarButton = ({ href, label, isActive, icon }: Props) => {
       }`}
     >
       {label == "Create new classroom" && <LucideIcon size={18} />}
+      {label == "Join new classroom" && <LucideIcon size={18} />}
       <Link href={href}>{label}</Link>
     </Button>
   );
