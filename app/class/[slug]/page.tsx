@@ -26,7 +26,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
           <Button>New Assigment</Button>
         </Link>
       ) : null}
-      <div className="grid grid-cols-5 p-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 p-4 gap-4">
         {assigments.map((assigment, index) => (
           <Link
             key={index}

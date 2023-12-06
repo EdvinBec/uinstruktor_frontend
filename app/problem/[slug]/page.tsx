@@ -85,7 +85,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-col sm:flex-row">
       <Tabs defaultValue="details" value={selectedTab} className="w-1/2">
         <TabsList>
           <TabsTrigger
@@ -162,7 +162,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
           </div>
         </TabsContent>
       </Tabs>
-      <div className="w-1/2">
+      <div className="md:w-1/2">
         <CodeEditor
           value={code}
           onChange={onEditorChange}

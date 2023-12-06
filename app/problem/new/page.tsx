@@ -95,8 +95,8 @@ int main() {
 
   return (
     <div>
-      <div className="flex-row flex">
-        <div className="w-1/2 p-4 space-y-4 h-full">
+      <div className="flex-col flex md:flex-row">
+        <div className="md:w-1/2 p-4 space-y-4 h-full">
           <div className="flex flex-row space-x-4">
             <h1 className="text-4xl pb-4">Create a new problem</h1>
             <Button onClick={handleUploadProblem}>Create</Button>
@@ -116,7 +116,7 @@ int main() {
           />
         </div>
         <Separator orientation="vertical" />
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <Tabs defaultValue="client">
             <TabsList>
               <TabsTrigger value="client">User</TabsTrigger>
