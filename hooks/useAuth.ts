@@ -1,34 +1,31 @@
 "use client";
 
-import { verifyJwtToken } from "@/lib/auth";
+import { decryptAuthToken, verifyJwtToken } from "@/lib/auth";
 import { JWTPayload } from "jose";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 type Auth = {
   token: JWTPayload | null;
-  isValid: boolean;
+  username: string;
+  role: string;
 };
 
 const useAuth = () => {
   const cookies = new Cookies();
   const [auth, setAuth] = useState<Auth>();
 
-  const getVerifiedToken = async () => {
-    let validation = false;
-    const token = cookies.get("token");
-    const verifiedToken = await verifyJwtToken(token!);
-    if (Date.now() >= verifiedToken?.exp! * 1000) {
-      validation = false;
-    } else {
-      validation = true;
-    }
-
-    setAuth({ token: verifiedToken, isValid: validation });
+  const decryptToken = async () => {
+    const decryptedToken = await decryptAuthToken(cookies.get("token"));
+    setAuth({
+      token: cookies.get("token"),
+      username: decryptedToken?.username!,
+      role: decryptedToken?.role!,
+    });
   };
 
   useEffect(() => {
-    getVerifiedToken();
+    decryptToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
