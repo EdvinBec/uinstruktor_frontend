@@ -1,6 +1,11 @@
+//UI Components
 import { LucideIcon } from "lucide-react";
-import Link from "next/link";
+
+//Hooks
 import { usePathname } from "next/navigation";
+
+//Other
+import Link from "next/link";
 
 type Props = {
   icon: LucideIcon;

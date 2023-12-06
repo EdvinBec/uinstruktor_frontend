@@ -12,7 +12,6 @@ import { Bot, X } from "lucide-react";
 
 //Hooks
 import useAuth from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
 
 //Other
 import {
@@ -21,7 +20,6 @@ import {
   StudentSidebarItems,
   TeacherSidebarItems,
 } from "./SidebarConfig";
-import Cookies from "universal-cookie";
 import SignOutButton from "../SignOutButton";
 
 const Sidebar = () => {
@@ -29,13 +27,12 @@ const Sidebar = () => {
 
   const dispatch = useDispatch();
   const auth = useAuth();
-  const router = useRouter();
-
-  const cookies = new Cookies();
 
   return (
     <div
-      className={`h-full flex transition-all ease-in-out duration-150 flex-col justify-between text-white bg-black ${
+      className={`h-full flex ${
+        isOpen && "min-w-[220px]"
+      } transition-all ease-in-out duration-150 flex-col justify-between text-white md:hidden bg-black ${
         isOpen && "w-2/4"
       } ${!isOpen && "w-0 "}`}
     >
@@ -69,6 +66,11 @@ const Sidebar = () => {
               );
             })}
           </div>
+          {auth?.role == "teacher" && (
+            <h1 className="ml-4 mt-4 text-sm tracking-wide font-medium">
+              Teacher
+            </h1>
+          )}
           {auth?.role == "teacher" &&
             TeacherSidebarItems.map((item: SidebarItem, itemIdx: number) => {
               return (
@@ -81,9 +83,11 @@ const Sidebar = () => {
               );
             })}
           <div>
-            <h1 className="ml-4 mt-4 text-sm tracking-wide font-medium">
-              Student
-            </h1>
+            {auth?.role == "student" && (
+              <h1 className="ml-4 mt-4 text-sm tracking-wide font-medium">
+                Student
+              </h1>
+            )}
             {auth?.role == "student" &&
               StudentSidebarItems.map((item: SidebarItem, itemIdx: number) => {
                 return (
