@@ -3,9 +3,15 @@ import {
   ApiResponseData,
   ApiResponseError,
   CodeProblem,
+  TestCase,
 } from '@/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+type TestCase = {
+  input: string;
+  output: string;
+};
 
 export const uploadCode = (code: string, assigmentId: string, lang: string) => {
   const result = fetch(baseURL + '/api/code/submission', {
@@ -21,7 +27,24 @@ export const uploadCode = (code: string, assigmentId: string, lang: string) => {
   });
   return result;
 };
-export const uploadCodeProblem = (
+export const uploadCodeProblem = async (
+  problem: CodeProblem,
+  testCases: TestCase[],
+) => {
+  const result = fetch(baseURL + '/api/code/problem/new', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      problem: { ...problem },
+      testCases: testCases,
+    }),
+  });
+  return (await result).json();
+};
+
+export const uploadCodeProblemCode = (
   code: string,
   problemID: string,
   lang: string,
@@ -31,10 +54,24 @@ export const uploadCodeProblem = (
     headers: {
       'Content-type': 'application/json',
     },
+    body: JSON.stringify({ lang: lang, source: code, problemID: problemID }),
+  });
+  return result;
+};
+
+export const uploadTestCases = (
+  testCases: {
+    input: string;
+    output: string;
+  }[],
+) => {
+  const result = fetch(baseURL + '/api/code/testcases/submit', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
     body: JSON.stringify({
-      lang: lang,
-      source: code,
-      problemID: problemID,
+      testCases: testCases,
     }),
   });
   return result;

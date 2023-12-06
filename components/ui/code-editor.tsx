@@ -1,6 +1,6 @@
-import { Editor } from '@monaco-editor/react';
+import { Editor, Monaco } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
-import React from 'react';
+import React, { useRef } from 'react';
 
 type CodeEditorProps = {
   defaultValue: string;
@@ -22,6 +22,37 @@ const CodeEditor = ({
   className,
 }: CodeEditorProps) => {
   const { theme } = useTheme();
+  const editorRef = useRef(null);
+
+  function handleEditorDidMount(editor: any, monaco: Monaco) {
+    if (theme === 'light') {
+      monaco.editor.defineTheme('light', {
+        base: 'vs',
+        inherit: true,
+        rules: [{ token: '', background: '#ffffff' }],
+        colors: {
+          'editor.background': '#ffffff',
+        },
+      });
+      monaco.editor.setTheme('light');
+    } else {
+      monaco.editor.defineTheme('dark', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [
+          {
+            token: '',
+            background: '#1c1b22',
+          },
+        ],
+        colors: {
+          'editor.background': '#1c1b22',
+        },
+      });
+      monaco.editor.setTheme('dark');
+    }
+  }
+
   return (
     <div>
       <Editor
@@ -31,7 +62,6 @@ const CodeEditor = ({
           autoClosingBrackets: 'always',
           autoClosingQuotes: 'always',
           autoClosingComments: 'always',
-          theme: theme === 'light' ? 'vs' : 'vs-dark',
         }}
         height={height ?? '100vh'}
         width={width ?? '100%'}
@@ -40,6 +70,7 @@ const CodeEditor = ({
         defaultValue={defaultValue}
         value={value}
         onChange={onChange}
+        onMount={handleEditorDidMount}
       />
     </div>
   );

@@ -284,7 +284,13 @@ const serialize = (node: {
   }
 };
 
-const TextEditor = ({ setValue }: { setValue: (output: string) => void }) => {
+const TextEditor = ({
+  setValue,
+  editableClassName,
+}: {
+  setValue: (output: string) => void;
+  editableClassName?: string;
+}) => {
   const [editor] = useState(() => withReact(createEditor()));
   const renderElement = useCallback(
     (props: RenderElementProps) => <Element {...props} />,
@@ -344,7 +350,7 @@ const TextEditor = ({ setValue }: { setValue: (output: string) => void }) => {
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          className=""
+          className={editableClassName}
         />
       </Slate>
     </div>

@@ -1,5 +1,9 @@
 'use client';
-import { fetchProblem, uploadCodeProblem } from '@/lib/code';
+import {
+  fetchProblem,
+  uploadCodeProblem,
+  uploadCodeProblemCode,
+} from '@/lib/code';
 import {
   ApiResponseCompiler,
   ApiResponseData,
@@ -22,6 +26,7 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Hourglass } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import CodeEditor from '@/components/ui/code-editor';
 
 const ProblemPage = ({ params }: { params: { slug: string } }) => {
   const theme = useTheme();
@@ -34,7 +39,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
   const [selectedTab, setSelectedTab] = useState('details');
 
   useEffect(() => {
-    fetchProblem('0bf67ec5a8d41cff38c953d3').then((response) => {
+    fetchProblem(params.slug).then((response) => {
       setProblem(response);
     });
     const savedCode = fetchSavedCode();
@@ -59,7 +64,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
 
   function handleUploadCode() {
     setWaiting(true);
-    uploadCodeProblem(code, params.slug, problem?.lang as string)
+    uploadCodeProblemCode(code, params.slug, problem?.lang as string)
       .then(async (response) => {
         const result = await response.json();
         if (result.err) {
@@ -80,7 +85,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className=" flex flex-row">
+    <div className="flex flex-row">
       <Tabs defaultValue="details" value={selectedTab} className="w-1/2">
         <TabsList>
           <TabsTrigger
@@ -158,22 +163,13 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
         </TabsContent>
       </Tabs>
       <div className="w-1/2">
-        <Editor
-          options={{
-            fontFamily: 'Fira Code',
-            fontLigatures: true,
-            autoClosingBrackets: 'always',
-            autoClosingQuotes: 'always',
-            autoClosingComments: 'always',
-            theme: theme.theme === 'light' ? 'vs' : 'vs-dark',
-          }}
-          height="100vh"
-          width="100%"
-          className=""
-          defaultLanguage="C++"
-          defaultValue={problem?.userCodeTemplate}
+        <CodeEditor
           value={code}
           onChange={onEditorChange}
+          height="100vh"
+          width="100%"
+          defaultValue={problem.userCodeTemplate}
+          defaultLanguage="cpp"
         />
       </div>
     </div>
