@@ -87,7 +87,7 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
   }
   return (
     <div className="">
-      <div className="flex flex-row">
+      <div className="flex flex-col sm:flex-row">
         <Tabs defaultValue="details" className="w-1/2">
           <TabsList>
             <TabsTrigger value="details">Details</TabsTrigger>
@@ -144,7 +144,6 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
             </ScrollArea>
           </TabsContent>
         </Tabs>
-
         <div className="w-1/2 overflow-hidden">
           <CodeEditor
             defaultValue={assigment.codeTemplate}

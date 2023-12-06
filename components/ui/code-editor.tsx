@@ -52,7 +52,6 @@ const CodeEditor = ({
       monaco.editor.setTheme('dark');
     }
   }
-
   return (
     <div>
       <Editor
@@ -62,6 +61,10 @@ const CodeEditor = ({
           autoClosingBrackets: 'always',
           autoClosingQuotes: 'always',
           autoClosingComments: 'always',
+          minimap: {
+            autohide: true,
+            enabled: false,
+          },
         }}
         height={height ?? '100vh'}
         width={width ?? '100%'}
