@@ -38,7 +38,7 @@ export const SidebarItems: SidebarItem[] = [
 export const TeacherSidebarItems: SidebarItem[] = [
   {
     label: "My Classrooms",
-    href: "/my-classrooms",
+    href: "/class",
     variant: "default",
     icon: Shapes,
   },
@@ -53,7 +53,7 @@ export const TeacherSidebarItems: SidebarItem[] = [
 export const StudentSidebarItems: SidebarItem[] = [
   {
     label: "My Classrooms",
-    href: "/my-classrooms-student",
+    href: "/class",
     variant: "default",
     icon: Shapes,
   },
