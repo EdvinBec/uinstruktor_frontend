@@ -6,13 +6,13 @@ export type Inputs = {
 };
 export type UserToken = {
   username: string;
-  role: 'student' | 'teacher';
+  role: "student" | "teacher";
   iat: Date;
   exp: Date;
 };
 export interface ApiResponse {
   message: string;
-  status: 'success' | 'error' | 'denied';
+  status: "success" | "error" | "denied";
 }
 export interface ApiResponseError extends ApiResponse {
   err: unknown;
@@ -45,3 +45,11 @@ export interface ApiResponseCompiler extends ApiResponse {
   };
   err: string;
 }
+
+export type Problem = {
+  problemID: number;
+  title: string;
+  lang: string;
+  difficulty: string;
+  category: string;
+};

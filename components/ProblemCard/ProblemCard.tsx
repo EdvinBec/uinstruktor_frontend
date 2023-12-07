@@ -10,7 +10,7 @@ type Props = {
 
 const ProblemCard = ({ difficulty, title, id }: Props) => {
   return (
-    <div className="w-1/5 h-auto relative rounded-lg shadow-md">
+    <div className="w-1/5 h-auto relative rounded-lg shadow-md min-w-[250px]">
       <Image
         src={ProblemImage}
         alt="puzzle-image"
