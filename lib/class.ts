@@ -19,13 +19,13 @@ export interface Assigment {
 
 export async function getClasses(username: string) {
   const result = await fetch(baseURL + `/api/class/list/${username}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
   if (!result.ok) {
-    throw new Error('Failed to retrieve classes');
+    throw new Error("Failed to retrieve classes");
   }
   const data = await result.json();
   return data.data.classes as Class[];
@@ -33,27 +33,27 @@ export async function getClasses(username: string) {
 
 export async function getAssigmentData(assigmentID: string) {
   const result = await fetch(baseURL + `/api/class/assigment/${assigmentID}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
   if (!result.ok) {
-    throw new Error('Failed to assigment data.');
+    throw new Error("Failed to assigment data.");
   }
   return (await result.json()) as Assigment;
 }
 
-export async function joinNewClass(classID: string, username: string) {
+export async function joinNewClass(joinCode: string, username: string) {
   const result = await fetch(baseURL + `/api/class/join`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
-    body: JSON.stringify({ classID: classID, username: username }),
+    body: JSON.stringify({ classCode: joinCode, username: username }),
   });
   if (!result.ok) {
-    throw new Error('Failed to retrieve assignments');
+    throw new Error("Failed to join new class");
   } else {
     return true;
   }
@@ -61,13 +61,13 @@ export async function joinNewClass(classID: string, username: string) {
 
 export async function getAssigments(classID: string) {
   const result = await fetch(baseURL + `/api/class/assigments/${classID}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
   if (!result.ok) {
-    throw new Error('Failed to retrieve assignments');
+    throw new Error("Failed to retrieve assignments");
   }
   return (await result.json()) as Assigment[];
 }
