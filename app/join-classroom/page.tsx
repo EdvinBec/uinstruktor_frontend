@@ -17,14 +17,17 @@ import { joinNewClass } from "@/lib/class";
 import { decryptAuthToken } from "@/lib/auth";
 import { cookies } from "next/headers";
 import useAuth from "@/hooks/useAuth";
+import { ApiResponse, ApiResponseError } from "@/types";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   classCode: z.string().min(8).max(10),
 });
 
 const JoinPage = () => {
-  const [error, setError] = useState<string>();
+  const [status, setStatus] = useState<{ status: string; err: boolean }>();
   const auth = useAuth();
+  const navigation = useRouter();
 
   const {
     register,
@@ -34,15 +37,29 @@ const JoinPage = () => {
 
   const onSubmit: SubmitHandler<{ code: string }> = async (data) => {
     const { code } = data;
-    console.log(code);
 
-    const res = await joinNewClass(code, auth?.username!);
-    console.log(res);
+    const res: ApiResponse | ApiResponseError = await joinNewClass(
+      code,
+      auth?.username!,
+    );
+    if (res.status !== "error") {
+      setStatus({ status: "Joined new class.", err: false });
+      setTimeout(() => {
+        navigation.push("/class");
+      }, 1500);
+    } else {
+      setStatus({ status: "Incorrect code. Try again", err: true });
+    }
   };
 
   return (
     <div className="h-full grid items-center justify-center">
       <div className="space-y-4 w-full">
+        {status && (
+          <h2 className={status.err ? "text-red-500" : "text-neutral-900"}>
+            {status.status}
+          </h2>
+        )}
         <form
           className="w-full flex flex-col gap-2"
           onSubmit={handleSubmit(onSubmit)}
