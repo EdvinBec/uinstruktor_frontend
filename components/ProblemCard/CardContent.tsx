@@ -14,9 +14,11 @@ const CardContent = ({ difficulty, title, id }: Props) => {
   const router = useRouter();
 
   return (
-    <div className="absolute bg-white w-full h-2/5 flex items-center justify-between z-10 items-star bottom-0 rounded-b-md px-4">
+    <div className="absolute bg-white dark:bg-black w-full flex items-center justify-between z-10 items-star bottom-0 rounded-b-md px-4 py-4">
       <div className="flex flex-col gap-2">
-        <h1 className="font-semibold text-xl text-black">{title}</h1>
+        <h1 className="font-semibold text-lg text-black dark:text-white">
+          {title}
+        </h1>
         <div
           className={`rounded-full text-center px-2 text-white ${
             difficulty == "easy" && "bg-green-500 w-12"
@@ -31,7 +33,7 @@ const CardContent = ({ difficulty, title, id }: Props) => {
         onClick={() => {
           router.push("/problem/" + id);
         }}
-        className="rounded-full w-12 h-12 flex items-center justify-center dark:bg-black dark:text-white dark:hover:bg-black dark:hover:opacity-70"
+        className="rounded-full w-12 h-12 flex items-center justify-center"
       >
         <Play />
       </Button>
