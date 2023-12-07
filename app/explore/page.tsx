@@ -1,5 +1,4 @@
 import { getProblemsList } from "@/lib/Services";
-import ProblemCard from "@/components/ProblemCard/ProblemCard";
 import { Problem } from "@/types";
 import ProblemCategory from "@/components/ProblemCard/Category";
 
@@ -9,9 +8,21 @@ const ExplorePage = async () => {
 
   return (
     <div className="h-full flex flex-col gap-4 px-4">
-      <ProblemCategory category="strings" problems={probs} />
-      <ProblemCategory category="arrays" problems={probs} />
-      <ProblemCategory category="files" problems={probs} />
+      <ProblemCategory
+        description="Master the Art of String Manipulation"
+        category="strings"
+        problems={probs}
+      />
+      <ProblemCategory
+        description="Elevate Your Array Expertise for Superior Coding Mastery"
+        category="arrays"
+        problems={probs}
+      />
+      <ProblemCategory
+        description="Enhance Your File Handling Prowess for Seamless Data Management"
+        category="files"
+        problems={probs}
+      />
     </div>
   );
 };

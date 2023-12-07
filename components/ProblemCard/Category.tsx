@@ -4,15 +4,19 @@ import ProblemCard from "./ProblemCard";
 type Props = {
   problems: Problem[];
   category: string;
+  description: string;
 };
 
-const ProblemCategory = ({ problems, category }: Props) => {
+const ProblemCategory = ({ problems, category, description }: Props) => {
   return (
     <div>
-      <h1 className="font-medium text-2xl tracking-wide mb-4 capitalize">
-        {category}
-      </h1>
-      <div className="flex gap-4">
+      <div className="mb-4">
+        <h1 className="font-semibold text-2xl tracking-wide capitalize">
+          {category}
+        </h1>
+        <p className="text-sm">{description}</p>
+      </div>
+      <div className="flex gap-4 overflow-x-hidden">
         {problems.map((item: Problem, itemIdx: number) => {
           if (item.category == category) {
             return (
