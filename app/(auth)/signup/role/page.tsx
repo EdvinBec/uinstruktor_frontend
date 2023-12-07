@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { useState, useContext } from "react";
 import { UserContext } from "../layout";
-import { Signup } from "@/lib/AuthService";
+import { Signup } from "@/lib/Services";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/Spinner";

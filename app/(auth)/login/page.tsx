@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Login } from "@/lib/AuthService";
+import { Login } from "@/lib/Services";
 import Cookies from "universal-cookie";
 import { Inputs } from "@/types";
 import Link from "next/link";

@@ -33,3 +33,16 @@ export const Signup = (
 
   return result;
 };
+
+export const getProblemsList = () => {
+  const result = fetch(baseURL + "/api/problem/list", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  console.log(result);
+
+  return result;
+};
