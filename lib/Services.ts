@@ -16,7 +16,7 @@ export const Signup = (
   email: string,
   password: string,
   username: string,
-  role: string
+  role: string,
 ) => {
   const result = fetch(baseURL + "/api/auth/register", {
     method: "POST",
@@ -42,7 +42,5 @@ export const getProblemsList = () => {
       "Cache-Control": "no-store",
     },
   });
-  console.log(result);
-
   return result;
 };

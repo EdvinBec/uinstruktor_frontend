@@ -52,11 +52,8 @@ export async function joinNewClass(joinCode: string, username: string) {
     },
     body: JSON.stringify({ classCode: joinCode, username: username }),
   });
-  if (!result.ok) {
-    throw new Error("Failed to join new class");
-  } else {
-    return true;
-  }
+
+  return await result.json();
 }
 
 export async function getAssigments(classID: string) {
