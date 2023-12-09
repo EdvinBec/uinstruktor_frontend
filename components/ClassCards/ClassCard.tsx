@@ -9,7 +9,7 @@ type Props = {
 
 const ClassCard = ({ title, description }: Props) => {
   return (
-    <div className="md:min-w-[400px]">
+    <div className="md:min-w-[350px]">
       <div className="rounded-t-lg">
         <Image
           src={Placeholder}
@@ -17,7 +17,7 @@ const ClassCard = ({ title, description }: Props) => {
           alt="Gradient grainy gradient"
         />
       </div>
-      <div className="border-x-2 border-b-2 p-2">
+      <div className="border-x-2 border-b-2 rounded-b-xl p-2">
         <h2 className="text-2xl">{title}</h2>
         <div className="p-1 pt-2">
           <p>{description}</p>
