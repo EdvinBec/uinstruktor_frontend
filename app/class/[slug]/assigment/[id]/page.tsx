@@ -1,12 +1,12 @@
-'use client';
-import EditorPage from '@/components/ui/editor';
-import { Assigment, getAssigmentData } from '@/lib/class';
-import { TestCase } from '@/types';
-import React, { useEffect, useState } from 'react';
-import { uploadCode } from '@/lib/code';
-import { fetchAIPrompt } from '@/lib/ai';
-import CodeEditor from '@/components/ui/code-editor';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+"use client";
+import EditorPage from "@/components/ui/editor";
+import { Assigment, getAssigmentData } from "@/lib/class";
+import { TestCase } from "@/types";
+import React, { useEffect, useState } from "react";
+import { uploadCode } from "@/lib/code";
+import { fetchAIPrompt } from "@/lib/ai";
+import CodeEditor from "@/components/ui/code-editor";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardContent,
@@ -14,11 +14,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Hourglass } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Hourglass } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 interface APICodeResponse {
   compile_status: boolean;
   id: string;
@@ -32,7 +32,7 @@ interface APICodeResponse {
 
 const AssigmentPage = ({ params }: { params: { id: string } }) => {
   const [assigment, setAssigment] = useState<Assigment>();
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [apiResponse, setApiResponse] = useState<APICodeResponse>();
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState(false);
@@ -86,7 +86,7 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
     return <div>loading...</div>;
   }
   return (
-    <div className="">
+    <div className="w-full">
       <div className="flex flex-col sm:flex-row">
         <Tabs defaultValue="details" className="w-1/2">
           <TabsList>
@@ -95,7 +95,7 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
           </TabsList>
           <div className="p-2 inline-flex">
             <Button onClick={handleUploadCode}>
-              {waiting ? <Hourglass size={20} strokeWidth={1.75} /> : 'Compile'}
+              {waiting ? <Hourglass size={20} strokeWidth={1.75} /> : "Compile"}
             </Button>
           </div>
           <TabsContent value="details">
@@ -117,25 +117,25 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
                       </CardHeader>
                       <CardContent>
                         <p>
-                          <span className="font-semibold">Input:</span>{' '}
+                          <span className="font-semibold">Input:</span>{" "}
                           {testCase.input}
                         </p>
                         <p>
                           <span className="font-semibold">
                             Expected output:
-                          </span>{' '}
+                          </span>{" "}
                           {testCase.expectedOutput}
                         </p>
                         <p>
-                          <span className="font-semibold">Actual output:</span>{' '}
+                          <span className="font-semibold">Actual output:</span>{" "}
                           {testCase.actualOutput}
                         </p>
                       </CardContent>
                       <CardFooter>
                         {testCase.matching ? (
-                          <Badge variant={'passed'}>Passed</Badge>
+                          <Badge variant={"passed"}>Passed</Badge>
                         ) : (
-                          <Badge variant={'failed'}>Failed</Badge>
+                          <Badge variant={"failed"}>Failed</Badge>
                         )}
                       </CardFooter>
                     </Card>
