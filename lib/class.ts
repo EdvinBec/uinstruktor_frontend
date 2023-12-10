@@ -26,6 +26,7 @@ type User = {
 export interface ClassData extends Class {
   assigments: Assigment[];
   users: User[];
+  joinCode: string;
 }
 
 export async function getClasses(username: string) {

@@ -25,7 +25,6 @@ type Props = {
 
 const SignOutButton = ({ classname, variant }: Props) => {
   const cookies = new Cookies();
-
   const router = useRouter();
   const dispatch = useDispatch();
 
