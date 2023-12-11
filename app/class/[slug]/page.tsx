@@ -1,48 +1,54 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardHeader } from '@/components/ui/card';
-import { verifyJwtToken } from '@/lib/auth';
-import { getAssigments, getClasses } from '@/lib/class';
-import { UserToken } from '@/types';
-import { Clock } from 'lucide-react';
-import { cookies } from 'next/headers';
-import Link from 'next/link';
-import React from 'react';
+import AssigmentCard from "@/components/ClassCards/AssigmentCard";
+import { decryptAuthToken } from "@/lib/auth";
+import { getClassData } from "@/lib/class";
+import { Settings2 } from "lucide-react";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import React from "react";
 
 function getToken() {
   const cookieStore = cookies();
-  const token = cookieStore.get('token');
+  const token = cookieStore.get("token");
   return token?.value as string;
 }
 
 const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
-  const assigments = await getAssigments(params.slug);
-  const user: UserToken = await verifyJwtToken(getToken());
+  const user = await decryptAuthToken(getToken())!;
+  const classData = await getClassData(params.slug);
 
   return (
-    <div className="p-4">
-      <h1 className="text-4xl">Assigments: </h1>
-      {user.role === 'teacher' ? (
-        <Link href={`/class/${params.slug}/new`}>
-          <Button>New Assigment</Button>
-        </Link>
-      ) : null}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 p-4 gap-4">
-        {assigments.map((assigment, index) => (
-          <Link
-            key={index}
-            href={`${params.slug}/assigment/${assigment.assigmentID}`}
-          >
-            <Card className="p-2 h-full">
-              <CardHeader>{assigment.title}</CardHeader>
-              <CardDescription>
-                <span className="flex flex-row gap-4 items-center">
-                  <Clock />
-                  {new Date(assigment.timeExpiration).toLocaleString()}
-                </span>
-              </CardDescription>
-            </Card>
+    <div className="md:p-6 p-2 md:w-3/4 w-full">
+      <h1 className="text-4xl font-bold pb-2">
+        {classData.className}{" "}
+        {classData.classCreator === user?.username ? (
+          <Link href={`/class/${params.slug}/settings`}>
+            <Settings2 className="inline ml-6" size={40} />
           </Link>
-        ))}
+        ) : null}
+      </h1>
+      <div className="pb-4">
+        <p>{classData.description}</p>
+      </div>
+      <div className="mt-6 font-semibold">
+        {/* {user?.role === "teacher" ? (
+          <Link href={`/class/${params.slug}/new`}>
+            <Button>New Assigment</Button>
+          </Link>
+        ) : null} */}
+        <h2 className="text-3xl pb-2">Assigments</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {classData.assigments.map((assigment, index) => (
+            <Link
+              key={index}
+              href={`${params.slug}/assigment/${assigment.assigmentID}`}
+            >
+              <AssigmentCard
+                title={assigment.title}
+                description={assigment.shortDescription}
+              />
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

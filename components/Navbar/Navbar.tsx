@@ -11,7 +11,8 @@ import {
 import NavbarButton from "./NavbarButton";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
-import { Bot, Menu } from "lucide-react";
+import { Bot, Menu, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 //Hooks
 import useAuth from "@/hooks/useAuth";
@@ -21,10 +22,11 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "@/slices/SidebarStatus";
 import { RootState } from "@/store";
+import UserMenu from "@/components/ui/user-menu";
 
 const Navbar = () => {
   const isSidebarOpen = useSelector(
-    (state: RootState) => state.SidebarStatus.isOpen
+    (state: RootState) => state.SidebarStatus.isOpen,
   );
 
   const auth = useAuth();
@@ -100,6 +102,7 @@ const Navbar = () => {
           )}
         </div>
         <ModeToggle />
+        {/* <UserMenu /> */}
       </div>
     </nav>
   );

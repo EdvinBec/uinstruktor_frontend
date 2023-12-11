@@ -10,11 +10,23 @@ export interface Assigment {
   assigmentID: string;
   title: string;
   description: string;
+  shortDescription: string;
   timeCreated: Date;
   timeExpiration: Date;
   classID: string;
   codeTemplate: string;
   lang: string;
+}
+type User = {
+  username: string;
+  email: string;
+  role: string;
+};
+
+export interface ClassData extends Class {
+  assigments: Assigment[];
+  users: User[];
+  joinCode: string;
 }
 
 export async function getClasses(username: string) {
@@ -67,4 +79,15 @@ export async function getAssigments(classID: string) {
     throw new Error("Failed to retrieve assignments");
   }
   return (await result.json()) as Assigment[];
+}
+
+export async function getClassData(classID: string) {
+  const result = await fetch(baseURL + `/api/class/${classID}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  return (await result.json()).data as ClassData;
 }

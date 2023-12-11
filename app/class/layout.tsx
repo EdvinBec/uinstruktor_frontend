@@ -2,13 +2,13 @@
 
 import Navbar from "@/components/Navbar/Navbar";
 
-const LoginLayout = ({ children }: { children: React.ReactNode }) => {
+const ClassLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-screen px-4 py-2">
       <Navbar />
-      <div className="h-[90%]">{children}</div>
+      <div className="h-[90%] flex justify-center">{children}</div>
     </div>
   );
 };
 
-export default LoginLayout;
+export default ClassLayout;
