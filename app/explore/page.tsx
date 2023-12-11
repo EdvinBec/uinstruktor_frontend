@@ -1,13 +1,14 @@
 import { getProblemsList } from "@/lib/Services";
 import { Problem } from "@/types";
 import ProblemCategory from "@/components/ProblemCard/Category";
+import useAuth from "@/hooks/useAuth";
 
 const ExplorePage = async () => {
   const problems = await (await getProblemsList()).json();
   const probs: Problem[] = problems.data;
 
   return (
-    <div className="h-full flex flex-col gap-4 px-4">
+    <div className="h-full flex flex-col gap-4">
       <ProblemCategory
         description="Master the Art of String Manipulation"
         category="strings"

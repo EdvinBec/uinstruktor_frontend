@@ -11,8 +11,7 @@ import {
 import NavbarButton from "./NavbarButton";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
-import { Bot, Menu, User } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Bot, Menu } from "lucide-react";
 
 //Hooks
 import useAuth from "@/hooks/useAuth";
@@ -22,11 +21,10 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "@/slices/SidebarStatus";
 import { RootState } from "@/store";
-import UserMenu from "@/components/ui/user-menu";
 
 const Navbar = () => {
   const isSidebarOpen = useSelector(
-    (state: RootState) => state.SidebarStatus.isOpen,
+    (state: RootState) => state.SidebarStatus.isOpen
   );
 
   const auth = useAuth();
@@ -34,40 +32,31 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className={`w-full flex items-center px-4 py-2 justify-between`}>
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Bot size={32} className="mb-1" />
-          <h1 className="hidden md:block font-semibold text-xl tracking-wide">
-            UInstruktor
-          </h1>
-        </div>
-        <div>
-          <Button
-            className={`flex justify-center items-center md:hidden`}
-            size="icon"
-            disabled={isSidebarOpen && true}
-            variant="outline"
-            onClick={() => {
-              dispatch(toggle());
-            }}
-          >
-            <Menu size={20} />
-          </Button>
-          <div className="hidden md:flex">
-            {SidebarItems.map((item: SidebarItem, itemIdx: number) => {
-              return (
-                <NavbarButton
-                  key={itemIdx}
-                  href={item.href}
-                  label={item.label}
-                  isActive={pathname == item.href}
-                  icon={item.icon}
-                />
-              );
-            })}
-            {auth?.role == "teacher" &&
-              TeacherSidebarItems.map((item: SidebarItem, itemIdx: number) => {
+    <nav className="w-full flex justify-center px-8">
+      <div
+        className={`w-full flex items-center px-4 md:px-0 py-2 justify-between`}
+      >
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Bot size={32} className="mb-1 hidden md:block" />
+            <h1 className="hidden md:block font-semibold text-xl tracking-wide">
+              UInstruktor
+            </h1>
+          </div>
+          <div>
+            <Button
+              className={`flex justify-center items-center md:hidden`}
+              size="icon"
+              disabled={isSidebarOpen && true}
+              variant="outline"
+              onClick={() => {
+                dispatch(toggle());
+              }}
+            >
+              <Menu size={20} />
+            </Button>
+            <div className="hidden md:flex">
+              {SidebarItems.map((item: SidebarItem, itemIdx: number) => {
                 return (
                   <NavbarButton
                     key={itemIdx}
@@ -78,31 +67,48 @@ const Navbar = () => {
                   />
                 );
               })}
-            {auth?.role == "student" &&
-              StudentSidebarItems.map((item: SidebarItem, itemIdx: number) => {
-                return (
-                  <NavbarButton
-                    key={itemIdx}
-                    href={item.href}
-                    label={item.label}
-                    isActive={pathname == item.href}
-                    icon={item.icon}
-                  />
-                );
-              })}
+              {auth?.role == "teacher" &&
+                TeacherSidebarItems.map(
+                  (item: SidebarItem, itemIdx: number) => {
+                    return (
+                      <NavbarButton
+                        key={itemIdx}
+                        href={item.href}
+                        label={item.label}
+                        isActive={pathname == item.href}
+                        icon={item.icon}
+                      />
+                    );
+                  }
+                )}
+              {auth?.role == "student" &&
+                StudentSidebarItems.map(
+                  (item: SidebarItem, itemIdx: number) => {
+                    return (
+                      <NavbarButton
+                        key={itemIdx}
+                        href={item.href}
+                        label={item.label}
+                        isActive={pathname == item.href}
+                        icon={item.icon}
+                      />
+                    );
+                  }
+                )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex items-center gap-2 ">
-        <div className="hidden md:block">
-          {auth?.token && (
-            <>
-              <SignOutButton />
-            </>
-          )}
+        <div className="flex items-center gap-2 ">
+          <div className="hidden md:block">
+            {auth?.token && (
+              <>
+                <SignOutButton />
+              </>
+            )}
+          </div>
+          <ModeToggle />
+          {/* <UserMenu /> */}
         </div>
-        <ModeToggle />
-        {/* <UserMenu /> */}
       </div>
     </nav>
   );

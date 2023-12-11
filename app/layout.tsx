@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import ReduxProvider from "@/lib/redux-provider";
+import DefaultLayout from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="uinstruktor-theme"
         >
-          <ReduxProvider>{children}</ReduxProvider>
+          <ReduxProvider>
+            <DefaultLayout>{children}</DefaultLayout>
+          </ReduxProvider>
         </ThemeProvider>
       </body>
     </html>

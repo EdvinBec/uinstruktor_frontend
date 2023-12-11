@@ -1,14 +1,5 @@
-"use client";
-
-import Navbar from "@/components/Navbar/Navbar";
-
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="h-screen px-4 py-2">
-      <Navbar />
-      <div className="h-[90%]">{children}</div>
-    </div>
-  );
+  return <div className="h-screen">{children}</div>;
 };
 
 export default LoginLayout;

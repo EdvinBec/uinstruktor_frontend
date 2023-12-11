@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar/Navbar";
 import { Inputs } from "@/types";
 import { createContext, useState } from "react";
 
@@ -31,10 +30,7 @@ const SignupLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="h-screen px-4 py-2">
-      <Navbar />
-      <div className="h-[90%]">
-        <UserContext.Provider value={value}>{children}</UserContext.Provider>
-      </div>
+      <UserContext.Provider value={value}>{children}</UserContext.Provider>
     </div>
   );
 };
