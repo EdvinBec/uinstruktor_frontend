@@ -16,7 +16,7 @@ const ProblemCategory = ({ problems, category, description }: Props) => {
         </h1>
         <p className="text-sm">{description}</p>
       </div>
-      <div className="flex gap-4 overflow-x-hidden">
+      <div className="flex gap-4">
         {problems.map((item: Problem, itemIdx: number) => {
           if (item.category == category) {
             return (
