@@ -25,7 +25,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   const classes = await getClasses(user?.username!);
 
   return (
-    <div className="p-4 md:w-3/4 w-full">
+    <div className="p-4 md:w-3/4 w-full mx-auto">
       <div className="flex flex-row space-x-2 items-center">
         <h1 className="text-4xl font-bold">Classes:</h1>
       </div>
