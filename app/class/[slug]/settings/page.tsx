@@ -21,7 +21,7 @@ const ClassSettingsPage = ({ params }: { params: { slug: string } }) => {
   }, [params.slug]);
 
   return (
-    <div className="p-6 w-full md:w-3/4">
+    <div className="p-6 w-full min-h-[85vh] md:w-3/4">
       <h1 className="text-4xl font-semibold">Settings</h1>
       <div className="mt-6 space-y-8">
         <div className="flex flex-row">

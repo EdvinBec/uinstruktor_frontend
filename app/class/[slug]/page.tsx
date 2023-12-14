@@ -17,7 +17,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
   const classData = await getClassData(params.slug);
 
   return (
-    <div className="md:p-6 p-2 md:w-3/4 w-full">
+    <div className="md:p-6 p-2 md:w-3/4 w-full h-[90vh]">
       <h1 className="text-4xl font-bold pb-2">
         {classData.className}{" "}
         {classData.classCreator === user?.username ? (
