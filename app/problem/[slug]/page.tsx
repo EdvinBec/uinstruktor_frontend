@@ -1,15 +1,15 @@
-'use client';
+"use client";
 import {
   fetchProblem,
   uploadCodeProblem,
   uploadCodeProblemCode,
-} from '@/lib/code';
+} from "@/lib/code";
 import {
   ApiResponseCompiler,
   ApiResponseData,
   ApiResponseError,
   CodeProblem,
-} from '@/types';
+} from "@/types";
 import {
   Card,
   CardContent,
@@ -17,26 +17,26 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import React, { useEffect, useState } from 'react';
+} from "@/components/ui/card";
+import React, { useEffect, useState } from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Editor } from '@monaco-editor/react';
-import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
-import { Hourglass } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import CodeEditor from '@/components/ui/code-editor';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Editor } from "@monaco-editor/react";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { Hourglass } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import CodeEditor from "@/components/ui/code-editor";
 
 const ProblemPage = ({ params }: { params: { slug: string } }) => {
   const theme = useTheme();
   const [problem, setProblem] = useState<CodeProblem>();
   const [loading, setLoading] = useState(false);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState(false);
   const [apiResponse, setApiResponse] = useState<ApiResponseCompiler>();
-  const [selectedTab, setSelectedTab] = useState('details');
+  const [selectedTab, setSelectedTab] = useState("details");
 
   useEffect(() => {
     fetchProblem(params.slug).then((response) => {
@@ -67,15 +67,18 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
     uploadCodeProblemCode(code, params.slug, problem?.lang as string)
       .then(async (response) => {
         const result = await response.json();
-        if (result.err) {
+        if (result.err || result.status === "error") {
           setError(true);
-        }
-        if (result.compile_status) {
           setApiResponse(result);
+        } else {
+          if (result.compile_status) {
+            setApiResponse(result);
+            setError(false);
+          }
         }
       })
       .finally(() => {
-        setSelectedTab('testCases');
+        setSelectedTab("testCases");
         setWaiting(false);
       });
   }
@@ -91,23 +94,23 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
           <TabsTrigger
             color="red"
             value="details"
-            onClick={() => setSelectedTab('details')}
+            onClick={() => setSelectedTab("details")}
           >
             Details
           </TabsTrigger>
           <TabsTrigger
             value="testCases"
-            onClick={() => setSelectedTab('testCases')}
+            onClick={() => setSelectedTab("testCases")}
           >
             Tests
           </TabsTrigger>
-          <TabsTrigger onClick={() => setSelectedTab('output')} value="output">
+          <TabsTrigger onClick={() => setSelectedTab("output")} value="output">
             Output
           </TabsTrigger>
         </TabsList>
         <div className="p-2 inline-flex">
           <Button onClick={handleUploadCode}>
-            {waiting ? <Hourglass size={20} strokeWidth={1.75} /> : 'Compile'}
+            {waiting ? <Hourglass size={20} strokeWidth={1.75} /> : "Compile"}
           </Button>
         </div>
         <TabsContent value="details">
@@ -123,7 +126,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
           <div className="p-2">
             <h2 className="text-3xl">Test cases:</h2>
             <div className="space-y-4">
-              {!error &&
+              {!error ? (
                 apiResponse?.result.testCases.map((testCase, index) => (
                   <Card className="w-1/2" key={index}>
                     <CardHeader>
@@ -131,27 +134,30 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
                     </CardHeader>
                     <CardContent>
                       <p>
-                        <span className="font-semibold">Input:</span>{' '}
+                        <span className="font-semibold">Input:</span>{" "}
                         {testCase.input}
                       </p>
                       <p>
-                        <span className="font-semibold">Expected output:</span>{' '}
+                        <span className="font-semibold">Expected output:</span>{" "}
                         {testCase.expectedOutput}
                       </p>
                       <p>
-                        <span className="font-semibold">Actual output:</span>{' '}
+                        <span className="font-semibold">Actual output:</span>{" "}
                         {testCase.actualOutput}
                       </p>
                     </CardContent>
                     <CardFooter>
                       {testCase.matching ? (
-                        <Badge variant={'passed'}>Passed</Badge>
+                        <Badge variant={"passed"}>Passed</Badge>
                       ) : (
-                        <Badge variant={'failed'}>Failed</Badge>
+                        <Badge variant={"failed"}>Failed</Badge>
                       )}
                     </CardFooter>
                   </Card>
-                ))}
+                ))
+              ) : (
+                <p>{apiResponse?.err}</p>
+              )}
             </div>
           </div>
         </TabsContent>
