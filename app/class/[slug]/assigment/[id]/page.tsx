@@ -44,8 +44,8 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   useEffect(() => {
-    if (assigment?.codeTemplate !== undefined) {
-      setCode(assigment?.codeTemplate);
+    if (assigment?.template !== undefined) {
+      setCode(assigment?.template);
     }
   }, [assigment]);
 
@@ -60,9 +60,11 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
         const result = await response.json();
         if (result.err) {
           setError(true);
+          setApiResponse(result);
         }
         if (result.compile_status) {
           setApiResponse(result);
+          setError(false);
         }
       })
       .finally(() => {
@@ -108,45 +110,45 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
             </div>
           </TabsContent>
           <TabsContent value="tests">
-            <ScrollArea className="h-[60vh]">
-              {!error
-                ? apiResponse?.result.testCases.map((testCase, index) => (
-                    <Card className="w-1/2" key={index}>
-                      <CardHeader>
-                        <CardTitle>Test case {index + 1}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p>
-                          <span className="font-semibold">Input:</span>{" "}
-                          {testCase.input}
-                        </p>
-                        <p>
-                          <span className="font-semibold">
-                            Expected output:
-                          </span>{" "}
-                          {testCase.expectedOutput}
-                        </p>
-                        <p>
-                          <span className="font-semibold">Actual output:</span>{" "}
-                          {testCase.actualOutput}
-                        </p>
-                      </CardContent>
-                      <CardFooter>
-                        {testCase.matching ? (
-                          <Badge variant={"passed"}>Passed</Badge>
-                        ) : (
-                          <Badge variant={"failed"}>Failed</Badge>
-                        )}
-                      </CardFooter>
-                    </Card>
-                  ))
-                : null}
+            <ScrollArea className="h-[70vh]">
+              {!error ? (
+                apiResponse?.result.testCases.map((testCase, index) => (
+                  <Card className="w-1/2" key={index}>
+                    <CardHeader>
+                      <CardTitle>Test case {index + 1}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p>
+                        <span className="font-semibold">Input:</span>{" "}
+                        {testCase.input}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Expected output:</span>{" "}
+                        {testCase.expectedOutput}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Actual output:</span>{" "}
+                        {testCase.actualOutput}
+                      </p>
+                    </CardContent>
+                    <CardFooter>
+                      {testCase.matching ? (
+                        <Badge variant={"passed"}>Passed</Badge>
+                      ) : (
+                        <Badge variant={"failed"}>Failed</Badge>
+                      )}
+                    </CardFooter>
+                  </Card>
+                ))
+              ) : (
+                <pre className=" auto-wrap">{apiResponse?.err}</pre>
+              )}
             </ScrollArea>
           </TabsContent>
         </Tabs>
         <div className="w-1/2 overflow-hidden">
           <CodeEditor
-            defaultValue={assigment.codeTemplate}
+            defaultValue={assigment.template}
             value={code}
             onChange={onEditorChange}
             defaultLanguage={assigment.lang}

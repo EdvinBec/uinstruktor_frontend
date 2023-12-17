@@ -4,12 +4,7 @@ import {
   uploadCodeProblem,
   uploadCodeProblemCode,
 } from "@/lib/code";
-import {
-  ApiResponseCompiler,
-  ApiResponseData,
-  ApiResponseError,
-  CodeProblem,
-} from "@/types";
+import { ApiResponseCompiler, CodeProblem } from "@/types";
 import {
   Card,
   CardContent,
@@ -29,7 +24,6 @@ import { Badge } from "@/components/ui/badge";
 import CodeEditor from "@/components/ui/code-editor";
 
 const ProblemPage = ({ params }: { params: { slug: string } }) => {
-  const theme = useTheme();
   const [problem, setProblem] = useState<CodeProblem>();
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState("");
@@ -174,7 +168,7 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
           onChange={onEditorChange}
           height="100vh"
           width="100%"
-          defaultValue={problem.userCodeTemplate}
+          defaultValue={problem.template}
           defaultLanguage="cpp"
         />
       </div>

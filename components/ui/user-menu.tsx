@@ -15,10 +15,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import SignOutButton from "../SignOutButton";
+import useAuth from "@/hooks/useAuth";
+import Link from "next/link";
 
 function UserMenu() {
   const { setTheme, theme } = useTheme();
-
+  const auth = useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +34,9 @@ function UserMenu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/user/${auth?.username}`}>Profile</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem className="flex flex-row items-center justify-between">
           <Moon />
@@ -45,7 +49,7 @@ function UserMenu() {
           <Sun />
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <SignOutButton variant="secondary" />
+          {auth?.role ? <SignOutButton variant="secondary" /> : <p>Login</p>}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
