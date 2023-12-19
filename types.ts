@@ -10,23 +10,19 @@ export type UserToken = {
   iat: Date;
   exp: Date;
 };
-export interface ApiResponse {
+export interface ApiResponse<T> {
   message: string;
   status: "success" | "error" | "denied";
+  data: T | undefined;
+  err: unknown | undefined;
 }
-export interface ApiResponseError extends ApiResponse {
-  err: unknown;
-}
-export interface ApiResponseData<T> extends ApiResponse {
-  data: T | T[];
-}
+
 export type CodeProblem = {
   problemID: string;
   title: string;
   description: string;
   timeCreated: Date;
-  userCodeTemplate: string;
-  serverCodeTemplate: string;
+  template: string;
   lang: string;
 };
 export type TestCase = {
@@ -36,7 +32,7 @@ export type TestCase = {
   matching: boolean;
 };
 
-export interface ApiResponseCompiler extends ApiResponse {
+export interface ApiResponseCompiler extends ApiResponse<{}> {
   compile_status: boolean;
   id: string;
   message: string;

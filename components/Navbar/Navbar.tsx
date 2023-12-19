@@ -21,10 +21,11 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "@/slices/SidebarStatus";
 import { RootState } from "@/store";
+import UserMenu from "@/components/ui/user-menu";
 
 const Navbar = () => {
   const isSidebarOpen = useSelector(
-    (state: RootState) => state.SidebarStatus.isOpen
+    (state: RootState) => state.SidebarStatus.isOpen,
   );
 
   const auth = useAuth();
@@ -79,7 +80,7 @@ const Navbar = () => {
                         icon={item.icon}
                       />
                     );
-                  }
+                  },
                 )}
               {auth?.role == "student" &&
                 StudentSidebarItems.map(
@@ -93,7 +94,7 @@ const Navbar = () => {
                         icon={item.icon}
                       />
                     );
-                  }
+                  },
                 )}
             </div>
           </div>
@@ -107,7 +108,7 @@ const Navbar = () => {
             )}
           </div>
           <ModeToggle />
-          {/* <UserMenu /> */}
+          <UserMenu />
         </div>
       </div>
     </nav>

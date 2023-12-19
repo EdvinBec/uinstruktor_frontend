@@ -1,10 +1,10 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import Codetag from '@/components/ui/code';
-import Toolbar from '@/components/ui/text-tool-bar';
-import { EditorProps } from '@monaco-editor/react';
-import { LucideIcon, LucideProps, icons } from 'lucide-react';
-import React, { Children, ReactNode, lazy, useCallback, useState } from 'react';
+"use client";
+import { Button } from "@/components/ui/button";
+import Codetag from "@/components/ui/code";
+import Toolbar from "@/components/ui/text-tool-bar";
+import { EditorProps } from "@monaco-editor/react";
+import { LucideIcon, LucideProps, icons } from "lucide-react";
+import React, { Children, ReactNode, lazy, useCallback, useState } from "react";
 import {
   createEditor,
   Editor,
@@ -14,9 +14,9 @@ import {
   BaseText,
   Text,
   Descendant,
-} from 'slate';
-import { Slate, Editable, withReact, useSlate } from 'slate-react';
-import { default as escapeHtml } from 'escape-html';
+} from "slate";
+import { Slate, Editable, withReact, useSlate } from "slate-react";
+import { default as escapeHtml } from "escape-html";
 
 type RenderElementProps = {
   children: ReactNode;
@@ -24,10 +24,10 @@ type RenderElementProps = {
     type: string;
   };
   attributes: {
-    'data-slate-node': 'element';
-    'data-slate-inline'?: true | undefined;
-    'data-slate-void'?: true | undefined;
-    dir?: 'rtl' | undefined;
+    "data-slate-node": "element";
+    "data-slate-inline"?: true | undefined;
+    "data-slate-void"?: true | undefined;
+    dir?: "rtl" | undefined;
     ref: any;
   };
 };
@@ -42,14 +42,14 @@ type RenderLeafProps = {
   };
   text: BaseText;
   attributes: {
-    'data-slate-leaf': true;
+    "data-slate-leaf": true;
   };
 };
 
 const initialValue = [
   {
-    type: 'paragraph',
-    children: [{ text: 'Problem description' }],
+    type: "paragraph",
+    children: [{ text: "Problem description" }],
   },
 ];
 
@@ -59,8 +59,8 @@ type ElementProps = {
   element: { type: string; align: string };
 };
 
-const LIST_TYPES = ['numbered-list', 'bulleted-list'];
-const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
+const LIST_TYPES = ["numbered-list", "bulleted-list"];
+const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
 
 const Element = ({
   attributes,
@@ -70,37 +70,37 @@ const Element = ({
   children: ReactNode;
   element: { type: string };
   attributes: {
-    'data-slate-node': 'element';
-    'data-slate-inline'?: true | undefined;
-    'data-slate-void'?: true | undefined;
-    dir?: 'rtl' | undefined;
+    "data-slate-node": "element";
+    "data-slate-inline"?: true | undefined;
+    "data-slate-void"?: true | undefined;
+    dir?: "rtl" | undefined;
     ref: any;
   };
 }) => {
   switch (element.type) {
-    case 'block-quote':
+    case "block-quote":
       return <blockquote {...attributes}>{children}</blockquote>;
-    case 'bulleted-list':
+    case "bulleted-list":
       return <ul {...attributes}>{children}</ul>;
-    case 'heading-one':
+    case "heading-one":
       return (
         <h1 className="text-3xl" {...attributes}>
           {children}
         </h1>
       );
-    case 'heading-two':
+    case "heading-two":
       return (
         <h2 className="text-2xl" {...attributes}>
           {children}
         </h2>
       );
-    case 'justify':
+    case "justify":
       return <p className="text-center"></p>;
-    case 'list-item':
+    case "list-item":
       return <li {...attributes}>{children}</li>;
-    case 'numbered-list':
+    case "numbered-list":
       return <ol {...attributes}>{children}</ol>;
-    case 'inset':
+    case "inset":
       return <p className="ml-4 border-l p-1">{children}</p>;
     default:
       return <p {...attributes}>{children}</p>;
@@ -117,7 +117,7 @@ const toggleBlock = ({
   const isActive = isBlockActive(
     editor,
     format,
-    TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type',
+    TEXT_ALIGN_TYPES.includes(format) ? "align" : "type",
   );
   const isList = LIST_TYPES.includes(format);
 
@@ -136,7 +136,7 @@ const toggleBlock = ({
     };
   } else {
     newProperties = {
-      type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+      type: isActive ? "paragraph" : isList ? "list-item" : format,
     };
   }
   Transforms.setNodes<SlateElement>(editor, newProperties);
@@ -171,10 +171,10 @@ const BlockButton = ({ format, icon }: { format: string; icon: string }) => {
         isBlockActive(
           editor,
           format,
-          TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type',
+          TEXT_ALIGN_TYPES.includes(format) ? "align" : "type",
         )
-          ? 'active'
-          : 'secondary'
+          ? "active"
+          : "secondary"
       }
       onMouseDown={(event) => {
         event.preventDefault();
@@ -215,7 +215,7 @@ const Leaf = ({
   children: any;
   leaf: { bold: boolean; italic: boolean; underline: boolean; code: boolean };
   text: BaseText;
-  attributes: { 'data-slate-leaf': true };
+  attributes: { "data-slate-leaf": true };
 }) => {
   if (leaf.bold) {
     children = <strong>{children}</strong>;
@@ -239,7 +239,7 @@ const MarkButton = ({ format, icon }: { format: string; icon: string }) => {
   return (
     <Button
       //active={isMarkActive(editor, format)}
-      variant={isMarkActive({ editor, format }) ? 'active' : 'secondary'}
+      variant={isMarkActive({ editor, format }) ? "active" : "secondary"}
       onMouseDown={(event) => {
         event.preventDefault();
         toggleMark({ editor, format });
@@ -264,20 +264,26 @@ const serialize = (node: {
     } else if (node.italic) {
       string = `<em>${string}</em>`;
     } else if (node.code) {
-      string = `<code>${string}</code>`;
+      string = `<span
+      className={
+        'p-1 border text-center rounded-lg bg-slate-100 dark:bg-stone-800 dark:border-stone-600 border-black/20'
+      }
+    >
+      ${string}
+    </span>`;
     }
     return string;
   }
-  const children: string = node.children.map((n) => serialize(n)).join('');
+  const children: string = node.children.map((n) => serialize(n)).join("");
 
   switch (node.type) {
-    case 'quote':
+    case "quote":
       return `<blockquote><p>${children}</p></blockquote>`;
-    case 'paragraph':
+    case "paragraph":
       return `<p>${children}</p>`;
-    case 'heading-one':
+    case "heading-one":
       return `<h1 class="text-4xl">${children}</h1>`;
-    case 'inset':
+    case "inset":
       return `<p class="ml-4  p-1 border-l">${children}</p>`;
     default:
       return children;
@@ -302,12 +308,12 @@ const TextEditor = ({
   );
 
   const [text, setText] = useState<Descendant[]>([]);
-  const [output, setOutput] = useState<string>('');
+  const [output, setOutput] = useState<string>("");
 
   function handleSerializeText() {
-    let output = '';
+    let output = "";
     text.forEach((value) => {
-      output += serialize(value) + '\n';
+      output += serialize(value) + "\n";
     });
     setValue(output);
   }
@@ -318,7 +324,7 @@ const TextEditor = ({
         initialValue={initialValue}
         onChange={(value) => {
           const isAstChange = editor.operations.some(
-            (op) => 'set_selection' !== op.type,
+            (op) => "set_selection" !== op.type,
           );
           if (isAstChange) {
             setText(value);
@@ -328,13 +334,13 @@ const TextEditor = ({
         editor={editor}
       >
         <Toolbar>
-          <MarkButton format="bold" icon={'Bold'} />
-          <MarkButton format="italic" icon={'Italic'} />
-          <MarkButton format="underline" icon={'Underline'} />
-          <MarkButton format="code" icon={'Code'} />
-          <BlockButton format="" icon={'CaseLower'} />
-          <BlockButton format="heading-one" icon={'Heading1'} />
-          <BlockButton format="heading-two" icon={'Heading2'} />
+          <MarkButton format="bold" icon={"Bold"} />
+          <MarkButton format="italic" icon={"Italic"} />
+          <MarkButton format="underline" icon={"Underline"} />
+          <MarkButton format="code" icon={"Code"} />
+          <BlockButton format="" icon={"CaseLower"} />
+          <BlockButton format="heading-one" icon={"Heading1"} />
+          <BlockButton format="heading-two" icon={"Heading2"} />
           {/* <BlockButton format="left" icon="AlignLeft" />
             <BlockButton format="center" icon="AlignCenter" />
             <BlockButton format="right" icon="AlignRight" />
@@ -342,7 +348,6 @@ const TextEditor = ({
           <BlockButton format="bulleted-list" icon="List" />
           <BlockButton format="numbered-list" icon="ListOrdered" />
           <BlockButton format="inset" icon="Indent" />
-          <Button onClick={handleSerializeText}>Save</Button>
         </Toolbar>
         {
           // TODO: nevem tocno ka je treba naret da se typescript nebo pritozeval. dela pa. future me problem

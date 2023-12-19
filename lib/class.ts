@@ -14,7 +14,7 @@ export interface Assigment {
   timeCreated: Date;
   timeExpiration: Date;
   classID: string;
-  codeTemplate: string;
+  template: string;
   lang: string;
 }
 type User = {

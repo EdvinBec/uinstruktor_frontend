@@ -1,16 +1,24 @@
-'use client';
-import TextEditor from '@/components/ui/text-editor';
-import React, { useEffect, useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import CodeEditor from '@/components/ui/code-editor';
-import { Button } from '@/components/ui/button';
-import { uploadCodeProblem } from '@/lib/code';
-import Codetag from '@/components/ui/code';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+"use client";
+import TextEditor from "@/components/ui/text-editor";
+import React, { useEffect, useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import CodeEditor from "@/components/ui/code-editor";
+import { Button } from "@/components/ui/button";
+import { codeTCpp, codeTPython, uploadCodeProblem } from "@/lib/code";
+import Codetag from "@/components/ui/code";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 
 type TestCase = {
   input: string;
@@ -19,30 +27,13 @@ type TestCase = {
 
 const NewProblemPage = () => {
   const [problem, setProblem] = useState({
-    description: '',
-    problemID: '',
+    description: "",
+    problemID: "",
     timeCreated: new Date(),
-    title: '',
-    userCodeTemplate: `class Resitev {
-  public:
-    variableType functionName(...params) {
-
-    }
-}`,
-    serverCodeTemplate: `#include <libraries>\n
-int main() {
-  // declare variables;
-  // use a input method
-  cin>> input;\n
-  // or
-  getline(cin, input);
-
-  // declare program entry point
-  Resitev solution;
-  cout<<solution.clientFunctionName;
-}
-`,
-    lang: 'cpp',
+    title: "",
+    userCodeTemplate: "",
+    serverCodeTemplate: "",
+    lang: "cpp",
   });
   const [testCases, setTestCases] = useState<TestCase[]>([]);
 
@@ -69,7 +60,9 @@ int main() {
   function handleSetProblemTitle(title: string) {
     setProblem({ ...problem, title: title });
   }
-
+  function handleSetProblemLanguage(lang: string) {
+    setProblem({ ...problem, lang: lang });
+  }
   function handleSetTestCaseInput(input: string, index: number) {
     const testCasesArray = [...testCases];
     testCasesArray[index] = {
@@ -87,7 +80,7 @@ int main() {
     setTestCases(testCasesArray);
   }
   function incrementTestCases() {
-    setTestCases([...testCases, { input: '', output: '' }]);
+    setTestCases([...testCases, { input: "", output: "" }]);
   }
   function decrementTestCases() {
     setTestCases(testCases.slice(0, -1));
@@ -100,6 +93,18 @@ int main() {
           <div className="flex flex-row space-x-4">
             <h1 className="text-4xl pb-4">Create a new problem</h1>
             <Button onClick={handleUploadProblem}>Create</Button>
+            <Select onValueChange={handleSetProblemLanguage} defaultValue="cpp">
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select a language..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Language</SelectLabel>
+                  <SelectItem value="python">Python</SelectItem>
+                  <SelectItem value="cpp">C++</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
           <Label htmlFor="problemInput">
             Problem title:
@@ -109,7 +114,7 @@ int main() {
               id="problemInput"
             />
           </Label>
-
+          <Label>Problem description:</Label>
           <TextEditor
             editableClassName="bg-neutral-100 dark:bg-neutral-700 p-2 rounded-lg"
             setValue={handleSetProblemDescription}
@@ -126,7 +131,7 @@ int main() {
             <TabsContent value="client">
               <CodeEditor
                 defaultLanguage={problem.lang}
-                defaultValue={'USER CODE TEMPLATE'}
+                defaultValue={"USER CODE TEMPLATE"}
                 value={problem.userCodeTemplate}
                 onChange={handleSetProblemCodeClient}
               />
@@ -134,7 +139,7 @@ int main() {
             <TabsContent value="server">
               <CodeEditor
                 defaultLanguage={problem.lang}
-                defaultValue={'SERVER CODE TEMPLATE'}
+                defaultValue={"SERVER CODE TEMPLATE"}
                 value={problem.serverCodeTemplate}
                 onChange={handleSetProblemCodeServer}
               />
@@ -144,11 +149,11 @@ int main() {
                 Now you will need some test cases for code validation.
               </h3>
               <p className="py-1 mt-3">
-                A test case consists of an <Codetag>input</Codetag>,{' '}
-                <Codetag>Expected output</Codetag> and{' '}
+                A test case consists of an <Codetag>input</Codetag>,{" "}
+                <Codetag>Expected output</Codetag> and{" "}
                 <Codetag>actual output</Codetag>. Below is a code editor where
                 you provide a solved code problem that will be used to generate
-                test cases. It will be the same as the{' '}
+                test cases. It will be the same as the{" "}
                 <Codetag>userCodeTemplate</Codetag>
               </p>
               <div className="space-x-2 p-2">

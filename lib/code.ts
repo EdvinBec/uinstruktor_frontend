@@ -12,6 +12,36 @@ type TestCase = {
   output: string;
 };
 
+export const codeTPython = {
+  client: `
+def functionName():
+  return value
+`,
+  server: `
+input = input()
+print(functionName(input))
+`,
+};
+export const codeTCpp = {
+  client: `
+type functionName(type input) {
+  return variable;
+}
+`,
+  server: `
+#include <iostream>
+#inlude <string>
+
+using namespace std;
+
+int main() {
+  type input;
+  cin>>input;
+  // or
+  getline(cin, input);
+}
+`,
+};
 export const uploadCode = (code: string, assigmentId: string, lang: string) => {
   const result = fetch(baseURL + "/api/code/submission", {
     method: "POST",

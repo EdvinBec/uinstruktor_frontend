@@ -17,7 +17,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
   const classData = await getClassData(params.slug);
 
   return (
-    <div className="md:p-6 p-2 md:w-3/4 w-full h-[90vh]">
+    <div className="md:p-6 p-2 md:w-3/4 w-full h-[90vh] mx-auto">
       <h1 className="text-4xl font-bold pb-2">
         {classData.className}{" "}
         {classData.classCreator === user?.username ? (
@@ -36,13 +36,15 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
           </Link>
         ) : null} */}
         <h2 className="text-3xl pb-2">Assigments</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {classData.assigments.map((assigment, index) => (
             <Link
               key={index}
+              className="w-full h-full"
               href={`${params.slug}/assigment/${assigment.assigmentID}`}
             >
               <AssigmentCard
+                key={index}
                 title={assigment.title}
                 description={assigment.shortDescription}
               />
