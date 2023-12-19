@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import SidebarButton from "./SidebarButton";
 
 //Icons
-import { Bot, X } from "lucide-react";
+import { Bot, User, X } from "lucide-react";
 
 //Hooks
 import useAuth from "@/hooks/useAuth";
@@ -102,12 +102,15 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <SignOutButton
-        variant="secondary"
-        classname={`${
-          !isOpen && "hidden"
-        } mx-4 mb-4 dark:bg-white dark:text-black dark:hover:bg-white dark:hover:opacity-80 transition-all ease-in-out duration-100`}
-      />
+      <div className="flex flex-row items-center justify-between">
+        <SignOutButton
+          variant="secondary"
+          classname={`${
+            !isOpen && "hidden"
+          } mx-4 mb-4 dark:bg-white dark:text-black dark:hover:bg-white dark:hover:opacity-80 transition-all ease-in-out duration-100`}
+        />
+        <User className="p-4" />
+      </div>
     </div>
   );
 };

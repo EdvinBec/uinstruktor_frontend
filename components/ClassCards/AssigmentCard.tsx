@@ -9,7 +9,7 @@ type Props = {
 
 const AssigmentCard = ({ title, description }: Props) => {
   return (
-    <div className=" w-full h-full m-4 border border-transparent hover:shadow-2xl shadow-lg transition-all duration-300">
+    <div className="  m-4 border border-transparent hover:shadow-2xl shadow-lg transition-all duration-300">
       <div className="rounded-t-lg shadow-inner">
         <Image
           src={Placeholder}

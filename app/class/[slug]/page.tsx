@@ -18,14 +18,14 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="md:p-6 p-2 md:w-3/4 w-full h-[90vh] mx-auto">
-      <h1 className="text-4xl font-bold pb-2">
-        {classData.className}{" "}
-        {classData.classCreator === user?.username ? (
+      {classData && (
+        <div className="rounded-xl bg-neutral-200 w-full">
           <Link href={`/class/${params.slug}/settings`}>
             <Settings2 className="inline ml-6" size={40} />
           </Link>
-        ) : null}
-      </h1>
+        </div>
+      )}
+      <h1 className="text-4xl font-bold pb-2">{classData.className} </h1>
       <div className="pb-4">
         <p>{classData.description}</p>
       </div>
@@ -40,7 +40,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
           {classData.assigments.map((assigment, index) => (
             <Link
               key={index}
-              className="w-full h-full"
+              className=""
               href={`${params.slug}/assigment/${assigment.assigmentID}`}
             >
               <AssigmentCard

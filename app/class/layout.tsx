@@ -1,9 +1,7 @@
 "use client";
 
-import Navbar from "@/components/Navbar/Navbar";
-
 const ClassLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div className=" h-full">{children}</div>;
+  return <div className="h-screen">{children}</div>;
 };
 
 export default ClassLayout;

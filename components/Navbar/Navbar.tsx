@@ -33,7 +33,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full flex justify-center px-8">
+    <nav className="w-full flex justify-center md:px-8">
       <div
         className={`w-full flex items-center px-4 md:px-0 py-2 justify-between`}
       >
@@ -99,16 +99,10 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2 ">
+        <div className="flex items-center gap-2 px-4 ">
           <div className="hidden md:block">
-            {auth?.token && (
-              <>
-                <SignOutButton />
-              </>
-            )}
+            {auth?.token ? <UserMenu /> : <ModeToggle />}
           </div>
-          <ModeToggle />
-          <UserMenu />
         </div>
       </div>
     </nav>
