@@ -24,7 +24,6 @@ import SignOutButton from "../SignOutButton";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarStatus.isOpen);
-
   const dispatch = useDispatch();
   const auth = useAuth();
 
