@@ -100,9 +100,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-2 px-4 ">
-          <div className="hidden md:block">
-            {auth?.token ? <UserMenu /> : <ModeToggle />}
-          </div>
+          <div className="">{auth?.token ? <UserMenu /> : <ModeToggle />}</div>
         </div>
       </div>
     </nav>

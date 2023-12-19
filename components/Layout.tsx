@@ -12,7 +12,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <div className="flex overflow-hidden h-screen">
+    <div className="flex overflow-hidden min-h-screen">
       <Sidebar />
       <div className="flex-1 flex flex-col h-screen overflow-hidden items-center">
         <Navbar />
@@ -21,7 +21,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
             isSidebarOpen && "w-[250%] ml-[90%]"
           }`}
         >
-          <div className="px-8 h-full overflow-y-auto">{children}</div>
+          <div className="px-8">{children}</div>
           <Footer />
         </div>
       </div>

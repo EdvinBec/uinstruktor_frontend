@@ -10,7 +10,7 @@ import ReduxProvider from "@/lib/redux-provider";
 import Navbar from "@/components/Navbar/Navbar";
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="h-screen overflow-hidden px-4 py-2">{children}</div>;
+  return <div className="h-full overflow-hidden">{children}</div>;
 };
 
 export default LoginLayout;

@@ -8,7 +8,7 @@ const ExplorePage = async () => {
   const probs: Problem[] = problems.data;
 
   return (
-    <div className="h-full flex flex-col gap-4">
+    <div className=" flex flex-col gap-4">
       <ProblemCategory
         description="Master the Art of String Manipulation"
         category="strings"

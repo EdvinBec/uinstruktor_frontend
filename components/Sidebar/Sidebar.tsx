@@ -29,7 +29,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-full flex ${
+      className={`h-full min-h-screen flex ${
         isOpen && "min-w-[220px]"
       } transition-all ease-in-out duration-150 flex-col justify-between text-white md:hidden bg-black ${
         isOpen && "w-2/4"
@@ -100,15 +100,6 @@ const Sidebar = () => {
               })}
           </div>
         </div>
-      </div>
-      <div className="flex flex-row items-center justify-between">
-        <SignOutButton
-          variant="secondary"
-          classname={`${
-            !isOpen && "hidden"
-          } mx-4 mb-4 dark:bg-white dark:text-black dark:hover:bg-white dark:hover:opacity-80 transition-all ease-in-out duration-100`}
-        />
-        <User className="p-4" />
       </div>
     </div>
   );

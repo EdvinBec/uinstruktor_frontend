@@ -1,10 +1,20 @@
 import AssigmentCard from "@/components/ClassCards/AssigmentCard";
+import { Button } from "@/components/ui/button";
 import { decryptAuthToken } from "@/lib/auth";
 import { getClassData } from "@/lib/class";
-import { Settings2 } from "lucide-react";
+import { BookPlus, Settings2, Share2 } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 function getToken() {
   const cookieStore = cookies();
@@ -17,24 +27,41 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
   const classData = await getClassData(params.slug);
 
   return (
-    <div className="md:p-6 p-2 md:w-3/4 w-full h-[90vh] mx-auto">
-      {classData && (
-        <div className="rounded-xl bg-neutral-200 w-full">
+    <div className="md:p-6 p-2 md:w-3/4 w-full">
+      {classData && classData.classCreator === user?.username ? (
+        <div className="flex flex-row items-center gap-4 pb-4">
+          <Dialog>
+            <DialogTrigger>
+              <Button className="block">
+                <Share2 />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-white dark:bg-black text-center w-3/4 md:w-full rounded-xl">
+              <DialogTitle>Class join code</DialogTitle>
+              <DialogDescription>
+                <h2 className="text-3xl font-bold text-indigo-700 dark:text-indigo-400">
+                  {classData.joinCode}
+                </h2>
+              </DialogDescription>
+            </DialogContent>
+          </Dialog>
+          <Button>
+            <BookPlus />
+          </Button>
           <Link href={`/class/${params.slug}/settings`}>
-            <Settings2 className="inline ml-6" size={40} />
+            <Button className="block">
+              <Settings2 />
+            </Button>
           </Link>
         </div>
+      ) : (
+        ""
       )}
-      <h1 className="text-4xl font-bold pb-2">{classData.className} </h1>
+      <h1 className="text-4xl font-bold pb-2">{classData.className}</h1>
       <div className="pb-4">
         <p>{classData.description}</p>
       </div>
       <div className="mt-6 font-semibold">
-        {/* {user?.role === "teacher" ? (
-          <Link href={`/class/${params.slug}/new`}>
-            <Button>New Assigment</Button>
-          </Link>
-        ) : null} */}
         <h2 className="text-3xl pb-2">Assigments</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {classData.assigments.map((assigment, index) => (
