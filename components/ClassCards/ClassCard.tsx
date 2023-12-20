@@ -11,19 +11,19 @@ type Props = {
 
 const ClassCard = ({ title, description, src }: Props) => {
   return (
-    <div className="w-full h-full border border-transparent hover:shadow-2xl shadow-lg transition-all duration-300">
-      <div className="rounded-t-xl dark:border-neutral-400 border-neutral-300 border">
+    <div className="w-full h-full rounded-xl border hover:shadow-2xl shadow-lg transition-all duration-300">
+      <div className="shadow-inner">
         <Image
           src={src ? `${baseURL}${src}` : Placeholder}
-          className="rounded-t-lg max-h-[150px] object-cover object-center"
+          className="rounded-t-xl max-h-[150px] object-cover object-center"
           width={500}
           height={150}
-          alt="Gradient grainy gradient"
+          alt="Class banner image"
         />
       </div>
-      <div className="border-x border-t border-b rounded-b-xl p-2">
+      <div className="border-t p-4">
         <h2 className="text-2xl  font-medium">{title}</h2>
-        <div className="p-1 pt-2">
+        <div className=" pt-2">
           <p>{description}</p>
         </div>
       </div>

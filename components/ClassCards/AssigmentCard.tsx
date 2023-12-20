@@ -10,10 +10,10 @@ type Props = {
 const AssigmentCard = ({ title, description }: Props) => {
   return (
     <div className=" w-full h-full rounded-xl border hover:shadow-2xl shadow-lg transition-all duration-300">
-      <div className="rounded-t-lg shadow-inner">
+      <div className=" shadow-inner">
         <Image
           src={Placeholder}
-          className="rounded-t-lg max-h-[150px]"
+          className="rounded-t-xl max-h-[150px]"
           alt="Gradient grainy gradient"
         />
       </div>
