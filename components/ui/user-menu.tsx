@@ -17,24 +17,26 @@ import {
 import SignOutButton from "../SignOutButton";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
+import Image from "next/image";
 
 function UserMenu() {
   const { setTheme, theme } = useTheme();
   const auth = useAuth();
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  console.log(`${baseURL}/${auth !== undefined && auth.profilePic}`);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar>
-          <AvatarImage
-            className="w-auto"
-            src={`${baseURL}/${auth !== undefined ? auth.profilePic : ""}`}
+        {auth?.profilePic ? (
+          <Image
+            width={40}
+            src={`${baseURL}/${auth.profilePic}`}
+            height={40}
+            className="rounded-full aspect-square"
+            alt="User profile picture"
           />
-          <AvatarFallback>
-            <User />
-          </AvatarFallback>
-        </Avatar>
+        ) : (
+          <User />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>

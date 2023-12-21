@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Hourglass } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import TestCaseCard from "@/components/ProblemCard/TestCaseCard";
 interface APICodeResponse {
   compile_status: boolean;
   id: string;
@@ -110,35 +111,17 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
             </div>
           </TabsContent>
           <TabsContent value="tests">
-            <ScrollArea className="h-[70vh]">
+            <ScrollArea className="h-full">
               {!error ? (
                 apiResponse?.result.testCases.map((testCase, index) => (
-                  <Card className="w-1/2" key={index}>
-                    <CardHeader>
-                      <CardTitle>Test case {index + 1}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>
-                        <span className="font-semibold">Input:</span>{" "}
-                        {testCase.input}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Expected output:</span>{" "}
-                        {testCase.expectedOutput}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Actual output:</span>{" "}
-                        {testCase.actualOutput}
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      {testCase.matching ? (
-                        <Badge variant={"passed"}>Passed</Badge>
-                      ) : (
-                        <Badge variant={"failed"}>Failed</Badge>
-                      )}
-                    </CardFooter>
-                  </Card>
+                  <TestCaseCard
+                    input={testCase.input}
+                    index={index + 1}
+                    passed={testCase.matching}
+                    key={index}
+                    output={testCase.actualOutput}
+                    actualOutput={testCase.actualOutput}
+                  />
                 ))
               ) : (
                 <pre className=" auto-wrap">{apiResponse?.err}</pre>
