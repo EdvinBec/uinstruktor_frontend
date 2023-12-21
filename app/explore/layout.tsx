@@ -7,7 +7,7 @@ const ExploreLayout = ({ children }: { children: React.ReactNode }) => {
   const auth = useAuth();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <Greeting username={auth?.username!} />
       {children}
     </div>

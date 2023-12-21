@@ -9,6 +9,7 @@ type Auth = {
   token: JWTPayload | null;
   username: string;
   role: string;
+  profilePic: string;
 };
 
 const useAuth = () => {
@@ -21,6 +22,7 @@ const useAuth = () => {
       token: cookies.get("token"),
       username: decryptedToken?.username!,
       role: decryptedToken?.role!,
+      profilePic: decryptedToken?.profilePicUrl!,
     });
   };
 

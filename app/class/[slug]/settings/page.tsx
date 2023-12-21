@@ -11,6 +11,8 @@ const ClassSettingsPage = ({ params }: { params: { slug: string } }) => {
   const [loading, setLoading] = useState(true);
   const [classData, setClassData] = useState<ClassData>();
 
+  const [newClassName, setNewClassName] = useState("");
+
   useEffect(() => {
     getClassData(params.slug).then((classData) => {
       if (classData) {
@@ -28,7 +30,7 @@ const ClassSettingsPage = ({ params }: { params: { slug: string } }) => {
           <form className="w-1/3">
             <div className="flex flex-col gap-4">
               <Label>Change the classname</Label>
-              <Input />
+              <Input onValueChange={setNewClassName} value={newClassName} />
               <Button type="submit">Change</Button>
             </div>
           </form>

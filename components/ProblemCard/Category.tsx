@@ -9,14 +9,14 @@ type Props = {
 
 const ProblemCategory = ({ problems, category, description }: Props) => {
   return (
-    <div>
+    <div className="">
       <div className="mb-4">
         <h1 className="font-semibold text-2xl tracking-wide capitalize">
           {category}
         </h1>
         <p className="text-sm">{description}</p>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 max-w-[100%] overflow-x-auto">
         {problems.map((item: Problem, itemIdx: number) => {
           if (item.category == category) {
             return (

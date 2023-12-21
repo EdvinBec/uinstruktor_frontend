@@ -21,23 +21,28 @@ import Link from "next/link";
 function UserMenu() {
   const { setTheme, theme } = useTheme();
   const auth = useAuth();
+  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  console.log(`${baseURL}/${auth !== undefined && auth.profilePic}`);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className=" aspect-square" variant="outline">
-          <Avatar>
-            <AvatarImage />
-            <AvatarFallback>
-              <User />
-            </AvatarFallback>
-          </Avatar>
-        </Button>
+        <Avatar>
+          <AvatarImage
+            className="w-auto"
+            src={`${baseURL}/${auth !== undefined ? auth.profilePic : ""}`}
+          />
+          <AvatarFallback>
+            <User />
+          </AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
           <Link href={`/user/${auth?.username}`}>Profile</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/settings`}>Settings</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem className="flex flex-row items-center justify-between">
           <Moon />
           <Switch
@@ -48,8 +53,8 @@ function UserMenu() {
           />
           <Sun />
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          {auth?.role ? <SignOutButton variant="secondary" /> : <p>Login</p>}
+        <DropdownMenuItem className="">
+          <SignOutButton classname="px-2 m-0 bg-inherit" variant="secondary" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -20,8 +20,8 @@ export const decryptAuthToken = async (token: string) => {
     const { payload } = await jwtVerify(token, GetJwtSecretKey());
     const username = payload.username as string;
     const role = payload.role as string;
-
-    return { role, username };
+    const profilePicUrl = payload.profilePicture as string;
+    return { role, username, profilePicUrl };
   } catch (error) {}
 };
 

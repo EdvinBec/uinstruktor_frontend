@@ -29,12 +29,13 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       <div className="flex flex-row space-x-2 items-center">
         <h1 className="text-4xl font-bold">Classes:</h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 grid-rows-2 gap-6 p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid-rows-2 gap-6 p-4">
         {classes.map((subject, index) => (
           <Link key={index} className="" href={`/class/${subject.classID}`}>
             <ClassCard
               title={subject.className}
               description={subject.description}
+              src={subject.bannerSrc}
             />
           </Link>
         ))}

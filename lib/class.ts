@@ -5,6 +5,7 @@ export interface Class {
   className: string;
   classCreator: string;
   description: string;
+  bannerSrc: string;
 }
 export interface Assigment {
   assigmentID: string;
