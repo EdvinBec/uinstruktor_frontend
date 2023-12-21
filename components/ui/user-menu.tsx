@@ -3,9 +3,8 @@
 import * as React from "react";
 import { Cog, LogOut, Moon, Sun, User } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Button } from "@/components/ui/button";
+import Avatar from "@/components/ui/Avatar";
 import { Switch } from "@/components/ui/switch";
 
 import {
@@ -23,20 +22,11 @@ function UserMenu() {
   const { setTheme, theme } = useTheme();
   const auth = useAuth();
   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        {auth?.profilePic ? (
-          <Image
-            width={40}
-            src={`${baseURL}/${auth.profilePic}`}
-            height={40}
-            className="rounded-full aspect-square"
-            alt="User profile picture"
-          />
-        ) : (
-          <User />
-        )}
+      <DropdownMenuTrigger>
+        <Avatar src={`${baseURL}/${auth?.profilePic}`} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
