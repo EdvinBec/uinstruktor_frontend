@@ -49,7 +49,7 @@ const LoginPage = () => {
 
     if (res.token) {
       cookies.set("token", res.token);
-      router.push("/explore");
+      location.reload();
       router.refresh();
     } else {
       console.log(res);

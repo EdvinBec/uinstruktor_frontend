@@ -3,6 +3,7 @@ export const protectedRoutes = [
   "/class",
   "/problem",
   "/join-classroom",
+  "/settings",
 ];
 export const authRoutes = ["/login", "/signup"];
 export const publicRoutes = ["/"];

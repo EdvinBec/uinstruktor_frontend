@@ -34,17 +34,17 @@ const SignOutButton = ({ classname, variant }: Props) => {
   );
 
   return (
-    <Button
-      variant={variant}
-      className={classname}
+    <div
+      className={classname + " cursor-pointer"}
       onClick={() => {
         cookies.remove("token");
-        router.refresh();
         isSidebarOpen && dispatch(toggle());
+        router.replace("/login");
+        location.reload();
       }}
     >
       Sign Out
-    </Button>
+    </div>
   );
 };
 

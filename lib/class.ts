@@ -17,6 +17,7 @@ export interface Assigment {
   classID: string;
   template: string;
   lang: string;
+  completedUsers: string[] | null | undefined;
 }
 type User = {
   username: string;

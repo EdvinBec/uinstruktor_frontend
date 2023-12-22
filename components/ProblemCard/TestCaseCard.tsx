@@ -18,18 +18,20 @@ const TestCaseCard = ({
   passed,
   index,
 }: Props) => {
-  const [isColapsed, setIsColapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <div
-      onClick={() => setIsColapsed(!isColapsed)}
-      className={`my-4 h-[60px] w-1/2 border p-4 shadow-lg rounded-xl transition-all ${
-        passed && "h-[100px]"
-      }`}
+      onClick={() => setIsCollapsed(!isCollapsed)}
+      className={`my-4 w-1/2 border shadow-lg cursor-pointer rounded-xl flex flex-col justify-center transition-all`}
     >
-      <div className="flex flex-row justify-between">
+      <div
+        className={`flex flex-row justify-between p-2 ${
+          !isCollapsed && "border-b-2"
+        }`}
+      >
         <div>
-          {isColapsed ? (
+          {isCollapsed ? (
             <ChevronRight className="inline" />
           ) : (
             <ChevronDown className="inline" />
@@ -40,11 +42,23 @@ const TestCaseCard = ({
           {passed ? "passed" : "failed"}
         </Badge>
       </div>
-      {!isColapsed && (
-        <div>
-          <p>Input: {input}</p>
-        </div>
-      )}
+
+      <div
+        className={`animate-open-dropdown p-2 ${
+          isCollapsed ? "hidden h-0" : "block h-full"
+        }`}
+      >
+        <p>
+          Input:
+          <span className=" font-medium">{input}</span>
+        </p>
+        <p>
+          Output: <span className=" font-medium">{actualOutput}</span>
+        </p>
+        <p>
+          Expected output:<span className=" font-medium"> {output}</span>
+        </p>
+      </div>
     </div>
   );
 };
