@@ -1,3 +1,5 @@
+import { JWTPayload } from "jose";
+
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export interface Class {
@@ -92,4 +94,27 @@ export async function getClassData(classID: string) {
     },
   });
   return (await result.json()).data as ClassData;
+}
+export async function publishAssigment(
+  assigment: {
+    title: string;
+    description: string;
+    shortDescription: string;
+    timeCreated: Date;
+    timeExpiration: Date;
+    classID: string;
+    lang: string;
+  },
+  token: unknown,
+) {
+  const result = await fetch(baseURL + `/api/class/assigments/new`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+      Authorization: token as string,
+    },
+    body: JSON.stringify(assigment),
+  });
+  console.log(result);
 }

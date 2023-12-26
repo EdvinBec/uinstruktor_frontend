@@ -46,9 +46,11 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
               </DialogDescription>
             </DialogContent>
           </Dialog>
-          <Button>
-            <BookPlus />
-          </Button>
+          <Link href={`/class/${params.slug}/assigment/new`}>
+            <Button>
+              <BookPlus />
+            </Button>
+          </Link>
           <Link href={`/class/${params.slug}/settings`}>
             <Button className="block">
               <Settings2 />
@@ -73,6 +75,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
             >
               <AssigmentCard
                 key={index}
+                time={classData.assigments[index].timeExpiration.toString()}
                 isCompleted={
                   classData.assigments[index].completedUsers !== null ||
                   classData.assigments[index].completedUsers !== undefined

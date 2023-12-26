@@ -293,9 +293,11 @@ const serialize = (node: {
 const TextEditor = ({
   setValue,
   editableClassName,
+  className,
 }: {
   setValue: (output: string) => void;
   editableClassName?: string;
+  className?: string;
 }) => {
   const [editor] = useState(() => withReact(createEditor()));
   const renderElement = useCallback(
@@ -319,7 +321,7 @@ const TextEditor = ({
   }
 
   return (
-    <div className="">
+    <div className={className}>
       <Slate
         initialValue={initialValue}
         onChange={(value) => {
