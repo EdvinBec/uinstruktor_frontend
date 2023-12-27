@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Hourglass } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import CodeEditor from "@/components/ui/code-editor";
+import TestCaseCard from "@/components/ProblemCard/TestCaseCard";
 
 const ProblemPage = ({ params }: { params: { slug: string } }) => {
   const [problem, setProblem] = useState<CodeProblem>();
@@ -122,32 +123,14 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
             <div className="space-y-4">
               {!error ? (
                 apiResponse?.result.testCases.map((testCase, index) => (
-                  <Card className="w-1/2" key={index}>
-                    <CardHeader>
-                      <CardTitle>Test case {index + 1}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>
-                        <span className="font-semibold">Input:</span>{" "}
-                        {testCase.input}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Expected output:</span>{" "}
-                        {testCase.expectedOutput}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Actual output:</span>{" "}
-                        {testCase.actualOutput}
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      {testCase.matching ? (
-                        <Badge variant={"passed"}>Passed</Badge>
-                      ) : (
-                        <Badge variant={"failed"}>Failed</Badge>
-                      )}
-                    </CardFooter>
-                  </Card>
+                  <TestCaseCard
+                    input={testCase.input}
+                    index={index + 1}
+                    passed={testCase.matching}
+                    key={index}
+                    output={testCase.actualOutput}
+                    actualOutput={testCase.actualOutput}
+                  />
                 ))
               ) : (
                 <p>{apiResponse?.err}</p>

@@ -13,21 +13,19 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
   }
 
   return (
-    <div className="h-screen flex justify-center">
+    <div className="h-screen flex justify-center mt-16">
       <div className="md:w-1/2">
-        <Avatar>
-          <AvatarImage
-            width={200}
-            height={200}
-            className="rounded-full shadow-xl"
-            src={baseURL + "/" + userData.data?.profilePicture}
+        {userData.data?.profilePicture ? (
+          <Image
+            width={150}
+            src={`${baseURL}/${userData.data?.profilePicture}`}
+            height={150}
+            className="rounded-full aspect-square object-center"
             alt="User profile picture"
           />
-
-          <AvatarFallback>
-            <User className="" size={60} />
-          </AvatarFallback>
-        </Avatar>
+        ) : (
+          <User />
+        )}
         <div className="text-center md:text-left">
           <p>{userData.data?.username}</p>
           <p>{userData.data?.email}</p>

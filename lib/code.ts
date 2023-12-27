@@ -1,9 +1,4 @@
-import {
-  ApiResponse,
-  ApiResponseData,
-  ApiResponseError,
-  CodeProblem,
-} from "@/types";
+import { ApiResponse, CodeProblem } from "@/types";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -42,7 +37,13 @@ int main() {
 }
 `,
 };
-export const uploadCode = (code: string, assigmentId: string, lang: string) => {
+export const uploadCode = (
+  code: string,
+  assigmentId: string,
+  lang: string,
+  classID: string,
+  username: string,
+) => {
   const result = fetch(baseURL + "/api/code/submission", {
     method: "POST",
     headers: {
@@ -52,6 +53,8 @@ export const uploadCode = (code: string, assigmentId: string, lang: string) => {
       lang: lang,
       source: code,
       assigmentID: assigmentId,
+      classID: classID,
+      username: username,
     }),
   });
   return result;
@@ -113,7 +116,7 @@ export const fetchProblem = async (problemID: string) => {
       "Content-type": "application/json",
     },
   });
-  const data = (await result.json()) as ApiResponseData<CodeProblem>;
+  const data = (await result.json()) as ApiResponse<CodeProblem>;
 
   return data.data as CodeProblem;
 };

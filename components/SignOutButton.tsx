@@ -3,11 +3,12 @@ import { Button } from "./ui/button";
 
 //Hooks
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "@/slices/SidebarStatus";
 
 //Other
 import Cookies from "universal-cookie";
+import { RootState } from "@/store";
 
 type Props = {
   classname?: string;
@@ -28,18 +29,22 @@ const SignOutButton = ({ classname, variant }: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const isSidebarOpen = useSelector(
+    (state: RootState) => state.SidebarStatus.isOpen,
+  );
+
   return (
-    <Button
-      variant={variant}
-      className={classname}
+    <div
+      className={classname + " cursor-pointer"}
       onClick={() => {
         cookies.remove("token");
-        router.refresh();
-        dispatch(toggle());
+        isSidebarOpen && dispatch(toggle());
+        router.replace("/login");
+        location.reload();
       }}
     >
       Sign Out
-    </Button>
+    </div>
   );
 };
 

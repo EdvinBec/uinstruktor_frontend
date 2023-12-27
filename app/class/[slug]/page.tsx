@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useAuth from "@/hooks/useAuth";
 
 function getToken() {
   const cookieStore = cookies();
@@ -23,12 +24,12 @@ function getToken() {
 }
 
 const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
-  const user = await decryptAuthToken(getToken())!;
+  const user = await decryptAuthToken(getToken());
   const classData = await getClassData(params.slug);
 
   return (
     <div className="md:p-6 p-2 md:w-3/4 w-full">
-      {classData && classData.classCreator === user?.username ? (
+      {classData && classData.classCreator === user?.username! ? (
         <div className="flex flex-row items-center gap-4 pb-4">
           <Dialog>
             <DialogTrigger>
@@ -45,9 +46,11 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
               </DialogDescription>
             </DialogContent>
           </Dialog>
-          <Button>
-            <BookPlus />
-          </Button>
+          <Link href={`/class/${params.slug}/assigment/new`}>
+            <Button>
+              <BookPlus />
+            </Button>
+          </Link>
           <Link href={`/class/${params.slug}/settings`}>
             <Button className="block">
               <Settings2 />
@@ -72,6 +75,15 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
             >
               <AssigmentCard
                 key={index}
+                time={classData.assigments[index].timeExpiration.toString()}
+                isCompleted={
+                  classData.assigments[index].completedUsers !== null ||
+                  classData.assigments[index].completedUsers !== undefined
+                    ? classData.assigments[index].completedUsers?.includes(
+                        user?.username!,
+                      )!
+                    : false
+                }
                 title={assigment.title}
                 description={assigment.shortDescription}
               />

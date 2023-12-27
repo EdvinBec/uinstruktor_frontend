@@ -1,42 +1,36 @@
 "use client";
-import EditorPage from "@/components/ui/editor";
 import { Assigment, getAssigmentData } from "@/lib/class";
-import { TestCase } from "@/types";
+import { ApiResponse, TestCase } from "@/types";
 import React, { useEffect, useState } from "react";
 import { uploadCode } from "@/lib/code";
 import { fetchAIPrompt } from "@/lib/ai";
 import CodeEditor from "@/components/ui/code-editor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Hourglass } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import TestCaseCard from "@/components/ProblemCard/TestCaseCard";
+import useAuth from "@/hooks/useAuth";
 interface APICodeResponse {
   compile_status: boolean;
   id: string;
   message: string;
-  result: {
-    testCases: TestCase[];
-  };
+  result: TestCase[];
   status: string;
   err: string;
 }
 
-const AssigmentPage = ({ params }: { params: { id: string } }) => {
+const AssigmentPage = ({
+  params,
+}: {
+  params: { id: string; slug: string };
+}) => {
   const [assigment, setAssigment] = useState<Assigment>();
   const [code, setCode] = useState("");
   const [apiResponse, setApiResponse] = useState<APICodeResponse>();
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState(false);
-
+  const auth = useAuth();
   useEffect(() => {
     getAssigmentData(params.id).then((data) => {
       setAssigment(data);
@@ -47,18 +41,38 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
     if (assigment?.template !== undefined) {
       setCode(assigment?.template);
     }
+    const savedCode = fetchSavedCode();
+    if (savedCode?.length !== 0) {
+      setCode(savedCode as string);
+    }
+
+    function fetchSavedCode() {
+      const data = localStorage.getItem(`code.${params.slug}/${params.id}`);
+      if (data !== null) {
+        return data;
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assigment]);
 
   function onEditorChange(code: string | undefined) {
     setCode(code as string);
+    if (code !== undefined) {
+      localStorage.setItem(`code.${params.slug}/${params.id}`, code);
+    }
   }
-
   function handleUploadCode() {
     setWaiting(true);
-    uploadCode(code, params.id, assigment?.lang as string)
+    uploadCode(
+      code,
+      params.id,
+      assigment?.lang as string,
+      params.slug,
+      auth?.username!,
+    )
       .then(async (response) => {
         const result = await response.json();
-        if (result.err) {
+        if (result.err || result.status === "error") {
           setError(true);
           setApiResponse(result);
         }
@@ -72,7 +86,7 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
       });
   }
 
-  function handleAIHelp() {
+  /*   function handleAIHelp() {
     //setWaiting(true);
     fetchAIPrompt(code)
       .then(async (response) => {
@@ -82,7 +96,7 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
       .finally(() => {
         //setWaiting(false);
       });
-  }
+  } */
 
   if (!assigment) {
     return <div>loading...</div>;
@@ -110,38 +124,25 @@ const AssigmentPage = ({ params }: { params: { id: string } }) => {
             </div>
           </TabsContent>
           <TabsContent value="tests">
-            <ScrollArea className="h-[70vh]">
+            <ScrollArea className="h-full">
               {!error ? (
-                apiResponse?.result.testCases.map((testCase, index) => (
-                  <Card className="w-1/2" key={index}>
-                    <CardHeader>
-                      <CardTitle>Test case {index + 1}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>
-                        <span className="font-semibold">Input:</span>{" "}
-                        {testCase.input}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Expected output:</span>{" "}
-                        {testCase.expectedOutput}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Actual output:</span>{" "}
-                        {testCase.actualOutput}
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      {testCase.matching ? (
-                        <Badge variant={"passed"}>Passed</Badge>
-                      ) : (
-                        <Badge variant={"failed"}>Failed</Badge>
-                      )}
-                    </CardFooter>
-                  </Card>
+                apiResponse?.result.map((testCase, index) => (
+                  <TestCaseCard
+                    input={testCase.input}
+                    index={index + 1}
+                    passed={testCase.matching}
+                    key={index}
+                    output={testCase.expectedOutput}
+                    actualOutput={testCase.actualOutput}
+                  />
                 ))
               ) : (
-                <pre className=" auto-wrap">{apiResponse?.err}</pre>
+                <>
+                  <p className="font-semibold text-red-500">
+                    {apiResponse?.message}
+                  </p>
+                  <pre className=" auto-wrap">{apiResponse?.err}</pre>
+                </>
               )}
             </ScrollArea>
           </TabsContent>

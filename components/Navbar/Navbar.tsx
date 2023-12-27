@@ -1,7 +1,6 @@
 "use client";
 
 //UI Components
-import SignOutButton from "../SignOutButton";
 import {
   SidebarItem,
   SidebarItems,
