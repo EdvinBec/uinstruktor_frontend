@@ -16,13 +16,13 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "192.168.159.239",
+        hostname: "172.26.140.9",
         port: "5000",
         pathname: "/user/*",
       },
       {
         protocol: "http",
-        hostname: "192.168.159.239",
+        hostname: "172.26.140.9",
         port: "5000",
         pathname: "/class/**/*",
       },
