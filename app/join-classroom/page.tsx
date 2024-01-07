@@ -17,7 +17,7 @@ import { joinNewClass } from "@/lib/class";
 import { decryptAuthToken } from "@/lib/auth";
 import { cookies } from "next/headers";
 import useAuth from "@/hooks/useAuth";
-import { ApiResponse, ApiResponseError } from "@/types";
+import { ApiResponse } from "@/types";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
@@ -38,10 +38,7 @@ const JoinPage = () => {
   const onSubmit: SubmitHandler<{ code: string }> = async (data) => {
     const { code } = data;
 
-    const res: ApiResponse | ApiResponseError = await joinNewClass(
-      code,
-      auth?.username!,
-    );
+    const res: ApiResponse<{}> = await joinNewClass(code, auth?.username!);
     if (res.status !== "error") {
       setStatus({ status: "Joined new class.", err: false });
       setTimeout(() => {

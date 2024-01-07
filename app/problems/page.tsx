@@ -1,17 +1,20 @@
 "use client";
 import ProblemCard from "@/components/ProblemCard/ProblemCard";
-import { Dropdown, DropdownTrigger } from "@/components/ui/dropdown";
+import {
+  Dropdown,
+  DropdownContent,
+  DropdownItem,
+  DropdownTrigger,
+} from "@/components/ui/dropdown";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Problem, fetchProblems } from "@/lib/problem";
 import { groupProblems } from "@/lib/utils";
-
-import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const ProblemsPage = () => {
   const [problems, setProblems] = useState<Problem[]>([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState({ name: "", category: "" });
   const [err, setErr] = useState(false);
 
   useEffect(() => {
@@ -28,7 +31,10 @@ const ProblemsPage = () => {
     return <div>Error</div>;
   }
 
-  console.log(groupProblems(problems));
+  const handleCategoryFilter = (value: string) => {
+    setSearch({ ...search, category: value });
+  };
+
   return (
     <div>
       <div className="p-2 flex flex-row gap-4">
@@ -37,24 +43,46 @@ const ProblemsPage = () => {
             Problem name
             <Input
               id="problemSearch"
-              value={search}
-              onValueChange={setSearch}
+              value={search.name}
+              onValueChange={(value) => setSearch({ ...search, name: value })}
             />
           </Label>
         </div>
-        <Dropdown>
-          <DropdownTrigger>Categories</DropdownTrigger>
-        </Dropdown>
+        <Label>
+          Filter by category
+          <Dropdown
+            value={search.category}
+            onValueChange={handleCategoryFilter}
+          >
+            <DropdownTrigger>Categories</DropdownTrigger>
+            <DropdownContent>
+              {Object.keys(groupProblems(problems)).map((category, index) => (
+                <DropdownItem key={index}>{category}</DropdownItem>
+              ))}
+            </DropdownContent>
+          </Dropdown>
+        </Label>
       </div>
-      <div className="flex flex-row flex-wrap gap-4">
-        {problems.map((problem, index) => (
-          <ProblemCard
-            id={index}
-            title={problem.title}
-            difficulty={problem.difficulty}
-            key={index}
-          />
-        ))}
+      <div className="flex flex-col items-center md:flex-row flex-wrap gap-4">
+        {problems
+          .filter((item) => {
+            if (search.name === "") {
+              return item;
+            } else if (
+              item.title.toLowerCase().includes(search.name.toLowerCase())
+            ) {
+              return item;
+            }
+          })
+          .map((problem, index) => (
+            <ProblemCard
+              id={index}
+              className="w-full md:w-1/5"
+              title={problem.title}
+              difficulty={problem.difficulty}
+              key={index}
+            />
+          ))}
       </div>
     </div>
   );

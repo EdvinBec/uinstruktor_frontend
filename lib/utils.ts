@@ -16,3 +16,7 @@ export function groupProblems(problems: Problem[]) {
   });
   return groups;
 }
+
+export function cm(...classNames: string[]) {
+  return classNames.join(" ");
+}
