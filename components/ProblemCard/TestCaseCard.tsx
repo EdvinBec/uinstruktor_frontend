@@ -23,7 +23,7 @@ const TestCaseCard = ({
   return (
     <div
       onClick={() => setIsCollapsed(!isCollapsed)}
-      className={`my-4 w-1/2 border shadow-lg cursor-pointer rounded-xl flex flex-col justify-center transition-all`}
+      className={`my-4 w-1/2 border shadow cursor-pointer rounded-xl flex flex-col justify-center transition-all`}
     >
       <div
         className={`flex flex-row justify-between p-2 ${

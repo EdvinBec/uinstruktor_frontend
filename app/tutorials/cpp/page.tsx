@@ -37,7 +37,7 @@ const CppTutorialPage = () => {
           <NavigationItem id="function-params">Parameters</NavigationItem>
         </NavigationChapter>
       </Navigation>
-      {menuOpen && (
+      {!menuOpen && (
         <div className=" space-y-8">
           <CodeBlock
             id="variables-declaration"

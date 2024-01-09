@@ -70,7 +70,7 @@ export const Navigation = ({
     <NavigationTreeContext.Provider
       value={{ isOpen, toogle, active, setActiveItem }}
     >
-      <div className="sticky top-0 mb-8 bg-white border-b">
+      <div className="sticky top-0 mb-8 bg-white dark:bg-neutral-900 border-b">
         <div className="flex flexrow justify-between items-center">
           <div
             className="py-2 flex flex-row items-center cursor-pointer"
@@ -79,17 +79,19 @@ export const Navigation = ({
             {" "}
             {!isOpen ? <ChevronRight /> : <ChevronDown />} Menu
           </div>
-          <div className=" gap-2 ml-4 flex flex-row items-center">
-            <p className="text-stone-500">
-              {letterToUpper(active.split("-")[0])}
-            </p>
-            <p className="text-stone-500"> {">"}</p>
-            <p>{letterToUpper(active.split("-")[1])}</p>
-          </div>
+          {active.length !== 0 && (
+            <div className=" gap-2 ml-4 flex flex-row items-center">
+              <p className="text-stone-500">
+                {letterToUpper(active.split("-")[0])}
+              </p>
+              <p className="text-stone-500"> {">"}</p>
+              <p>{letterToUpper(active.split("-")[1])}</p>
+            </div>
+          )}
         </div>
 
         {isOpen && (
-          <div className="flex bg-white dark:bg-neutral-900 absolute top-[45px] w-[200%] left-[-25px] flex-col  justify-start">
+          <div className="flex bg-white dark:bg-body absolute top-[45px] w-[200%] left-[-25px] flex-col  justify-start">
             {children}
           </div>
         )}

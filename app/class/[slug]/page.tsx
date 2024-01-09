@@ -66,7 +66,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
       </div>
       <div className="mt-6 font-semibold">
         <h2 className="text-3xl pb-2">Assigments</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-4">
           {classData.assigments.map((assigment, index) => (
             <Link
               key={index}
