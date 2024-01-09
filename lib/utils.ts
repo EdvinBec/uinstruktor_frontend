@@ -20,3 +20,7 @@ export function groupProblems(problems: Problem[]) {
 export function cm(...classNames: string[]) {
   return classNames.join(" ");
 }
+
+export function letterToUpper(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

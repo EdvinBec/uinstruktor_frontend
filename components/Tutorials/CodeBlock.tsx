@@ -11,14 +11,15 @@ type Props = {
   header: string;
   description: string;
   code: string;
+  id: string;
   language: "cpp" | "python" | "java";
 };
 
-const CodeBlock = ({ header, description, code, language }: Props) => {
+const CodeBlock = ({ header, id, description, code, language }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <div className="">
+    <div className="" id={id}>
       <h3 className="text-3xl font-semibold mb-4">{header}</h3>
       <p className="my-2">{description}</p>
       <SyntaxHighlighter
