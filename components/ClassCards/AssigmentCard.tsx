@@ -31,8 +31,7 @@ const AssigmentCard = ({ title, description, isCompleted, time }: Props) => {
           <div className="rounded-full flex flex-row items-center justify-center bg-neutral-200 px-2 absolute bottom-2 left-2 ">
             <Hourglass size={17} className="" />
             <p className="border-l ml-1 pl-1 border-l-neutral-600 text-center py-1">
-              {completeDate.getMonth()}.{completeDate.getDay()}.{" "}
-              {completeDate.getHours()}:{completeDate.getMinutes()}
+              {completeDate.getDay()}.{completeDate.getMonth() + 1}
             </p>
           </div>
         )}

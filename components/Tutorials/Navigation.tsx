@@ -59,7 +59,6 @@ export const Navigation = ({
   const [active, setActive] = useState("");
   const toogle = () => {
     setIsOpen(!isOpen);
-
     toggleMenu();
   };
   const setActiveItem = (id: string) => {
@@ -91,7 +90,7 @@ export const Navigation = ({
         </div>
 
         {isOpen && (
-          <div className="flex bg-white dark:bg-body absolute top-[45px] w-[200%] left-[-25px] flex-col  justify-start">
+          <div className="flex bg-white dark:bg-body animate-fade-in absolute top-[45px] w-[200%] left-[-25px] flex-col  justify-start">
             {children}
           </div>
         )}

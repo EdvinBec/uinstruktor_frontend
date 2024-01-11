@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import TextEditor from "@/components/ui/text-editor";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -17,6 +17,8 @@ import DatePicker from "@/components/ui/date-picker";
 import { Button } from "@/components/ui/button";
 import { publishAssigment } from "@/lib/class";
 import useAuth from "@/hooks/useAuth";
+import Codetag from "@/components/ui/code";
+import Testcase from "@/components/ui/testcase";
 
 type Assigment = {
   title: string;
@@ -26,6 +28,10 @@ type Assigment = {
   timeExpiration: Date;
   classID: string;
   lang: string;
+};
+type TestCase = {
+  input: string;
+  output: string;
 };
 
 const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
@@ -39,6 +45,7 @@ const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
     classID: params.slug,
     lang: "",
   });
+  const [testCases, setTestCases] = useState<TestCase[]>([]);
 
   function handleAssigmentTitle(value: string) {
     setNewAssigment({ ...newAssigment, title: value });
@@ -53,7 +60,12 @@ const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
     setNewAssigment({ ...newAssigment, timeExpiration: date! });
   }
 
-  function handlePublishAssigment() {}
+  function incrementTestCases() {
+    setTestCases([...testCases, { input: "", output: "" }]);
+  }
+  function decrementTestCases() {
+    setTestCases(testCases.slice(0, testCases.length - 1));
+  }
 
   return (
     <div className="md:w-1/2">
@@ -89,13 +101,41 @@ const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
           />
         </div>
         <TextEditor
-          className="min-h-[300px]"
-          editableClassName="min-h-full"
+          className="mb-4"
+          editableClassName="min-h-full h-[200px] p-2 rounded-lg"
           setValue={handleAssigmentDescription}
         />
+        <div className="space-y-2">
+          <h2 className="text-3xl font-semibold">Test cases</h2>
+          <p>
+            For problem validation you need to create some testcases. A test
+            case consists of an <Codetag>input</Codetag>, and{" "}
+            <Codetag>output</Codetag>. The <Codetag>output</Codetag> is read by
+            the program and then the <Codetag>output</Codetag> is used to
+            determined if the program is correct or not.
+          </p>
+          <div className="space-x-4 py-2">
+            <Button onClick={incrementTestCases}>+</Button>
+            <Button onClick={decrementTestCases}>-</Button>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {testCases.map((testCase, index) => (
+              <Testcase
+                setTestCases={setTestCases}
+                key={index}
+                index={index}
+                value={testCase}
+              />
+            ))}
+          </div>
+        </div>
         <div className="flex flex-row gap-4 items-center justify-end">
           <Button variant={"destructive"}>Discard</Button>
-          <Button onClick={() => publishAssigment(newAssigment, user?.token)}>
+          <Button
+            onClick={() =>
+              publishAssigment(newAssigment, testCases, user?.token)
+            }
+          >
             Publish
           </Button>
         </div>

@@ -18,10 +18,7 @@ export const CardDetails = ({ numOf }: { numOf: number }) => {
         <p>Exercises</p>
       </div>
       <div className="absolute top-[-33px]  right-10 bg-white dark:bg-body p-2 rounded-full border-b">
-        <Play
-          size={50}
-          className="border group-hover:animate-bounce transition-all rounded-full p-2"
-        />
+        <Play size={50} className="border transition-all rounded-full p-2" />
       </div>
     </div>
   );
