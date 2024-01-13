@@ -12,6 +12,9 @@ import { Inputs } from "@/types";
 import Link from "next/link";
 import { useState } from "react";
 import Spinner from "@/components/ui/Spinner";
+import GoogleLogo from "@/assets/img/GoogleLogo.svg";
+import LoginImage from "@/assets/img/loginImage.jpg";
+import Image from "next/image";
 
 type LoginResponse = {
   message: string;
@@ -20,7 +23,6 @@ type LoginResponse = {
 };
 
 const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [authError, setAuthError] = useState("");
 
   const {
@@ -36,12 +38,10 @@ const LoginPage = () => {
     const { email, password } = data;
 
     const SignIn = async () => {
-      setIsLoading(true);
       const response: LoginResponse = await (
         await Login(email, password)
       ).json();
 
-      setIsLoading(false);
       return response;
     };
 
@@ -62,63 +62,87 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <div className="w-full h-full flex justify-center items-center">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-2/3 md:w-1/3 lg:w-1/4 h-auto flex flex-col gap-4"
-        >
-          <h1 className="text-center font-bold text-3xl mb-8">Login</h1>
-          <div className="flex flex-col gap-2 w-full">
-            <Label>Email</Label>
-            <Input
-              defaultValue=""
-              {...register("email", {
-                required: "Please enter your email adress",
-              })}
-              type="email"
-              id="email"
-            />
-            {errors.email && (
-              <Label className="text-red-500">{errors.email.message}</Label>
-            )}
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <Label>Password</Label>
-            <Input
-              defaultValue=""
-              {...register("password", {
-                required: "Please enter your password",
-              })}
-              type="password"
-              id="password"
-            />
-            {errors.password && (
-              <Label className="text-red-500">{errors.password.message}</Label>
-            )}
-
-            {errors.password?.type === "maxLength" && (
-              <Label className="text-red-500">
-                Please enter password that is shorter than 32 characters
+    <div className="flex gap-16 h-screen items-center">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex justify-center lg:block"
+      >
+        <div className="flex w-[300px] md:w-[450px] flex-col gap-8 items-start">
+          <div>
+            <div className="w-full mb-8">
+              <h1 className="font-bold text-3xl mb-2">Welcome back!</h1>
+              <Label className="text-sm font-light tracking-wide opacity-80">
+                Enter your username and password to log in to your profile
               </Label>
-            )}
+            </div>
+            <Button variant="secondary">
+              <Image
+                className="text-white mr-2"
+                src={GoogleLogo}
+                alt="googleLogo"
+              />
+              Log in with Google
+            </Button>
+          </div>
+          <div>
+            <div>
+              <Label>Email</Label>
+              <Input
+                defaultValue=""
+                {...register("email", {
+                  required: "Please enter your email adress",
+                })}
+                type="email"
+                className="w-[300px] md:w-[450px] mt-2"
+              ></Input>
+              {errors.email && (
+                <Label className="text-red-500">{errors.email.message}</Label>
+              )}
+            </div>
+            <div className="mt-6">
+              <Label>Password</Label>
+              <Input
+                {...register("password", {
+                  required: "Please enter your password",
+                })}
+                type="password"
+                className="w-[300px] md:w-[450px] mt-2"
+              ></Input>
+              {errors.password && (
+                <Label className="text-red-500">
+                  {errors.password.message}
+                </Label>
+              )}
+              {}
+            </div>
+            <Button className="w-[300px] md:w-[450px] mt-6">Log in</Button>
             {authError && <Label className="text-red-500">{authError}</Label>}
           </div>
-
-          <Button>Login</Button>
-          <div className="flex items-center w-full gap-2">
-            <Label>Don{"'"}t have an account yet?</Label>
-            <Link
-              className="text-xs font-medium text-blue-600 hover:underline"
-              href="/signup"
-            >
-              Sign up
-            </Link>
+          <div className="w-full flex flex-col md:flex-row justify-between">
+            <div className="flex items-center gap-2">
+              <Label className="text-xs font-light tracking-wide opacity-75">
+                Don{"'"}t have account yet?
+              </Label>
+              <Button variant="link" className="px-0 text-xs">
+                <Link href="/signup">Sign up</Link>
+              </Button>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="link" className="px-0 py-0 text-xs">
+                Forgot your password?
+              </Button>
+            </div>
           </div>
-        </form>
+        </div>
+      </form>
+      <div className="w-full h-full items-center justify-center hidden lg:flex">
+        <Image
+          src={LoginImage}
+          className="h-[85%] w-auto rounded-lg"
+          alt="uinstruktor-male-with-glasses"
+        />
       </div>
-      {isLoading && <Spinner size={32} />}
-    </>
+    </div>
   );
 };
 
