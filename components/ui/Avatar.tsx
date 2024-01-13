@@ -14,18 +14,23 @@ const Avatar = ({ src, alt }: AvatarProps) => {
   const [isImage, setIsImage] = useState(false);
 
   useEffect(() => {
-    if (src !== undefined) {
-      checkImage(src).then((res) => {
-        if (res) {
-          setIsImage(true);
-        } else {
+    if (src) {
+      checkImage(src)
+        .then((res) => {
+          if (res) {
+            setIsImage(true);
+          } else {
+            setIsImage(false);
+          }
+        })
+        .catch((error) => {
           setIsImage(false);
-        }
-      });
+        });
     } else {
       setIsImage(false);
     }
   }, [src]);
+
   return (
     <div className=" aspect-square bg-neutral-200 rounded-full">
       {isImage ? (

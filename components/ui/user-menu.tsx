@@ -29,12 +29,6 @@ function UserMenu() {
         <Avatar src={`${baseURL}/${auth?.profilePic}`} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <Link href={`/user/${auth?.username}`}>Profile</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href={`/settings`}>Settings</Link>
-        </DropdownMenuItem>
         <DropdownMenuItem className="flex flex-row items-center justify-between">
           <Moon />
           <Switch
@@ -45,6 +39,13 @@ function UserMenu() {
           />
           <Sun />
         </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/user/${auth?.username}`}>Profile</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/settings`}>Settings</Link>
+        </DropdownMenuItem>
+
         <DropdownMenuItem className="">
           <SignOutButton classname="px-2 m-0 bg-inherit" variant="secondary" />
         </DropdownMenuItem>

@@ -4,12 +4,19 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import ReduxProvider from "@/lib/redux-provider";
 import DefaultLayout from "@/components/Layout";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "UInstruktor",
   description: "Interaktivna platforma za ucenje programiranja",
+  authors: [
+    { name: "Aljaz krajnc" },
+    { name: "Edvin Becic" },
+    { name: "Muhamed Karahasanovic" },
+  ],
+  publisher: "Srednja elektro-računalniška šola Maribor",
 };
 
 export default function RootLayout({

@@ -105,6 +105,7 @@ export async function publishAssigment(
     classID: string;
     lang: string;
   },
+  testCases: { input: string; output: string }[],
   token: unknown,
 ) {
   const result = await fetch(baseURL + `/api/class/assigments/new`, {
@@ -114,7 +115,7 @@ export async function publishAssigment(
       "Cache-Control": "no-store",
       Authorization: token as string,
     },
-    body: JSON.stringify(assigment),
+    body: JSON.stringify({ assigment, testCases }),
   });
-  console.log(result);
+  return await result.json();
 }

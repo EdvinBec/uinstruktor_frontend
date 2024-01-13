@@ -1,12 +1,20 @@
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export const fetchAIPrompt = (code: string) => {
-  const result = fetch(baseURL + '/api/ai/help', {
-    method: 'POST',
+export const AIHelp = async (
+  code: string,
+  problemID?: string,
+  assigmentID?: string,
+) => {
+  const result = fetch(baseURL + "/api/ai/help", {
+    method: "POST",
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
-    body: JSON.stringify({ content: code }),
+    body: JSON.stringify({
+      userCode: code,
+      problemID: problemID,
+      assigmentID: assigmentID,
+    }),
   });
-  return result;
+  return (await result).json();
 };

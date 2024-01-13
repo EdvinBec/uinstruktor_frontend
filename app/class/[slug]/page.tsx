@@ -66,7 +66,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
       </div>
       <div className="mt-6 font-semibold">
         <h2 className="text-3xl pb-2">Assigments</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-4">
           {classData.assigments.map((assigment, index) => (
             <Link
               key={index}
@@ -77,7 +77,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 key={index}
                 time={classData.assigments[index].timeExpiration.toString()}
                 isCompleted={
-                  classData.assigments[index].completedUsers !== null ||
+                  classData.assigments[index].completedUsers !== null &&
                   classData.assigments[index].completedUsers !== undefined
                     ? classData.assigments[index].completedUsers?.includes(
                         user?.username!,
@@ -86,6 +86,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 }
                 title={assigment.title}
                 description={assigment.shortDescription}
+                classCreator={classData.classCreator}
               />
             </Link>
           ))}
