@@ -2,6 +2,7 @@ export type Inputs = {
   email: string;
   password: string;
   username?: string;
+  repeatPassword?: string;
   role?: string;
 };
 export type UserToken = {
