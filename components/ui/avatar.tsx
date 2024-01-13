@@ -1,50 +1,45 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
+import { checkImage } from "@/lib/user";
+import { User } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-import { cn } from "@/lib/utils"
+type AvatarProps = {
+  src: string | undefined;
+  alt?: string;
+};
 
-const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
-    )}
-    {...props}
-  />
-))
-Avatar.displayName = AvatarPrimitive.Root.displayName
+const Avatar = ({ src, alt }: AvatarProps) => {
+  const [isImage, setIsImage] = useState(false);
 
-const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
-    {...props}
-  />
-))
-AvatarImage.displayName = AvatarPrimitive.Image.displayName
-
-const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800",
-      className
-    )}
-    {...props}
-  />
-))
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
-
-export { Avatar, AvatarImage, AvatarFallback }
+  useEffect(() => {
+    if (src !== undefined) {
+      checkImage(src).then((res) => {
+        if (res) {
+          setIsImage(true);
+        } else {
+          setIsImage(false);
+        }
+      });
+    } else {
+      setIsImage(false);
+    }
+  }, [src]);
+  return (
+    <div className=" aspect-square bg-neutral-200 rounded-full">
+      {isImage ? (
+        <Image
+          width={40}
+          src={src!}
+          height={40}
+          className="rounded-full aspect-square"
+          alt="User profile picture"
+        />
+      ) : (
+        <User size={40} />
+      )}
+    </div>
+  );
+};
+export default Avatar;
