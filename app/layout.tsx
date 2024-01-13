@@ -27,9 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="uinstruktor-theme"
         >
-          <ReduxProvider>
-            <DefaultLayout>{children}</DefaultLayout>
-          </ReduxProvider>
+          <ReduxProvider>{children}</ReduxProvider>
         </ThemeProvider>
       </body>
     </html>
