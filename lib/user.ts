@@ -17,7 +17,10 @@ export const fetchUserData = async (userID: string) => {
   });
   return (await result.json()) as ApiResponse<User>;
 };
-export const checkImage = async (src: string) => {
+export const checkImage = async (src: string | undefined) => {
+  if (!src) {
+    return false;
+  }
   const result = await fetch(src, {
     method: "GET",
   });

@@ -69,7 +69,7 @@ export const Navigation = ({
     <NavigationTreeContext.Provider
       value={{ isOpen, toogle, active, setActiveItem }}
     >
-      <div className="sticky top-0 mb-8 bg-white dark:bg-neutral-900 border-b">
+      <div className="sticky md:hidden top-0 mb-8 bg-white dark:bg-neutral-900 border-b">
         <div className="flex flexrow justify-between items-center">
           <div
             className="py-2 flex flex-row items-center cursor-pointer"
@@ -94,6 +94,9 @@ export const Navigation = ({
             {children}
           </div>
         )}
+      </div>
+      <div className="hidden p-2 overflow-x-auto md:block border-r h-full animate-fade-in flex-col justify-center items-start">
+        {children}
       </div>
     </NavigationTreeContext.Provider>
   );

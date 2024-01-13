@@ -117,5 +117,5 @@ export async function publishAssigment(
     },
     body: JSON.stringify({ assigment, testCases }),
   });
-  console.log(result);
+  return await result.json();
 }

@@ -122,13 +122,13 @@ const ProblemPage = ({ params }: { params: { slug: string } }) => {
             <h2 className="text-3xl">Test cases:</h2>
             <div className="space-y-4">
               {!error ? (
-                apiResponse?.result.testCases.map((testCase, index) => (
+                apiResponse?.result.map((testCase, index) => (
                   <TestCaseCard
                     input={testCase.input}
                     index={index + 1}
                     passed={testCase.matching}
                     key={index}
-                    output={testCase.actualOutput}
+                    output={testCase.expectedOutput}
                     actualOutput={testCase.actualOutput}
                   />
                 ))

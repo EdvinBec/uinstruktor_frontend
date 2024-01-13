@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "./Footer/Footer";
 import Navbar from "./Navbar/Navbar";
 import Sidebar from "./Sidebar/Sidebar";
+import { Toaster } from "./ui/sonner";
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   const isSidebarOpen = useSelector(
@@ -12,20 +13,23 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <div className="flex overflow-hidden h-dvh">
-      <Sidebar />
-      <div className="flex-1 flex flex-col h-screen overflow-hidden items-center">
-        <Navbar />
-        <div
-          className={`overflow-x-hidden overflow-y-auto transition-all h-full w-full ${
-            isSidebarOpen && "w-[250%] ml-[90%]"
-          }`}
-        >
-          <div className="px-8">{children}</div>
-          <Footer />
+    <>
+      <div className="flex overflow-hidden h-dvh">
+        <Sidebar />
+        <div className="flex-1 flex flex-col h-screen overflow-hidden items-center">
+          <Navbar />
+          <div
+            className={`overflow-x-hidden overflow-y-auto transition-all h-full w-full ${
+              isSidebarOpen && "w-[250%] ml-[90%]"
+            }`}
+          >
+            <div className="px-8">{children}</div>
+            <Footer />
+          </div>
         </div>
       </div>
-    </div>
+      <Toaster />
+    </>
   );
 };
 

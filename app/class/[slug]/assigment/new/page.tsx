@@ -19,6 +19,7 @@ import { publishAssigment } from "@/lib/class";
 import useAuth from "@/hooks/useAuth";
 import Codetag from "@/components/ui/code";
 import Testcase from "@/components/ui/testcase";
+import { toast } from "sonner";
 
 type Assigment = {
   title: string;
@@ -67,6 +68,17 @@ const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
     setTestCases(testCases.slice(0, testCases.length - 1));
   }
 
+  function handlePublishAssigment() {
+    publishAssigment(newAssigment, testCases, user?.token).then((res) => {
+      console.log(res);
+      if (res.status === "success") {
+        toast.success("Assigment published.");
+      } else {
+        toast.error("Error publishing assigment.");
+      }
+    });
+  }
+
   return (
     <div className="md:w-1/2">
       <div>
@@ -110,7 +122,7 @@ const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
           <p>
             For problem validation you need to create some testcases. A test
             case consists of an <Codetag>input</Codetag>, and{" "}
-            <Codetag>output</Codetag>. The <Codetag>output</Codetag> is read by
+            <Codetag>output</Codetag>. The <Codetag>input</Codetag> is read by
             the program and then the <Codetag>output</Codetag> is used to
             determined if the program is correct or not.
           </p>
@@ -131,13 +143,7 @@ const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
         </div>
         <div className="flex flex-row gap-4 items-center justify-end">
           <Button variant={"destructive"}>Discard</Button>
-          <Button
-            onClick={() =>
-              publishAssigment(newAssigment, testCases, user?.token)
-            }
-          >
-            Publish
-          </Button>
+          <Button onClick={handlePublishAssigment}>Publish</Button>
         </div>
       </div>
     </div>

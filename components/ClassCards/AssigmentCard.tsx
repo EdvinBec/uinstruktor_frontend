@@ -1,20 +1,37 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import Placeholder from "@/assets/img/gradient.jpg";
 import { Badge } from "@/components/ui/badge";
-import { Check, Hourglass } from "lucide-react";
+import { Check, Hourglass, Settings } from "lucide-react";
+import useAuth from "@/hooks/useAuth";
+
 type Props = {
   title: string;
   description: string;
   isCompleted: boolean;
   time: string;
+  classCreator: string;
 };
 
-const AssigmentCard = ({ title, description, isCompleted, time }: Props) => {
+const AssigmentCard = ({
+  title,
+  description,
+  isCompleted,
+  time,
+  classCreator,
+}: Props) => {
   const completeDate = new Date(time);
+  const auth = useAuth();
   return (
     <div className=" w-full h-full rounded-xl border hover:shadow-2xl shadow-lg transition-all duration-300">
       <div className=" shadow-inner relative">
+        {auth?.username === classCreator && (
+          <Settings
+            size={20}
+            className="absolute text-neutral-100 hover:text-neutral-700 transition-all  top-2 right-2"
+          />
+        )}
         <Image
           src={Placeholder}
           className="rounded-t-xl max-h-[150px]"
@@ -28,10 +45,10 @@ const AssigmentCard = ({ title, description, isCompleted, time }: Props) => {
             <Check size={15} />
           </Badge>
         ) : (
-          <div className="rounded-full flex flex-row items-center justify-center bg-neutral-200 px-2 absolute bottom-2 left-2 ">
+          <div className="rounded-full flex flex-row items-center justify-center bg-neutral-200 px-1 absolute bottom-2 left-2 ">
             <Hourglass size={17} className="" />
-            <p className="border-l ml-1 pl-1 border-l-neutral-600 text-center py-1">
-              {completeDate.getDay()}.{completeDate.getMonth() + 1}
+            <p className=" border-l-neutral-600 text-center">
+              {completeDate.getDate()}. {completeDate.getMonth() + 1}.
             </p>
           </div>
         )}

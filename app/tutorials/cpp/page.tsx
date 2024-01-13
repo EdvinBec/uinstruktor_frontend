@@ -20,7 +20,7 @@ const CppTutorialPage = () => {
 }`;
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full min-h-full md:overflow-hidden md:flex md:flex-row md:justify-start gap-4">
       <Navigation setIsOpen={toggleMenu}>
         <NavigationChapter>
           <NavigationHeading>Variables</NavigationHeading>
@@ -38,12 +38,40 @@ const CppTutorialPage = () => {
         </NavigationChapter>
       </Navigation>
       {!menuOpen && (
-        <div className=" space-y-8">
+        <div className="md:overflow-y-auto md:h-[90vh] space-y-8 w-full">
           <CodeBlock
             id="variables-declaration"
             header="User input"
             description="Lorem ipsum dolor sit amet."
             code="int main() {}"
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
             language="cpp"
           />
           <CodeBlock

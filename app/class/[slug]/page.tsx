@@ -77,7 +77,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 key={index}
                 time={classData.assigments[index].timeExpiration.toString()}
                 isCompleted={
-                  classData.assigments[index].completedUsers !== null ||
+                  classData.assigments[index].completedUsers !== null &&
                   classData.assigments[index].completedUsers !== undefined
                     ? classData.assigments[index].completedUsers?.includes(
                         user?.username!,
@@ -86,6 +86,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 }
                 title={assigment.title}
                 description={assigment.shortDescription}
+                classCreator={classData.classCreator}
               />
             </Link>
           ))}

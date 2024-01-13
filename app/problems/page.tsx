@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Problem, fetchProblems } from "@/lib/problem";
 import { groupProblems } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { number } from "zod";
 
 const ProblemsPage = () => {
   const [problems, setProblems] = useState<Problem[]>([]);
@@ -76,7 +77,7 @@ const ProblemsPage = () => {
           })
           .map((problem, index) => (
             <ProblemCard
-              id={index}
+              id={Number(problem.problemID)}
               className="w-full md:w-1/5"
               title={problem.title}
               difficulty={problem.difficulty}

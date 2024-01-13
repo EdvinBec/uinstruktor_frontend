@@ -36,9 +36,7 @@ export interface ApiResponseCompiler extends ApiResponse<{}> {
   compile_status: boolean;
   id: string;
   message: string;
-  result: {
-    testCases: TestCase[];
-  };
+  result: TestCase[];
   err: string;
 }
 
