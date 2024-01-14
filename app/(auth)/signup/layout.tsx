@@ -1,5 +1,6 @@
 "use client";
 
+import Container from "@/components/ui/Container";
 import { Inputs } from "@/types";
 import { createContext, useState } from "react";
 
@@ -30,7 +31,9 @@ const SignupLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="h-screen px-4 py-2">
-      <UserContext.Provider value={value}>{children}</UserContext.Provider>
+      <UserContext.Provider value={value}>
+        <Container>{children}</Container>
+      </UserContext.Provider>
     </div>
   );
 };
