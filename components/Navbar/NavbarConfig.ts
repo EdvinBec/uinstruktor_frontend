@@ -7,14 +7,14 @@ import {
   Shapes,
 } from "lucide-react";
 
-export type SidebarItem = {
+export type NavbarItem = {
   label: string;
   href: string;
   variant: "default" | "active";
   icon: LucideIcon;
 };
 
-export const SidebarItems: SidebarItem[] = [
+export const NavbarItems: NavbarItem[] = [
   {
     label: "Explore",
     href: "/explore",
@@ -35,7 +35,7 @@ export const SidebarItems: SidebarItem[] = [
   },
 ];
 
-export const TeacherSidebarItems: SidebarItem[] = [
+export const TeacherNavbarItems: NavbarItem[] = [
   {
     label: "My Classrooms",
     href: "/class",
@@ -50,7 +50,7 @@ export const TeacherSidebarItems: SidebarItem[] = [
   },
 ];
 
-export const StudentSidebarItems: SidebarItem[] = [
+export const StudentNavbarItems: NavbarItem[] = [
   {
     label: "My Classrooms",
     href: "/class",

@@ -53,9 +53,7 @@ const LoginPage = () => {
       cookies.set("token", res.token);
       location.reload();
       router.refresh();
-      setIsLoading(false);
     } else {
-      setIsLoading(false);
       console.log(res);
       if (res.message === "auth/wrong-password") {
         setAuthError("Oops! Wrong password. Please try again.");
@@ -63,6 +61,7 @@ const LoginPage = () => {
         setAuthError("Oops! Wrong email. Please try again.");
       }
     }
+    setIsLoading(false);
   };
 
   return (
