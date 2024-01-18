@@ -33,7 +33,7 @@ const Avatar = ({ src, alt }: AvatarProps) => {
   }, [src]);
 
   return (
-    <div className=" aspect-square bg-neutral-200 rounded-full">
+    <div className="aspect-square bg-neutral-200 rounded-full p-2">
       {isImage ? (
         <Image
           width={40}
@@ -43,7 +43,7 @@ const Avatar = ({ src, alt }: AvatarProps) => {
           alt="User profile picture"
         />
       ) : (
-        <User size={40} />
+        <User size={25} color="black" />
       )}
     </div>
   );

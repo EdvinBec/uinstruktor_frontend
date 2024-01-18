@@ -28,8 +28,8 @@ function UserMenu() {
       <DropdownMenuTrigger>
         <Avatar src={`${baseURL}/${auth?.profilePic}`} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem className="flex flex-row items-center justify-between">
+      <DropdownMenuContent align="end" className="px-4 py-2">
+        <DropdownMenuItem className="flex gap-4 items-center justify-between">
           <Moon />
           <Switch
             onCheckedChange={(property) => {
@@ -39,15 +39,15 @@ function UserMenu() {
           />
           <Sun />
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem className="text-start">
           <Link href={`/user/${auth?.username}`}>Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link href={`/settings`}>Settings</Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="">
-          <SignOutButton classname="px-2 m-0 bg-inherit" variant="secondary" />
+        <DropdownMenuItem className="text-start">
+          <SignOutButton classname="m-0 text-start" variant="default" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
