@@ -9,9 +9,11 @@ const Footer = () => {
         <Copyright size={18} />
         <p className="text-sm font-medium mr-4">
           UInstruktor{" "}
-          <span className="font-bold">{new Date().getFullYear()}</span>
+          <span className="font-bold hidden md:block">
+            {new Date().getFullYear()}
+          </span>
         </p>
-        <div className="flex gap-4">
+        <div className="hidden md:flex gap-4">
           <Button variant="link" className="p-0 h-auto">
             <Link href="/explore">Explore</Link>
           </Button>
