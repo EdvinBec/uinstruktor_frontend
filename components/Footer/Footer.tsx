@@ -7,7 +7,7 @@ const Footer = () => {
     <div className="flex w-full justify-between py-2 mt-4">
       <div className="flex gap-2 items-center">
         <Copyright size={18} />
-        <p className="text-sm font-medium mr-4">
+        <p className="text-xs md:text-sm font-medium mr-4">
           UInstruktor{" "}
           <span className="font-bold hidden md:block">
             {new Date().getFullYear()}
@@ -26,10 +26,10 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex gap-4">
-        <Button variant="link" className="p-0">
+        <Button variant="link" className="p-0 text-xs md:text-sm">
           Privacy Policy
         </Button>
-        <Button variant="link" className="p-0">
+        <Button variant="link" className="p-0 text-xs md:text-sm">
           Terms & Conditions
         </Button>
       </div>
