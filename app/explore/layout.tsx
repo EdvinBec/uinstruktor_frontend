@@ -34,8 +34,8 @@ const ExploreLayout = ({ children }: { children: React.ReactNode }) => {
           />
         </Link>
         {children}
+        <Footer />
       </Container>
-      <Footer />
     </div>
   );
 };

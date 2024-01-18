@@ -1,19 +1,35 @@
-import { Bot } from "lucide-react";
+import { Copyright } from "lucide-react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="w-full flex justify-between items-center border-t-[1px] mt-4 py-1 text-black dark:text-white px-8">
+    <div className="flex w-full justify-between py-2 mt-4">
       <div className="flex gap-2 items-center">
-        <Bot size={18} />
-        <p className="text-sm font-medium">
+        <Copyright size={18} />
+        <p className="text-sm font-medium mr-4">
           UInstruktor{" "}
           <span className="font-bold">{new Date().getFullYear()}</span>
         </p>
+        <div className="flex gap-4">
+          <Button variant="link" className="p-0 h-auto">
+            <Link href="/explore">Explore</Link>
+          </Button>
+          <Button variant="link" className="p-0 h-auto">
+            <Link href="/problems">Problems</Link>
+          </Button>
+          <Button variant="link" className="p-0 h-auto">
+            <Link href="/tutorials">Tutorials</Link>
+          </Button>
+        </div>
       </div>
-      <div>
-        <Button variant="ghost">Privacy Policy</Button>
-        <Button variant="ghost">Terms & Conditions</Button>
+      <div className="flex gap-4">
+        <Button variant="link" className="p-0">
+          Privacy Policy
+        </Button>
+        <Button variant="link" className="p-0">
+          Terms & Conditions
+        </Button>
       </div>
     </div>
   );
