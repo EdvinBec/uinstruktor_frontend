@@ -9,7 +9,7 @@ const Footer = () => {
         <Copyright size={18} />
         <p className="text-xs md:text-sm font-medium mr-4">
           UInstruktor{" "}
-          <span className="font-bold hidden md:block">
+          <span className="font-bold hidden md:inline-block">
             {new Date().getFullYear()}
           </span>
         </p>
