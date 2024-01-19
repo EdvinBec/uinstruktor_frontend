@@ -24,3 +24,18 @@ export function cm(...classNames: string[]) {
 export function letterToUpper(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];

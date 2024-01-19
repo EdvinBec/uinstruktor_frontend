@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ActivityBar from "@/components/ui/activity-bar";
+
 import { fetchUserData } from "@/lib/user";
 import { User } from "lucide-react";
 import Image from "next/image";
@@ -30,6 +31,7 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
           <p>{userData.data?.username}</p>
           <p>{userData.data?.email}</p>
         </div>
+        <ActivityBar username={userID} />
       </div>
     </div>
   );
