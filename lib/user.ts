@@ -21,17 +21,21 @@ export const fetchUserData = async (userID: string) => {
   });
   return (await result.json()) as ApiResponse<User>;
 };
+
 export const checkImage = async (src: string | undefined) => {
   if (!src) {
     return false;
+  } else {
+    const result = await fetch(src, {
+      method: "GET",
+    });
+
+    if (result.status === 404) {
+      return false;
+    } else {
+      return true;
+    }
   }
-  const result = await fetch(src, {
-    method: "GET",
-  });
-  if (result.status === 404) {
-    return false;
-  }
-  return true;
 };
 
 export const fetchUserActivity = async (userID: string) => {
