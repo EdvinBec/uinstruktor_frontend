@@ -16,7 +16,6 @@ import {
 import SignOutButton from "../SignOutButton";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
-import Image from "next/image";
 
 function UserMenu() {
   const { setTheme, theme } = useTheme();
@@ -26,7 +25,11 @@ function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar src={`${baseURL}/${auth?.profilePic}`} />
+        {auth?.profilePic ? (
+          <Avatar src={`${baseURL}/${auth?.profilePic}`} />
+        ) : (
+          <Avatar src={undefined} />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="px-4 py-2">
         <DropdownMenuItem className="flex gap-4 items-center justify-between">
