@@ -7,6 +7,10 @@ type User = {
   email: string;
   profilePicture: string;
 };
+type UserActivity = {
+  value: number;
+  timestamp: Date;
+};
 
 export const fetchUserData = async (userID: string) => {
   const result = await fetch(baseURL + "/api/user/" + userID, {
@@ -28,4 +32,14 @@ export const checkImage = async (src: string | undefined) => {
     return false;
   }
   return true;
+};
+
+export const fetchUserActivity = async (userID: string) => {
+  const result = await fetch(baseURL + "/api/user/" + userID + "/activity", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return (await result.json()) as ApiResponse<UserActivity[]>;
 };

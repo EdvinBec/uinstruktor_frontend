@@ -39,6 +39,10 @@ module.exports = {
           from: { height: 0 },
           to: { height: "100%" },
         },
+        "rotate-card": {
+          from: { transform: "rotateY(180deg)" },
+          to: { transform: "rotateY(0deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -46,6 +50,7 @@ module.exports = {
         "fade-in": "fade-in 0.2s ease-out",
         "open-dropdown":
           "open-dropdown 0.2s cubic-bezier(0.33, 0.43, 0.31, 0.44)",
+        "rotate-card": "rotate-card 0.8s ease-out",
       },
     },
   },

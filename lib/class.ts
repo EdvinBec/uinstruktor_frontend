@@ -119,3 +119,42 @@ export async function publishAssigment(
   });
   return await result.json();
 }
+export async function updateAssigment(
+  classID: string,
+  assigmentID: string,
+  title: string,
+  timeExpiration: Date,
+  token: unknown,
+) {
+  const result = await fetch(baseURL + `/api/class/assigment/${assigmentID}`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+      Authorization: token as string,
+    },
+    body: JSON.stringify({
+      assigment: { title, timeExpiration, classID, assigmentID },
+    }),
+  });
+  return await result.json();
+}
+
+export async function deleteAssigment(
+  classID: string,
+  assigmentID: string,
+  token: unknown,
+) {
+  const result = await fetch(baseURL + `/api/class/assigment/${assigmentID}`, {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+      Authorization: token as string,
+    },
+    body: JSON.stringify({
+      assigment: { classID, assigmentID },
+    }),
+  });
+  return await result.json();
+}
