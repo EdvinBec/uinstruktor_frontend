@@ -1,10 +1,20 @@
 import RoadmapItem from "@/components/Roadmap/roadmapItem";
-import { Problem } from "@/types";
+import { getProblemsList } from "@/lib/Services";
+import { decryptAuthToken, decryptToken } from "@/lib/auth";
+import { ApiResponse, Problem } from "@/types";
+import Cookies from "universal-cookie";
 
-const ExplorePage = () => {
+const ExplorePage = async () => {
+  const cookies = new Cookies();
+  const username = await decryptToken(cookies.get("token"));
+
+  const problems: ApiResponse<Problem[]> = await getProblemsList(
+    username as string,
+  );
+
   return (
     <div className="w-full flex flex-col gap-8">
-      {problems.map((item: Problem, itemIdx) => {
+      {problems.data?.map((item: Problem, itemIdx: number) => {
         console.log(item);
 
         return (
