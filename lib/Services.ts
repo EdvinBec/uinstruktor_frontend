@@ -1,3 +1,5 @@
+import { Problem } from "@/types";
+
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const Login = (email: string, password: string) => {
@@ -42,5 +44,11 @@ export const getProblemsList = async (username?: string) => {
       "Cache-Control": "no-store",
     },
   });
-  return result;
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data as Problem[];
 };

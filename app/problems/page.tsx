@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { Problem, fetchProblems } from "@/lib/problem";
 import { groupProblems } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { number } from "zod";
 
 const ProblemsPage = () => {
   const [problems, setProblems] = useState<Problem[]>([]);

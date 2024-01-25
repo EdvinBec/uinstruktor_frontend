@@ -32,13 +32,12 @@ const RoadmapCard = ({
             );
           })}
         </div>
-        {disabled && (
-          <Button className="w-full" variant="secondary" disabled>
+        {disabled ? (
+          <Button className="w-full" variant="default">
             Start!
           </Button>
-        )}
-        {!disabled && (
-          <Button className="w-full" variant="secondary">
+        ) : (
+          <Button className="w-full" variant="default" disabled>
             Start!
           </Button>
         )}
@@ -63,13 +62,12 @@ const RoadmapCard = ({
             );
           })}
         </div>
-        {disabled && (
-          <Button className="w-full" variant="default" disabled>
+        {disabled ? (
+          <Button className="w-full" variant="default">
             Start!
           </Button>
-        )}
-        {!disabled && (
-          <Button className="w-full" variant="default">
+        ) : (
+          <Button className="w-full" variant="default" disabled>
             Start!
           </Button>
         )}

@@ -1,3 +1,5 @@
+"use client";
+
 import RoadmapCard from "./roadmapCard";
 
 const RoadmapItem = ({
