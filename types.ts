@@ -47,4 +47,5 @@ export type Problem = {
   lang: string;
   difficulty: string;
   category: string;
+  isCompleted: boolean;
 };

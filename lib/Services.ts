@@ -16,7 +16,7 @@ export const Signup = (
   email: string,
   password: string,
   username: string,
-  role: string,
+  role: string
 ) => {
   const result = fetch(baseURL + "/api/auth/register", {
     method: "POST",
@@ -34,8 +34,8 @@ export const Signup = (
   return result;
 };
 
-export const getProblemsList = () => {
-  const result = fetch(baseURL + "/api/problem/list", {
+export const getProblemsList = async (username?: string) => {
+  const result = await fetch(baseURL + `/api/problem/list/${username}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json",

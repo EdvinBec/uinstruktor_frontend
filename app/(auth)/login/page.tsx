@@ -15,6 +15,7 @@ import Spinner from "@/components/ui/Spinner";
 import GoogleLogo from "@/assets/img/GoogleLogo.svg";
 import LoginImage from "@/assets/img/loginImage.jpg";
 import Image from "next/image";
+import { decryptAuthToken } from "@/lib/auth";
 
 type LoginResponse = {
   message: string;
@@ -39,6 +40,11 @@ const LoginPage = () => {
     const { email, password } = data;
     setIsLoading(true);
 
+    const saveUsernameToLocalStorage = async () => {
+      const decryptedToken = await decryptAuthToken(cookies.get("token"));
+      localStorage.setItem("username", decryptedToken?.username!);
+    };
+
     const SignIn = async () => {
       const response: LoginResponse = await (
         await Login(email, password)
@@ -50,6 +56,7 @@ const LoginPage = () => {
     const res = await SignIn();
 
     if (res.token) {
+      saveUsernameToLocalStorage();
       cookies.set("token", res.token);
       location.reload();
       router.refresh();
