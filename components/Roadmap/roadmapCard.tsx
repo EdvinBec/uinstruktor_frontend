@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "../ui/button";
 
 const RoadmapCard = ({
@@ -6,12 +7,14 @@ const RoadmapCard = ({
   tags,
   variant,
   disabled,
+  problemID,
 }: {
   title: string;
   description: string;
   tags: string[];
   variant: "yellow" | "purple";
   disabled: boolean;
+  problemID: number;
 }) => {
   if (variant === "yellow") {
     return (
@@ -33,9 +36,11 @@ const RoadmapCard = ({
           })}
         </div>
         {disabled ? (
-          <Button className="w-full" variant="default">
-            Start!
-          </Button>
+          <Link href={`/problem/${problemID}`} className="w-full">
+            <Button className="w-full" variant="default">
+              Start!
+            </Button>
+          </Link>
         ) : (
           <Button className="w-full" variant="default" disabled>
             Start!
@@ -63,9 +68,11 @@ const RoadmapCard = ({
           })}
         </div>
         {disabled ? (
-          <Button className="w-full" variant="default">
-            Start!
-          </Button>
+          <Link href={`/problem/${problemID}`} className="w-full">
+            <Button className="w-full" variant="default">
+              Start!
+            </Button>
+          </Link>
         ) : (
           <Button className="w-full" variant="default" disabled>
             Start!
