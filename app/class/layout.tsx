@@ -6,10 +6,10 @@ import Container from "@/components/ui/Container";
 const ClassLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col h-full">
-      <Container>
+      <div className="max-w-[1400px] mx-auto px-4">
         <Navbar />
         {children}
-      </Container>
+      </div>
     </div>
   );
 };

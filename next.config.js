@@ -14,18 +14,6 @@ const nextConfig = {
         port: "5000",
         pathname: "/user/*",
       },
-      {
-        protocol: "http",
-        hostname: "172.26.140.9",
-        port: "5000",
-        pathname: "/user/*",
-      },
-      {
-        protocol: "http",
-        hostname: "172.26.140.9",
-        port: "5000",
-        pathname: "/class/**/*",
-      },
     ],
   },
 };
