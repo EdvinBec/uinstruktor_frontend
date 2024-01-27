@@ -25,11 +25,7 @@ function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        {auth?.profilePic ? (
-          <Avatar src={`${baseURL}/${auth?.profilePic}`} />
-        ) : (
-          <Avatar src={undefined} />
-        )}
+        <Avatar src={undefined} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="px-4 py-2">
         <DropdownMenuItem className="flex gap-4 items-center justify-between">
@@ -48,7 +44,6 @@ function UserMenu() {
         <DropdownMenuItem>
           <Link href={`/settings`}>Settings</Link>
         </DropdownMenuItem>
-
         <DropdownMenuItem className="text-start">
           <SignOutButton classname="m-0 text-start" variant="default" />
         </DropdownMenuItem>

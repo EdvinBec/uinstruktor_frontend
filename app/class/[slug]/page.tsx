@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { cm } from "@/lib/utils";
 
 function getToken() {
   const cookieStore = cookies();
@@ -25,9 +26,43 @@ function getToken() {
 const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
   const user = await decryptAuthToken(getToken());
   const classData = await getClassData(params.slug);
+  let completedCount = 0;
 
+  classData.assigments.forEach((assigment) => {
+    if (assigment.completedUsers?.includes(user?.username!)) {
+      completedCount++;
+    }
+  });
+  console.log((completedCount / classData.assigments.length) * 100);
   return (
     <div className="md:p-6 p-2 w-full">
+      <div className="pb-2">
+        <div className="flex flex-row justify-between">
+          <h3 className="text-2xl  font-medium">Class progress</h3>
+          <h3 className="text-2xl  font-medium">
+            {(completedCount / classData.assigments.length) * 100}%
+          </h3>
+        </div>
+        <div className=" flex flex-row">
+          <div
+            style={{
+              width: `${(completedCount / classData.assigments.length) * 100}%`,
+            }}
+            className="h-2 rounded-l-lg bg-green-400"
+          ></div>
+          <div
+            style={{
+              width: `${
+                100 - (completedCount / classData.assigments.length) * 100
+              }%`,
+            }}
+            className={cm(
+              "h-2 rounded-r-lg bg-gray-400",
+              completedCount === 0 ? "rounded-lg" : "",
+            )}
+          ></div>
+        </div>
+      </div>
       {classData && classData.classCreator === user?.username! ? (
         <div className="flex flex-row items-center gap-4 pb-4">
           <Dialog>
@@ -64,6 +99,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
       <div className="pb-4">
         <p>{classData.description}</p>
       </div>
+
       <div className="mt-6 font-semibold">
         <h2 className="text-3xl pb-2">Assigments</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-4">

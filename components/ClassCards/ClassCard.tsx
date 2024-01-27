@@ -14,7 +14,7 @@ const ClassCard = ({ title, description, src }: Props) => {
     <div className="w-full h-full rounded-xl border hover:shadow-2xl shadow-lg transition-all duration-300">
       <div className="shadow-inner">
         <Image
-          src={src ? `${baseURL}${src}` : Placeholder}
+          src={Placeholder}
           className="rounded-t-xl max-h-[150px] object-cover object-center"
           width={500}
           height={150}
