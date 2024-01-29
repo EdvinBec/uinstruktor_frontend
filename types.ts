@@ -49,3 +49,9 @@ export type Problem = {
   category: string;
   isCompleted: boolean;
 };
+
+export type Course = {
+  name: string;
+  progress: number;
+  courseID: number;
+};
