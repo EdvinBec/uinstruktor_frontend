@@ -49,3 +49,15 @@ export type Problem = {
   category: string;
   isCompleted: boolean;
 };
+
+export type Course = {
+  name: string;
+  progress: number;
+  courseID: string;
+};
+
+export type Chapter = {
+  name: string;
+  chapterID: string;
+  solvedLessons: number;
+};
