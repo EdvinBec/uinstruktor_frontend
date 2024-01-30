@@ -61,3 +61,16 @@ export type Chapter = {
   chapterID: string;
   solvedLessons: number;
 };
+export type Task = {
+  title: string;
+  description: string;
+  taglines: string[];
+  isCompleted: boolean;
+  infoPage: {
+    title: string;
+    description: string;
+    exampleCode: string;
+  };
+  problemID: string;
+  taskID: string;
+};
