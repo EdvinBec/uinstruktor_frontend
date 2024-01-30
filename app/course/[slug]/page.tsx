@@ -1,6 +1,6 @@
 import ChapterList from "@/components/Course/ChapterList";
 import { Button } from "@/components/ui/button";
-import { getCourses } from "@/lib/Services";
+import { getChapterTasks, getCourses } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Chapter, Course } from "@/types";
 import { cookies } from "next/headers";
@@ -25,7 +25,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
               quizes.
             </p>
           </div>
-          <h1 className="text-white font-bold text-6xl">
+          <h1 className="text-black dark:text-white font-bold text-6xl">
             {filteredCourse?.progress === null ? 0 : filteredCourse?.progress}%
           </h1>
         </div>

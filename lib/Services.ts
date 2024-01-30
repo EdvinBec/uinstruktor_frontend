@@ -88,3 +88,22 @@ export const getCourseChapters = async (courseID: string, username: string) => {
 
   return data.data as Chapter[];
 };
+
+export const getChapterTasks = async (chapterID: string, username: string) => {
+  const result = await fetch(
+    baseURL + `/api/course/chapter/${chapterID}/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    }
+  );
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
