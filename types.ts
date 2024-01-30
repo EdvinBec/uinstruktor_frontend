@@ -53,5 +53,11 @@ export type Problem = {
 export type Course = {
   name: string;
   progress: number;
-  courseID: number;
+  courseID: string;
+};
+
+export type Chapter = {
+  name: string;
+  chapterID: string;
+  solvedLessons: number;
 };

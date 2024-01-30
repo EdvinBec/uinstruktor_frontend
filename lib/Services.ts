@@ -1,4 +1,4 @@
-import { Course, Problem } from "@/types";
+import { Chapter, Course, Problem } from "@/types";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -67,4 +67,23 @@ export const getCourses = async () => {
   const data = await result.json();
 
   return data.data as Course[];
+};
+
+export const getCourseChapters = async (courseID: string, username: string) => {
+  const result = await fetch(
+    baseURL + `/api/course/${courseID}/chapter/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    }
+  );
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data as Chapter[];
 };
