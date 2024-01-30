@@ -53,11 +53,12 @@ export const getProblemsList = async (username?: string) => {
   return data.data as Problem[];
 };
 
-export const getCourses = async () => {
-  const result = await fetch(baseURL + "/api/course", {
+export const getCourses = async (username: string) => {
+  const result = await fetch(baseURL + `/api/course/${username}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json",
+      "Cache-Control": "no-store",
     },
   });
   if (!result.ok) {

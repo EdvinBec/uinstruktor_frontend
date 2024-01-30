@@ -52,7 +52,7 @@ export type Problem = {
 
 export type Course = {
   name: string;
-  progress: number;
+  progress?: number;
   courseID: string;
 };
 

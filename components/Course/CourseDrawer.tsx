@@ -8,15 +8,18 @@ import { useState } from "react";
 import { getCourseChapters } from "@/lib/Services";
 import { Chapter } from "@/types";
 import ChapterListItem from "./ChapterListItem";
+import Link from "next/link";
 
 const CourseDrawer = ({
   name,
   courseID,
   username,
+  progress,
 }: {
   name: string;
   courseID: string;
   username: string;
+  progress: number;
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [chapters, setChapters] = useState<Chapter[]>();
@@ -37,7 +40,9 @@ const CourseDrawer = ({
         </div>
         <div className="flex gap-4 items-center">
           <div className="flex flex-col gap-2 justify-center items-end h-full w-[75px]">
-            <Label className="font-bold text-sm">79%</Label>
+            <Label className="font-bold text-sm">
+              {progress == null ? 0 : progress}%
+            </Label>
             <Progress value={79} className="w-full h-[10px]" />
           </div>
           <Button
@@ -70,7 +75,9 @@ const CourseDrawer = ({
           <Button variant="secondary">View More</Button>
         </div>
         <div className="w-full flex justify-end mt-4">
-          <Button variant="secondary">Continue Learning</Button>
+          <Link href={`/course/${courseID}`}>
+            <Button variant="secondary">Continue Learning</Button>
+          </Link>
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@ import Link from "next/link";
 const ExploreLayout = ({ children }: { children: React.ReactNode }) => {
   const [randNum, setRandNum] = useState(0);
 
-  const auth = useAuth();
   const images = [BannerBlue, BannerPurple, BannerYellow];
 
   useEffect(() => {
