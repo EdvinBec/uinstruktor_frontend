@@ -30,8 +30,8 @@ const LandingNavbar = () => {
           <Button variant={"link"}>
             <Link href={"/login"}>Prijavi se</Link>
           </Button>
-          <Button>
-            <Link href={"/login"}>Programiraj z UI</Link>
+          <Button variant={"landing"} className="rounded-full" size={"lg"}>
+            <Link href={"/login"} >Programiraj z UI</Link>
           </Button>
         </div>
         <div
@@ -58,7 +58,7 @@ const LandingNavbar = () => {
             <Link href={""}>Tečaji</Link>
           </Button>
           <div className="flex flex-row items-center justify-evenly">
-            <Button>
+            <Button variant={'landing'}>
               <Link href={"/login"}>Prijavi se</Link>
             </Button>
             <Button variant={"outline"}>

@@ -12,6 +12,7 @@ import Circle from "@/assets/circle-icon.svg";
 import Scoreboard from "@/assets/score-icon.svg";
 import Bolt from "@/assets/bolt-icon.svg";
 import LandingNavbar from "@/components/Navbar/LandingNavbar";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -29,14 +30,14 @@ export default function Home() {
         <p className="text-center font-medium">
           Preprosto in prilagojeno tvojemu trenutnemu nivoju znanja.
         </p>
-        <div className="mt-16 mb-8 self-center space-x-4 md:space-x-8 ">
-          <Button className="">Začni učenje</Button>
-          <Button className="" variant={"outline"}>
+        <div className="mt-16 mb-8 self-center flex flex-col gap-4 items-center justify-center  md:space-x-8 ">
+          <Button className="" variant="landing" size={'xl'}>Začni učenje</Button>
+          <Button className="" variant={"outline"} size={'xl'}>
             Oglej si lastnosti
           </Button>
         </div>
 
-        <div className="py-16 px-8 flex items-center justify-center gap-8  flex-row self-center">
+        <div className="py-16 px-8 flex items-center justify-between w-1/2 flex-row self-center">
           <Image className="w-[50px] lg:w-[100px]" src={Cpp} alt="C++ Logo" />
           <Image
             className="w-[50px] lg:w-[100px]"
@@ -111,6 +112,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="p-8"><Footer/></div>
     </>
   );
 }
