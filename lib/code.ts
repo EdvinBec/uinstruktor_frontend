@@ -59,6 +59,26 @@ export const uploadCode = (
   });
   return result;
 };
+export const uploadCodeTask = (
+  code: string,
+  taskID: string,
+  lang: string,
+  username: string,
+) => {
+  const result = fetch(baseURL + "/api/code/submission/task", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      lang: lang,
+      source: code,
+      taskID: taskID,
+      username: username,
+    }),
+  });
+  return result;
+};
 export const uploadCodeProblem = async (
   problem: CodeProblem,
   testCases: TestCase[],

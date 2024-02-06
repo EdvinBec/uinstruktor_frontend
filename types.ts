@@ -64,7 +64,7 @@ export type Chapter = {
 export type Task = {
   title: string;
   description: string;
-  taglines: string[];
+  taglines: string;
   isCompleted: boolean;
   infoPage: {
     title: string;
