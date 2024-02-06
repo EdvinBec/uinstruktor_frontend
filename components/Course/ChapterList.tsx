@@ -19,7 +19,7 @@ const ChapterList = async ({ courseID }: { courseID: string }) => {
         {chapters.map((item: Chapter, itemIdx: number) => {
           return (
             <Link
-              href={`/course/chapter/${item.chapterID}`}
+              href={`/chapter/${item.chapterID}`}
               key={itemIdx}
               className="hover:opacity-75 transition-all ease-in-out duration-150"
             >

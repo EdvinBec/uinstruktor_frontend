@@ -61,3 +61,31 @@ export type Chapter = {
   chapterID: string;
   solvedLessons: number;
 };
+
+export type Task = {
+  title: string;
+  description: string;
+  taglines: string[];
+  isCompleted: boolean;
+  infoPage: {
+    title: string;
+    description: string;
+    exampleCode: string;
+  };
+  fillPage: [
+    {
+      toBeInserted: string;
+      followingText: string; //Na front-endu bo narejeno da ko pride do "$" vstavi ta box za besedo
+    },
+    {
+      toBeInserted: string;
+      followingText: string;
+    },
+    {
+      toBeInserted: number;
+      followingText: string;
+    }
+  ];
+  problemID: number; //ID Problema, za ta task. Poglej v Figmo da vidis kaj mislim
+  taskID: number; //ID tega taska
+};
