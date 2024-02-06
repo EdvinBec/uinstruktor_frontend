@@ -5,12 +5,12 @@ import Image from "next/image";
 import Cpp from "@/assets/cpp-logo.svg";
 import Python from "@/assets/python-logo.svg";
 import Java from "@/assets/java-logo.svg";
-
 import Person from "@/assets/classes-icon.svg";
 import Clipboard from "@/assets/group-icons.svg";
 import Circle from "@/assets/circle-icon.svg";
 import Scoreboard from "@/assets/score-icon.svg";
 import Bolt from "@/assets/bolt-icon.svg";
+
 import LandingNavbar from "@/components/Navbar/LandingNavbar";
 import Footer from "@/components/Footer/Footer";
 
@@ -30,21 +30,19 @@ export default function Home() {
         <p className="text-center font-medium">
           Preprosto in prilagojeno tvojemu trenutnemu nivoju znanja.
         </p>
-        <div className="mt-16 mb-8 self-center flex flex-col gap-4 items-center justify-center  md:space-x-8 ">
+        <div className="mt-16 mb-8 self-center flex flex-col gap-4 items-center justify-center  ">
           <Button className="" variant="landing" size={'xl'}>Začni učenje</Button>
-          <Button className="" variant={"outline"} size={'xl'}>
-            Oglej si lastnosti
-          </Button>
+          
         </div>
 
-        <div className="py-16 px-8 flex items-center justify-between w-1/2 flex-row self-center">
-          <Image className="w-[50px] lg:w-[100px]" src={Cpp} alt="C++ Logo" />
+        <div className="py-16 px-8 flex items-center justify-between md:w-1/2 w-full flex-row self-center">
+          <Image className="w-[60px] lg:w-[100px]" src={Cpp} alt="C++ Logo" />
           <Image
-            className="w-[50px] lg:w-[100px]"
+            className="w-[60px] lg:w-[100px]"
             src={Python}
             alt="C++ Logo"
           />
-          <Image className="w-[50px] lg:w-[100px]" src={Java} alt="C++ Logo" />
+          <Image className="w-[60px] lg:w-[100px]" src={Java} alt="C++ Logo" />
         </div>
         <Separator className="my-16 w-3/4 self-center" />
         <h2 className="text-4xl lg:text-5xl mt-8 font-bold text-center">

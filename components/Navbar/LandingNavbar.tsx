@@ -12,7 +12,7 @@ const LandingNavbar = () => {
     <>
       <div className="p-8 flex flex-row justify-between items-center">
         <h2 className="text-3xl font-bold">uinstruktor.</h2>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block self-center">
           <Button variant={"link"}>
             <Link href={""}>Produkt</Link>
           </Button>
@@ -28,10 +28,10 @@ const LandingNavbar = () => {
         </div>
         <div className="hidden lg:block">
           <Button variant={"link"}>
-            <Link href={"/login"}>Prijavi se</Link>
+            <Link href={"/login"}>Prijava</Link>
           </Button>
-          <Button variant={"landing"} className="rounded-full" size={"lg"}>
-            <Link href={"/login"} >Programiraj z UI</Link>
+          <Button variant={"landing"} className="rounded-full">
+            <Link href={"/login"} >Registracija</Link>
           </Button>
         </div>
         <div
@@ -59,10 +59,10 @@ const LandingNavbar = () => {
           </Button>
           <div className="flex flex-row items-center justify-evenly">
             <Button variant={'landing'}>
-              <Link href={"/login"}>Prijavi se</Link>
+              <Link href={"/login"}>Prijava</Link>
             </Button>
             <Button variant={"outline"}>
-              <Link href={"/login"}>Programiraj z UI</Link>
+              <Link href={"/login"}>Registracija</Link>
             </Button>
           </div>
         </div>
