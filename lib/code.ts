@@ -65,7 +65,7 @@ export const uploadCodeTask = (
   lang: string,
   username: string,
 ) => {
-  const result = fetch(baseURL + "/api/code/submission/task", {
+  const result = fetch(baseURL + "/api/code/submit/task", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -140,3 +140,23 @@ export const fetchProblem = async (problemID: string) => {
 
   return data.data as CodeProblem;
 };
+
+export async function saveCode(
+  username: string,
+  taskID: string,
+  source: string,
+) {
+  const result = fetch(baseURL + "/api/code/save", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      source: source,
+      username: username,
+      taskID: taskID,
+    }),
+  });
+  console.log((await result).json());
+  return result;
+}

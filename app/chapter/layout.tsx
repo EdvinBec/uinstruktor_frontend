@@ -5,7 +5,7 @@ const ChapterLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="px-8">
-        <Navbar />
+        {/* <Navbar /> */}
         {children}
       </div>
     </div>

@@ -11,8 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import CodeEditor from "@/components/ui/code-editor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Hourglass } from "lucide-react";
-import { uploadCode, uploadCodeTask } from "@/lib/code";
+import { Hourglass, Save } from "lucide-react";
+import { saveCode, uploadCode, uploadCodeTask } from "@/lib/code";
 import { AIHelp } from "@/lib/ai";
 import useAuth from "@/hooks/useAuth";
 
@@ -50,10 +50,12 @@ const TaskPage = ({
         const result = await response.json();
         if (result.err || result.status === "error") {
           setError(true);
+
           setApiResponse(result);
         }
-        if (result.compile_status) {
+        if (result.compileStatus) {
           setApiResponse(result);
+          console.log(result);
           setError(false);
         }
       })
@@ -61,6 +63,14 @@ const TaskPage = ({
         setWaiting(false);
         setTab("tests");
       });
+  }
+
+  function handleSaveCode() {
+    if (code.length > 1) {
+      saveCode(auth?.username!, params.taskID, code).then((data) => {
+        console.log(data.json);
+      });
+    }
   }
 
   function handleUseAI() {
@@ -80,9 +90,9 @@ const TaskPage = ({
   if (loading) return <div className="w-full h-full p-2">Loading...</div>;
 
   return (
-    <div className="w-full h-full p-2">
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel className="border-neutral-600 border p-2 rounded-lg">
+    <div className="w-full h-screen p-2">
+      <ResizablePanelGroup className="space-x-2" direction="horizontal">
+        <ResizablePanel className="border-neutral-300 border p-2 rounded-lg">
           <Tabs value={tab} onValueChange={(value) => setTab(value)}>
             <TabsList className="space-x-2">
               <TabsTrigger value="description">Description</TabsTrigger>
@@ -96,15 +106,17 @@ const TaskPage = ({
                   "Compile"
                 )}
               </Button>
-              <Button onClick={handleUseAI} variant={"outline"}>
-                {aiWaiting ? (
-                  <Hourglass size={20} strokeWidth={1.75} />
-                ) : (
-                  <>
-                    {" "}
-                    Use AI<Badge variant="outline">3/3</Badge>
-                  </>
-                )}
+              {apiResponse && (
+                <Button onClick={handleUseAI} variant={"outline"}>
+                  {aiWaiting ? (
+                    <Hourglass size={20} strokeWidth={1.75} />
+                  ) : (
+                    <> Use AI</>
+                  )}
+                </Button>
+              )}
+              <Button onClick={handleSaveCode} variant={"outline"}>
+                <Save />
               </Button>
             </div>
             <TabsContent value="description" className="p-4">
@@ -124,25 +136,18 @@ const TaskPage = ({
               </div>
             </TabsContent>
             <TabsContent value="tests" className="p-4">
-              <div className="mt-6 mr-2 pr-6">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Aperiam quidem nihil esse qui amet voluptatum at voluptatem
-                  eos distinctio quae blanditiis quo nulla est reprehenderit
-                  officia, illum facere quos dolorem?
-                </p>
-              </div>
+              <div className="mt-6 mr-2 pr-6"></div>
             </TabsContent>
           </Tabs>
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel className="border-neutral-600 border p-2 rounded-lg">
+        <ResizablePanel className="border-neutral-300 border p-2 rounded-lg">
           <CodeEditor
             value={code}
             onChange={(value) => {
               setCode(value!);
             }}
-            defaultLanguage="c++"
+            defaultLanguage="cpp"
             defaultValue=""
           />
         </ResizablePanel>
