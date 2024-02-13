@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getTask } from "@/lib/Services";
+import { getSavedCode, getTask } from "@/lib/Services";
 import { Task } from "@/types";
 import {
   ResizableHandle,
@@ -41,7 +41,11 @@ const TaskPage = ({
       .finally(() => {
         setLoading(false);
       });
-  }, [params.taskID]);
+
+    getSavedCode(auth?.username!, params.taskID).then((data) => {
+      setCode(data);
+    });
+  }, [auth?.username, params.taskID]);
 
   function handleUploadCode() {
     setWaiting(true);

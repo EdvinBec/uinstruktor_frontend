@@ -104,3 +104,21 @@ export const getTask = async (taskID: string) => {
 
   return data.data as Task;
 };
+export const getSavedCode = async (username: string, taskID: string) => {
+  const result = await fetch(
+    baseURL + `/api/code/saved/${username}/${taskID}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    },
+  );
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+  console.log(data);
+  return data.data.code as string;
+};
