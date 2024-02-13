@@ -89,24 +89,9 @@ export const getCourseChapters = async (courseID: string, username: string) => {
   return data.data as Chapter[];
 };
 
-export const getTask = async (taskID: string) => {
-  const result = await fetch(baseURL + `/api/course/task/${taskID}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  if (!result.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  const data = await result.json();
-
-  return data.data as Task;
-};
-export const getSavedCode = async (username: string, taskID: string) => {
+export const getChapterTasks = async (chapterID: string, username: string) => {
   const result = await fetch(
-    baseURL + `/api/code/saved/${username}/${taskID}`,
+    baseURL + `/api/course/chapter/${chapterID}/${username}`,
     {
       method: "GET",
       headers: {
@@ -119,6 +104,6 @@ export const getSavedCode = async (username: string, taskID: string) => {
     throw new Error("Failed to fetch data");
   }
   const data = await result.json();
-  console.log(data);
-  return data.data.code as string;
+
+  return data.data;
 };
