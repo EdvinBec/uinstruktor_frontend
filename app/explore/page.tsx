@@ -1,23 +1,26 @@
-import CourseDrawer from "@/components/CourseDrawer/CourseDrawer";
+import CourseDrawer from "@/components/Course/CourseDrawer";
 import { getCourses } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Course } from "@/types";
-import Cookies from "universal-cookie";
+import { cookies } from "next/headers";
 
 const ExplorePage = async () => {
-  const cookies = new Cookies();
-  const username = await decryptToken(cookies.get("token"));
+  const cookie = cookies();
+  const username = await decryptToken(cookie.get("token")?.value!);
 
-  const course = await getCourses();
+  const course = await getCourses(username as string);
   return (
     <div className="flex flex-col gap-4">
       {course.map((item: Course, itemIdx: number) => {
+        console.log(item.progress);
+
         return (
           <CourseDrawer
             key={itemIdx}
             courseID={item.courseID}
             name={item.name}
             username={username as string}
+            progress={item.progress!}
           />
         );
       })}

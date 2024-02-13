@@ -47,7 +47,7 @@ const Navbar = () => {
   const [code, setCode] = useState("");
 
   return (
-    <nav className="w-full mb-2">
+    <nav className="w-full lg:min-w-[1100px] mb-2">
       <div className="w-full py-2 flex items-center justify-between">
         <Link href={"/explore"} className="flex gap-3 items-center lg:w-1/6">
           <Bot size={32} />
