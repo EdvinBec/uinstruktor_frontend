@@ -7,36 +7,6 @@ type TestCase = {
   output: string;
 };
 
-export const codeTPython = {
-  client: `
-def functionName():
-  return value
-`,
-  server: `
-input = input()
-print(functionName(input))
-`,
-};
-export const codeTCpp = {
-  client: `
-type functionName(type input) {
-  return variable;
-}
-`,
-  server: `
-#include <iostream>
-#inlude <string>
-
-using namespace std;
-
-int main() {
-  type input;
-  cin>>input;
-  // or
-  getline(cin, input);
-}
-`,
-};
 export const uploadCode = (
   code: string,
   assigmentId: string,
@@ -54,6 +24,26 @@ export const uploadCode = (
       source: code,
       assigmentID: assigmentId,
       classID: classID,
+      username: username,
+    }),
+  });
+  return result;
+};
+export const uploadCodeTask = (
+  code: string,
+  taskID: string,
+  lang: string,
+  username: string,
+) => {
+  const result = fetch(baseURL + "/api/code/submit/task", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      lang: lang,
+      source: code,
+      taskID: taskID,
       username: username,
     }),
   });
@@ -81,7 +71,7 @@ export const uploadCodeProblemCode = (
   problemID: string,
   lang: string,
 ) => {
-  const result = fetch(baseURL + "/api/code/submission", {
+  const result = fetch(baseURL + "/api/code/submission/assigment", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -120,3 +110,23 @@ export const fetchProblem = async (problemID: string) => {
 
   return data.data as CodeProblem;
 };
+
+export async function saveCode(
+  username: string,
+  taskID: string,
+  source: string,
+) {
+  const result = fetch(baseURL + "/api/code/save", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      source: source,
+      username: username,
+      taskID: taskID,
+    }),
+  });
+  console.log((await result).json());
+  return result;
+}
