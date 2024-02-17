@@ -51,7 +51,7 @@ const Navbar = () => {
       <div className="w-full py-2 flex items-center justify-between">
         <Link href={"/explore"} className="flex gap-3 items-center lg:w-1/6">
           <Bot size={32} />
-          <Label className="font-bold text-xl mt-[4px] cursor-pointer">
+          <Label className="font-bold text-xl mt-1 cursor-pointer">
             UInstruktor
           </Label>
         </Link>
@@ -126,7 +126,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!
+                                auth?.username!,
                               );
 
                               if (res.status !== "error") {

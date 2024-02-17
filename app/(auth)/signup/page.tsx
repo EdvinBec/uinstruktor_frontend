@@ -14,6 +14,14 @@ import Image from "next/image";
 import LoginImage from "@/assets/img/loginImage.jpg";
 import GoogleLogo from "@/assets/img/GoogleLogo.svg";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Signup } from "@/lib/Services";
+import Cookies from "universal-cookie";
+
+type SignUpResponse = {
+  message: string;
+  status: string;
+  token: string;
+};
 
 const SignUpPage = () => {
   const {
@@ -23,8 +31,10 @@ const SignUpPage = () => {
   } = useForm<Inputs>();
 
   const router = useRouter();
+  const cookies = new Cookies();
   const { user, setUser } = useContext(UserContext);
   const [authError, setAuthError] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
   const [isChecked, setIsChecked] = useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -43,8 +53,31 @@ const SignUpPage = () => {
           role: "",
         });
 
-        router.push("/signup/role");
+        const res: SignUpResponse = await RegisterUser();
+        console.log(res);
+        if (res.token) {
+          setAuthMessage("You have successfully registered. Redirecting...");
+          cookies.set("token", res.token);
+          router.push("/explore");
+        } else {
+          if (res.status === "error") {
+            // setError("There is an issue with the server. Please try again later.");
+            console.log(
+              "There is an issue with the server. Please try again later.",
+            );
+          }
+        }
       }
+    }
+  };
+
+  const RegisterUser = async () => {
+    {
+      const response: SignUpResponse = await (
+        await Signup(user.email, user.password, user.username!, user.role!)
+      ).json();
+
+      return response;
     }
   };
 
@@ -72,7 +105,26 @@ const SignUpPage = () => {
             </Button>
           </div>
           <div>
+            <h2 className="text-2xl font-semibold text-blue-300">
+              {authMessage}
+            </h2>
             <div>
+              <Label>Username</Label>
+              <Input
+                defaultValue=""
+                {...register("username", {
+                  required: "Please enter your username",
+                })}
+                type="text"
+                className="w-[300px] md:w-[450px] mt-2"
+              ></Input>
+              {errors.username && (
+                <Label className="text-red-500">
+                  {errors.username.message}
+                </Label>
+              )}
+            </div>
+            <div className="mt-6">
               <Label>Email</Label>
               <Input
                 defaultValue=""

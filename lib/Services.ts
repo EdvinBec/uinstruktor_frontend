@@ -18,7 +18,7 @@ export const Signup = (
   email: string,
   password: string,
   username: string,
-  role: string
+  role: string,
 ) => {
   const result = fetch(baseURL + "/api/auth/register", {
     method: "POST",
@@ -78,7 +78,7 @@ export const getCourseChapters = async (courseID: string, username: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    }
+    },
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -97,8 +97,23 @@ export const getChapterTasks = async (chapterID: string, username: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    }
+    },
   );
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
+export const fetchCourses = async () => {
+  const result = await fetch(baseURL + `/api/course/list`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");

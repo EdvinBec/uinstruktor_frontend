@@ -19,13 +19,13 @@ export const NavbarItems: NavbarItem[] = [
     label: "Explore",
     href: "/explore",
     variant: "default",
-    icon: LayoutTemplate,
+    icon: ClipboardListIcon,
   },
   {
-    label: "Problems",
-    href: "/problems",
+    label: "Courses",
+    href: "/course",
     variant: "default",
-    icon: ClipboardListIcon,
+    icon: HelpCircle,
   },
   {
     label: "Tutorials",
