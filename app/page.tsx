@@ -10,6 +10,7 @@ import Clipboard from "@/assets/group-icons.svg";
 import Circle from "@/assets/circle-icon.svg";
 import Scoreboard from "@/assets/score-icon.svg";
 import Bolt from "@/assets/bolt-icon.svg";
+import AppShowcase from "@/assets/app_screenshot.png";
 
 import LandingNavbar from "@/components/Navbar/LandingNavbar";
 import Footer from "@/components/Footer/Footer";
@@ -18,7 +19,7 @@ export default function Home() {
   return (
     <>
       <LandingNavbar />
-      <div className="mt-16 p-8 flex flex-col">
+      <div className="mt-16 p-8 flex flex-col relative">
         <h1 className="text-center text-5xl md:text-7xl font-black">
           Samostojno učenje
           <br /> programiranja, <br />
@@ -31,8 +32,9 @@ export default function Home() {
           Preprosto in prilagojeno tvojemu trenutnemu nivoju znanja.
         </p>
         <div className="mt-16 mb-8 self-center flex flex-col gap-4 items-center justify-center  ">
-          <Button className="" variant="landing" size={'xl'}>Začni učenje</Button>
-          
+          <Button className="" variant="landing" size={"xl"}>
+            Začni učenje
+          </Button>
         </div>
 
         <div className="py-16 px-8 flex items-center justify-between md:w-1/2 w-full flex-row self-center">
@@ -53,7 +55,12 @@ export default function Home() {
           Open AI Model - analizira vašo kodo ter ponuja napotke za izboljšavo
           in bolj <br /> učinkovito reševanje nalog.
         </p>
-        {/* <div className=" mt-8 bg-neutral-300 w-3/4 self-center h-[600px] rounded-2xl"></div> */}
+        <Image
+          className="rounded-2xl p-2 md:p-8 md:w-3/4 self-center bg-neutral-100 m-2 mt-8 md:m-8"
+          src={AppShowcase}
+          alt="App Showcase"
+        />
+
         <h3 className="text-3xl lg:text-4xl mt-16 text-center font-bold">
           Značilnosti in prednosti
         </h3>
@@ -110,7 +117,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="p-8"><Footer/></div>
+      <div className="p-8">
+        <Footer />
+      </div>
     </>
   );
 }

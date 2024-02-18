@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, Flag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   input: string;
@@ -22,11 +23,11 @@ const TestCaseCard = ({
 
   return (
     <div
-      onClick={() => setIsCollapsed(!isCollapsed)}
-      className={`my-4 w-1/2 border shadow cursor-pointer rounded-xl flex flex-col justify-center transition-all`}
+      className={`my-4 w-1/2 border shadow  rounded-xl flex flex-col justify-center transition-all`}
     >
       <div
-        className={`flex flex-row justify-between p-2 ${
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className={`flex flex-row justify-between cursor-pointer p-2 ${
           !isCollapsed && "border-b-2"
         }`}
       >
@@ -58,6 +59,10 @@ const TestCaseCard = ({
         <p>
           Expected output:<span className=" font-medium"> {output}</span>
         </p>
+        <div className="mt-2 border-t flex flex-row items-center justify-end">
+          <Flag size={17} />
+          <Button variant={"link"}>Report a problem</Button>
+        </div>
       </div>
     </div>
   );

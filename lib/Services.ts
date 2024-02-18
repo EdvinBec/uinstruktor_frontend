@@ -122,3 +122,80 @@ export const fetchCourses = async () => {
 
   return data.data;
 };
+
+export const saveCode = async (
+  username: string,
+  code: string,
+  taskID: string,
+) => {
+  const result = await fetch(baseURL + `/api/code/save`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ username, code, taskID }),
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
+
+export const getSavedCode = async (username: string, taskID: string) => {
+  const result = await fetch(
+    baseURL + `/api/code/saved/${username}/${taskID}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    },
+  );
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
+
+export const uploadCode = (
+  code: string,
+  taskID: string,
+  lang: string,
+  username: string,
+) => {
+  const result = fetch(baseURL + "/api/code/submit/task", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      lang,
+      source: code,
+      ID: taskID,
+      username: username,
+    }),
+  });
+  return result;
+};
+
+export const getTask = async (taskID: string) => {
+  const result = await fetch(baseURL + `/api/course/task/${taskID}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};

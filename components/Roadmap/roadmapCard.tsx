@@ -7,14 +7,16 @@ const RoadmapCard = ({
   tags,
   variant,
   disabled,
-  problemID,
+  taskID,
+  chapterID,
 }: {
   title: string;
   description: string;
   tags: string[];
   variant: "yellow" | "purple";
   disabled: boolean;
-  problemID: number;
+  taskID: string;
+  chapterID: string;
 }) => {
   if (variant === "yellow") {
     return (
@@ -36,7 +38,7 @@ const RoadmapCard = ({
           })}
         </div>
         {disabled ? (
-          <Link href={`/problem/${problemID}`} className="w-full">
+          <Link href={`/task/${taskID}`} className="w-full">
             <Button className="w-full" variant="default">
               Start!
             </Button>
@@ -68,7 +70,7 @@ const RoadmapCard = ({
           })}
         </div>
         {disabled ? (
-          <Link href={`/problem/${problemID}`} className="w-full">
+          <Link href={`/task/${taskID}`} className="w-full">
             <Button className="w-full" variant="default">
               Start!
             </Button>

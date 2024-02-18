@@ -16,7 +16,7 @@ const ExplorePage = async () => {
           <CourseDrawer
             key={itemIdx}
             courseID={item.courseID}
-            name={item.name}
+            name={item.title}
             username={username as string}
             progress={item.progress!}
           />
