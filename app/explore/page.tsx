@@ -12,8 +12,6 @@ const ExplorePage = async () => {
   return (
     <div className="flex flex-col gap-4">
       {course.map((item: Course, itemIdx: number) => {
-        console.log(item.progress);
-
         return (
           <CourseDrawer
             key={itemIdx}
