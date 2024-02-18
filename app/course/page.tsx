@@ -4,14 +4,7 @@ import { letterToUpper } from "@/lib/utils";
 import { Dumbbell, Gauge } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-
-type Course = {
-  title: string;
-  courseID: string;
-  description: string;
-  skillLevel: string;
-  skills: string;
-};
+import { Course } from "@/types";
 
 const CoursePage = async () => {
   const courses = await fetchCourses();
@@ -31,7 +24,7 @@ const CoursePage = async () => {
           {Array.from({ length: 4 }).map((_, index) => {
             return (
               <div
-                className="bg-neutral-900 border-neutral-700 border  flex flex-col justify-between text-neutral-100 rounded-xl p-4 md:flex-1 w-full"
+                className="bg-black border-neutral-700 border  flex flex-col justify-between text-neutral-100 rounded-xl p-4 md:flex-1 w-full"
                 key={index}
               >
                 <div className="space-y-2">
@@ -69,10 +62,12 @@ const CoursePage = async () => {
           {courses.map((course: Course, index: number) => {
             return (
               <Link href={`/course/${course.courseID}`} key={index}>
-                <div className="bg-neutral-900 border-neutral-800 border text-neutral-100 rounded-xl p-4 flex-1 flex flex-col justify-between h-[250px] shadow-lg hover:shadow-neutral-400/10 transition-all">
+                <div className="bg-black border-neutral-800 border text-neutral-100 rounded-xl p-4 flex-1 flex flex-col justify-between h-[250px] shadow-lg hover:shadow-neutral-400/10 transition-all">
                   <div>
-                    <h4 className="text-xl font-semibold">{course.title}</h4>
-                    <p className="my-2">{course.description}</p>
+                    <h3 className="text-xl font-semibold ">{course.title}</h3>
+                    <p className="my-2 text-neutral-300">
+                      {course.description}
+                    </p>
                     <div className="flex flex-row flex-wrap gap-2 my-2">
                       {course.skills.split(",").map((skill, index) => {
                         return (
@@ -87,7 +82,7 @@ const CoursePage = async () => {
                       })}
                     </div>
                   </div>
-                  <div className="flex flex-row items-center gap-2">
+                  <div className="flex flex-row items-center  gap-2">
                     {" "}
                     <Dumbbell /> <p>{letterToUpper(course.skillLevel)}</p>
                   </div>

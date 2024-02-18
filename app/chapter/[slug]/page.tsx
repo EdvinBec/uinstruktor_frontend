@@ -16,11 +16,12 @@ const ChapterPage = async ({ params }: { params: { slug: string } }) => {
         {tasks.map((item: Task, itemIdx: number) => {
           return (
             <RoadmapItem
+              chapterID={params.slug}
               key={itemIdx}
               title={item.title}
               description={item.description}
               tags={["item.taglines", "test"]}
-              problemID={item.problemID}
+              taskID={item.taskID}
               disabled={
                 (itemIdx === 0 && true) ||
                 (itemIdx - 1 > 0 && tasks[itemIdx - 1].isCompleted)

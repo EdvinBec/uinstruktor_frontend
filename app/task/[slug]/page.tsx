@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getSavedCode, getTask } from "@/lib/Services";
-import { Task } from "@/types";
+import { getSavedCode, getTask, saveCode, uploadCode } from "@/lib/Services";
+import { ApiResponse, Task, TestCase } from "@/types";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -12,14 +12,14 @@ import CodeEditor from "@/components/ui/code-editor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Hourglass, Save } from "lucide-react";
-import { saveCode, uploadCode, uploadCodeTask } from "@/lib/code";
 import { AIHelp } from "@/lib/ai";
 import useAuth from "@/hooks/useAuth";
+import TestCaseCard from "@/components/ProblemCard/TestCaseCard";
 
 const TaskPage = ({
   params,
 }: {
-  params: { taskID: string; chapterID: string };
+  params: { slug: string; chapterID: string };
 }) => {
   const [task, setTask] = useState<Task>({} as Task);
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,29 +27,37 @@ const TaskPage = ({
   const [tab, setTab] = useState<string>("description");
   const [help, setHelp] = useState("");
   const [aiWaiting, setAiWaiting] = useState(false);
-  const [apiResponse, setApiResponse] = useState();
+  const [apiResponse, setApiResponse] = useState<{
+    compileStatus: boolean;
+    id: string;
+    message: string;
+    output?: TestCase[];
+    status: string;
+  }>();
   const [waiting, setWaiting] = useState(false);
+  const [editorDidMount, setEditorDidMount] = useState(false);
   const [error, setError] = useState(false);
 
   const auth = useAuth();
 
   useEffect(() => {
-    getTask(params.taskID)
+    getTask(params.slug)
       .then((data) => {
         setTask(data);
       })
       .finally(() => {
         setLoading(false);
       });
-
-    getSavedCode(auth?.username!, params.taskID).then((data) => {
-      setCode(data);
-    });
-  }, [auth?.username, params.taskID]);
+    if (editorDidMount) {
+      getSavedCode(auth?.username!, params.slug).then((data) => {
+        setCode(data.code);
+      });
+    }
+  }, [auth?.username, params.slug, editorDidMount]);
 
   function handleUploadCode() {
     setWaiting(true);
-    uploadCodeTask(code, params.taskID, "cpp", auth?.username!)
+    uploadCode(code, params.slug, "cpp", auth?.username!)
       .then(async (response) => {
         const result = await response.json();
         if (result.err || result.status === "error") {
@@ -71,15 +79,13 @@ const TaskPage = ({
 
   function handleSaveCode() {
     if (code.length > 1) {
-      saveCode(auth?.username!, params.taskID, code).then((data) => {
-        console.log(data.json);
-      });
+      saveCode(auth?.username!, code, params.slug).then((data) => {});
     }
   }
 
   function handleUseAI() {
     setAiWaiting(true);
-    AIHelp(code, undefined, params.taskID)
+    AIHelp(code, undefined, params.slug)
       .then((response) => {
         if (response.status === "success") {
           setHelp(response.data.choices[0].message.content);
@@ -94,7 +100,7 @@ const TaskPage = ({
   if (loading) return <div className="w-full h-full p-2">Loading...</div>;
 
   return (
-    <div className="w-full h-screen p-2">
+    <div className="w-full h-[85vh] p-2">
       <ResizablePanelGroup className="space-x-2" direction="horizontal">
         <ResizablePanel className="border-neutral-300 border p-2 rounded-lg">
           <Tabs value={tab} onValueChange={(value) => setTab(value)}>
@@ -136,11 +142,33 @@ const TaskPage = ({
               </div>
 
               <div className="mt-6 mr-2 pr-6">
-                <p>{task?.infoPage?.description}</p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: task?.infoPage?.description,
+                  }}
+                />
               </div>
             </TabsContent>
             <TabsContent value="tests" className="p-4">
-              <div className="mt-6 mr-2 pr-6"></div>
+              {apiResponse?.compileStatus && (
+                <h2 className="font-medium text-green-600">
+                  Compiled successfuly
+                </h2>
+              )}
+              <div className="mt-6 mr-2 pr-6">
+                {apiResponse?.compileStatus &&
+                  apiResponse.output &&
+                  apiResponse?.output.map((testCase, index) => (
+                    <TestCaseCard
+                      input={testCase.input}
+                      index={index + 1}
+                      passed={testCase.matching}
+                      key={index}
+                      output={testCase.expectedOutput}
+                      actualOutput={testCase.actualOutput}
+                    />
+                  ))}
+              </div>
             </TabsContent>
           </Tabs>
         </ResizablePanel>
@@ -151,6 +179,7 @@ const TaskPage = ({
             onChange={(value) => {
               setCode(value!);
             }}
+            setEditorDidMount={setEditorDidMount}
             defaultLanguage="cpp"
             defaultValue=""
           />
