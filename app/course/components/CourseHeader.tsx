@@ -55,7 +55,7 @@ const CourseHeader = ({
             }
           }
         }}
-        className="my-4 flex gap-2 bg-blue-500 hover:bg-blue-400"
+        className="my-4 flex gap-2 bg-[#2B44E7] hover:bg-blue-500"
       >
         {isLoading && <Loader size={12} className="animate-spin" />}
         Nadaljuj z učenjem
