@@ -23,6 +23,7 @@ const buttonVariants = cva(
         active:
           "scale-110 bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90",
         landing: "bg-blue-500 text-neutral-100",
+        blue: "bg-[#2B44E7] hover:bg-blue-500 text-white font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -36,7 +37,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 export interface ButtonProps
@@ -55,7 +56,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       />
     );
-  }
+  },
 );
 Button.displayName = "Button";
 

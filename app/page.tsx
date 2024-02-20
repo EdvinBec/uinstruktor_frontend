@@ -19,7 +19,10 @@ export default function Home() {
   return (
     <>
       <LandingNavbar />
-      <div className="mt-16 p-8 flex flex-col relative">
+      <div
+        className="mt-16 p-8 flex flex-col relative"
+        suppressHydrationWarning
+      >
         <h1 className="text-center text-5xl md:text-7xl font-black">
           Samostojno učenje
           <br /> programiranja, <br />
