@@ -10,7 +10,7 @@ type CodeEditorProps = {
   height?: string;
   width?: string;
   className?: string;
-  setEditorDidMount: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditorDidMount?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CodeEditor = ({
@@ -27,7 +27,7 @@ const CodeEditor = ({
   const editorRef = useRef(null);
 
   function handleEditorDidMount(editor: any, monaco: Monaco) {
-    setEditorDidMount(true);
+    setEditorDidMount !== undefined && setEditorDidMount!(true);
     monaco.editor.defineTheme("dark", {
       base: "vs-dark",
       inherit: true,
