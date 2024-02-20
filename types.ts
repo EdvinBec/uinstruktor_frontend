@@ -63,6 +63,7 @@ export type Chapter = {
   name: string;
   chapterID: string;
   solvedLessons: number;
+  totalLessons: number;
 };
 
 export type Task = {
