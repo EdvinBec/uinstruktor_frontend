@@ -54,6 +54,9 @@ const ChapterDrawer = ({
         </div>
         <Button
           variant="ghost"
+          className={`${
+            isOpen && "rotate-180 transition-all ease-in-out duration-200"
+          }`}
           size="icon"
           onClick={() => {
             if (!isOpen) {
