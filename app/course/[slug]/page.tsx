@@ -5,9 +5,6 @@ import { Chapter, Course } from "@/types";
 import { cookies } from "next/headers";
 import CourseFeatures from "../components/CourseFeatures";
 import CourseHeader from "../components/CourseHeader";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
 import ChapterDrawer from "../components/ChapterDrawer";
 
 const CoursePage = async ({ params }: { params: { slug: string } }) => {
@@ -61,6 +58,18 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
                 )!
           }
         />
+      </div>
+      <div className="mt-8">
+        <h2 className="font-bold text-2xl">Kazalo vsebine</h2>
+        {chapters.map((item: Chapter, itemIdx) => {
+          return (
+            <ChapterDrawer
+              key={itemIdx}
+              username={username as string}
+              currentModule={item}
+            />
+          );
+        })}
       </div>
     </div>
   );
