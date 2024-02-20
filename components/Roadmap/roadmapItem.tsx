@@ -6,32 +6,32 @@ const RoadmapItem = ({
   title,
   description,
   tags,
-  variant,
   side,
   disabled,
   taskID,
   chapterID,
+  isCompleted,
 }: {
   title: string;
   description: string;
   tags: string[];
-  variant: "yellow" | "purple";
   side: "left" | "right";
   disabled: boolean;
   taskID: string;
   chapterID: string;
+  isCompleted: boolean;
 }) => {
   return (
     <div className="w-full flex">
       <div className="w-2/5 flex items-center justify-end">
         {side === "left" && (
           <RoadmapCard
+            isCompleted={isCompleted}
             taskID={taskID}
             chapterID={chapterID}
             title={title}
             description={description}
             tags={tags}
-            variant={variant}
             disabled={disabled}
           />
         )}
@@ -49,12 +49,12 @@ const RoadmapItem = ({
       <div className="w-2/5 flex justify-start items-center">
         {side === "right" && (
           <RoadmapCard
+            isCompleted={isCompleted}
             taskID={taskID}
             chapterID={chapterID}
             title={title}
             description={description}
             tags={tags}
-            variant={variant}
             disabled={disabled}
           />
         )}
