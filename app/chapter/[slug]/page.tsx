@@ -1,5 +1,5 @@
 import RoadmapItem from "@/components/Roadmap/roadmapItem";
-import { getChapterTasks } from "@/lib/Services";
+import { getChapterTasks, getCourseChapters } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Task } from "@/types";
 import { cookies } from "next/headers";
@@ -11,23 +11,26 @@ const ChapterPage = async ({ params }: { params: { slug: string } }) => {
   const tasks: Task[] = await getChapterTasks(params.slug, username as string);
 
   return (
-    <div className="flex flex-col">
+    <div>
       <div className="flex flex-col gap-4">
         {tasks.map((item: Task, itemIdx: number) => {
+          const wordsArray = item?.taglines
+
+            .split(",")
+            .slice(0, 2)
+            .map((word) => word.trim());
+
           return (
             <RoadmapItem
+              isCompleted={item.isCompleted}
               chapterID={params.slug}
               key={itemIdx}
               title={item.title}
               description={item.description}
-              tags={["item.taglines", "test"]}
+              tags={wordsArray}
               taskID={item.taskID}
-              disabled={
-                (itemIdx === 0 && true) ||
-                (itemIdx - 1 > 0 && tasks[itemIdx - 1].isCompleted)
-              }
+              disabled={false}
               side={itemIdx % 2 == 0 ? "left" : "right"}
-              variant={itemIdx % 2 == 0 ? "yellow" : "purple"}
             />
           );
         })}
