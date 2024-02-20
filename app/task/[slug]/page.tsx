@@ -1,7 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getSavedCode, getTask, saveCode, uploadCode } from "@/lib/Services";
-import { ApiResponse, Task, TestCase } from "@/types";
+import {
+  getNextTaskID,
+  getSavedCode,
+  getTask,
+  saveCode,
+  uploadCode,
+} from "@/lib/Services";
+import { Task, TestCase } from "@/types";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -15,6 +21,8 @@ import { Hourglass, Save } from "lucide-react";
 import { AIHelp } from "@/lib/ai";
 import useAuth from "@/hooks/useAuth";
 import TestCaseCard from "@/components/ProblemCard/TestCaseCard";
+import Modal from "@/components/Task/modal";
+import Link from "next/link";
 
 const TaskPage = ({
   params,
@@ -33,10 +41,12 @@ const TaskPage = ({
     message: string;
     output?: TestCase[];
     status: string;
+    completed: boolean;
   }>();
   const [waiting, setWaiting] = useState(false);
   const [editorDidMount, setEditorDidMount] = useState(false);
   const [error, setError] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const auth = useAuth();
 
@@ -74,8 +84,17 @@ const TaskPage = ({
       .finally(() => {
         setWaiting(false);
         setTab("tests");
+        if (!error && apiResponse?.completed) {
+          setModal(true);
+        }
       });
   }
+
+  useEffect(() => {
+    if (!error && apiResponse?.completed) {
+      setModal(true);
+    }
+  }, [apiResponse?.completed, error]);
 
   function handleSaveCode() {
     if (code.length > 1) {
@@ -95,6 +114,12 @@ const TaskPage = ({
         setAiWaiting(false);
         setTab("tests");
       });
+  }
+
+  function handleNextTask() {
+    getNextTaskID(params.slug, task.chapterID).then((data) => {
+      console.log(data);
+    });
   }
 
   if (loading) return <div className="w-full h-full p-2">Loading...</div>;
@@ -185,6 +210,24 @@ const TaskPage = ({
           />
         </ResizablePanel>
       </ResizablePanelGroup>
+      <Modal
+        isOpen={modal}
+        onClose={() => {
+          setModal(!modal);
+        }}
+      >
+        <h2 className="text-xl text-center font-semibold dark:text-white">
+          Uspesno si resil nalogo
+        </h2>
+        <p className="font-medium dark:text-white ">
+          Nadaljujes lahko na naslednjo nalogo.
+        </p>
+        <Link className="self-center" href={`/chapter/${task.chapterID}`}>
+          <Button variant={"link"} onClick={handleNextTask}>
+            Naprej
+          </Button>
+        </Link>
+      </Modal>
     </div>
   );
 };

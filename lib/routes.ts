@@ -4,6 +4,9 @@ export const protectedRoutes = [
   "/problem",
   "/join-classroom",
   "/settings",
+  "/task",
+  "/course",
+  "/chapter",
 ];
 export const adminRoutes = [
   /class\/[A-Za-z0-9]+\/settings/,

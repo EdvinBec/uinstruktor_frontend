@@ -199,3 +199,19 @@ export const getTask = async (taskID: string) => {
 
   return data.data;
 };
+export const getNextTaskID = async (taskID: string, courseID: string) => {
+  const result = await fetch(baseURL + `/api/course/task/next`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ taskID, courseID }),
+  });
+  if (!result.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+  console.log(data);
+
+  return data.data as { nextTask: string | null; proceed: boolean };
+};

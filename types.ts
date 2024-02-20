@@ -75,5 +75,6 @@ export type Task = {
     description: string;
     exampleCode: string;
   };
+  chapterID: string;
   taskID: string; //ID tega taska
 };
