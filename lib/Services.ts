@@ -215,6 +215,7 @@ export const resumeLearning = async (username: string) => {
 
   return data.data;
 };
+
 export const getNextTaskID = async (taskID: string, courseID: string) => {
   const result = await fetch(baseURL + `/api/course/task/next`, {
     method: "POST",
@@ -230,4 +231,20 @@ export const getNextTaskID = async (taskID: string, courseID: string) => {
   console.log(data);
 
   return data.data as { nextTask: string | null; proceed: boolean };
+};
+
+export const getChapterData = async (chapterID: string) => {
+  const result = await fetch(baseURL + `/api/course/chapter/${chapterID}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data.name as string;
 };

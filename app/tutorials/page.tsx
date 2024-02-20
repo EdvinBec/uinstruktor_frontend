@@ -1,30 +1,90 @@
+"use client";
+import CodeBlock from "@/components/Tutorials/CodeBlock";
 import {
-  CardDetails,
-  CardHeading,
-  TutorialLangCard,
-} from "@/components/Tutorials/TutorialLangCard";
-import { BookOpenText } from "lucide-react";
-import { tutorials } from "@/lib/tutorial";
-import React from "react";
+  Navigation,
+  NavigationChapter,
+  NavigationHeading,
+  NavigationItem,
+} from "@/components/Tutorials/Navigation";
 
-const TutorialPage = () => {
+import React, { useState } from "react";
+
+const CppTutorialPage = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  const test = `type function_name(type1 param1, type2 param2, ...) {
+  // code
+}`;
+
   return (
-    <div className="h-[85vh] md:w-3/4 w-full">
-      <div className="flex flex-col items-center justify-center  mb-8">
-        <BookOpenText size={100} />
-        <h1 className="text-6xl font-bold mb-2">Tutorials</h1>
-        <h3>Code examples and explanations in different languages.</h3>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        {tutorials.map((tutorial, index) => (
-          <TutorialLangCard key={index} href={tutorial.href}>
-            <CardHeading>{tutorial.title}</CardHeading>
-            <CardDetails numOf={Math.floor(Math.random() * (15 - 1))} />
-          </TutorialLangCard>
-        ))}
-      </div>
+    <div className="w-full min-h-full md:overflow-hidden md:flex md:flex-row md:justify-start gap-4">
+      <Navigation setIsOpen={toggleMenu}>
+        <NavigationChapter>
+          <NavigationHeading>Variables</NavigationHeading>
+          <NavigationItem id="variables-declaration">
+            Declaration
+          </NavigationItem>
+        </NavigationChapter>
+        <NavigationChapter>
+          <NavigationHeading>Functions</NavigationHeading>
+          <NavigationItem id="function-declaration">
+            Declaration{" "}
+          </NavigationItem>
+          <NavigationItem id="function-calling">Calling</NavigationItem>
+          <NavigationItem id="function-params">Parameters</NavigationItem>
+        </NavigationChapter>
+      </Navigation>
+      {!menuOpen && (
+        <div className="md:overflow-y-auto space-y-8 w-full">
+          <CodeBlock
+            id="variables-declaration"
+            header="User input"
+            description="Lorem ipsum dolor sit amet."
+            code="int main() {}"
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+          <CodeBlock
+            id="function-declaration"
+            header="Function declaration"
+            description="Lorem ipsum dolor sit amet."
+            code={test}
+            language="cpp"
+          />
+        </div>
+      )}
     </div>
   );
 };
 
-export default TutorialPage;
+export default CppTutorialPage;

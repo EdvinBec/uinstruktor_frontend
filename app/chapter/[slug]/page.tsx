@@ -1,5 +1,5 @@
 import RoadmapItem from "@/components/Roadmap/roadmapItem";
-import { getChapterTasks } from "@/lib/Services";
+import { getChapterData, getChapterTasks } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Task } from "@/types";
 import { cookies } from "next/headers";
@@ -9,9 +9,11 @@ const ChapterPage = async ({ params }: { params: { slug: string } }) => {
   const username = await decryptToken(cookie.get("token")?.value!);
 
   const tasks: Task[] = await getChapterTasks(params.slug, username as string);
+  const chapterTitle = await getChapterData(params.slug);
 
   return (
     <div className="flex flex-col">
+      <h1 className="text-4xl font-bold mt-12 mb-8">{chapterTitle}</h1>
       <div className="flex flex-col gap-4">
         {tasks.map((item: Task, itemIdx: number) => {
           return (
