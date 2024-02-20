@@ -38,7 +38,7 @@ const SignUpPage = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { email, password, username, repeatPassword } = data;
+    const { username, email, password, repeatPassword } = data;
 
     if (password !== repeatPassword) {
       setAuthError("Passwords don't match. Please enter them again.");
