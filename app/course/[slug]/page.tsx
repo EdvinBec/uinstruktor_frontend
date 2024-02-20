@@ -1,4 +1,4 @@
-import { getCourses } from "@/lib/Services";
+import { getCourseChapters, getCourses } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Course } from "@/types";
 
@@ -16,6 +16,11 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
     (item: Course) => item.courseID === params.slug
   );
 
+  const chapters = await getCourseChapters(
+    filteredCourse?.courseID!,
+    username as string
+  );
+
   // Splitting skills from single string into string[]
   const wordsArray = filteredCourse?.skills
     .split(",")
@@ -24,6 +29,9 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   return (
     <div className="flex w-full my-12 gap-12">
       <CourseHeader
+        firstChapter={chapters[0].chapterID}
+        courseId={filteredCourse?.courseID!}
+        username={username as string}
         title={filteredCourse?.title!}
         description={filteredCourse?.description!}
         progress={filteredCourse?.progress!}

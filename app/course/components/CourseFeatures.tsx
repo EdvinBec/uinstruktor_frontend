@@ -11,7 +11,7 @@ const CourseFeatures = ({
   skills: string[];
 }) => {
   return (
-    <div className="w-2/5">
+    <div className="w-2/5 hidden md:block">
       {skills?.map((item: string, itemIdx: number) => {
         return (
           <div
