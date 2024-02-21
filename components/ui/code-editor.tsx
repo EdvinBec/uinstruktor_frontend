@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import React, { useRef } from "react";
 
 type CodeEditorProps = {
-  defaultValue: string;
+  defaultValue?: string;
   defaultLanguage: string;
   value: string;
   onChange: (value: string | undefined) => void;
@@ -24,7 +24,6 @@ const CodeEditor = ({
   setEditorDidMount,
 }: CodeEditorProps) => {
   const { theme } = useTheme();
-  const editorRef = useRef(null);
 
   function handleEditorDidMount(editor: any, monaco: Monaco) {
     setEditorDidMount !== undefined && setEditorDidMount!(true);
