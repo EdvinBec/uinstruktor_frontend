@@ -18,7 +18,7 @@ export const Signup = (
   email: string,
   password: string,
   username: string,
-  role: string
+  role: string,
 ) => {
   const result = fetch(baseURL + "/api/auth/register", {
     method: "POST",
@@ -78,7 +78,7 @@ export const getCourseChapters = async (courseID: string, username: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    }
+    },
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -97,7 +97,7 @@ export const getChapterTasks = async (chapterID: string, username: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    }
+    },
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -126,7 +126,7 @@ export const fetchCourses = async () => {
 export const saveCode = async (
   username: string,
   code: string,
-  taskID: string
+  taskID: string,
 ) => {
   const result = await fetch(baseURL + `/api/code/save`, {
     method: "POST",
@@ -152,7 +152,7 @@ export const getSavedCode = async (username: string, taskID: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    }
+    },
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -167,7 +167,7 @@ export const uploadCode = (
   code: string,
   taskID: string,
   lang: string,
-  username: string
+  username: string,
 ) => {
   const result = fetch(baseURL + "/api/code/submit/task", {
     method: "POST",
@@ -214,4 +214,25 @@ export const resumeLearning = async (username: string) => {
   const data = await result.json();
 
   return data.data;
+};
+
+export const uploadSandboxCode = async (
+  source: string,
+  input: string,
+  lang: string,
+) => {
+  const result = await fetch(baseURL + "/api/code/sandbox", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      lang,
+      input,
+      source,
+    }),
+  });
+  const data = await result.json();
+
+  return data;
 };
