@@ -11,6 +11,7 @@ import CourseImage1 from "@/assets/img/courseImage1.jpg";
 import CourseImage2 from "@/assets/img/courseImage2.jpg";
 import CourseImage3 from "@/assets/img/courseImage3.jpg";
 import { useState } from "react";
+import CustomButton from "@/components/CustomButton";
 
 const CourseCard = ({
   itemIdx,
@@ -68,10 +69,7 @@ const CourseCard = ({
             setIsLoading(true);
           }}
         >
-          <Button className="bg-[#2B44E7] hover:bg-blue-500 dark:bg-[#2B44E7] dark:text-white dark:hover:bg-blue-500 flex gap-1">
-            {isLoading && <Loader className="animate-spin" size={18} />}
-            Nadaljuj z učenjem
-          </Button>
+          <CustomButton isLoading={isLoading} label="Nadaljuj z učenjem" />
         </Link>
         <div className="w-1/4 text-center">
           <Label className="font-semibold">{Math.floor(progress!)}%</Label>
