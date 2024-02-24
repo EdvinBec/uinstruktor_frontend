@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Loader, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import CodeBlocksImage from "@/assets/img/codeblocks.svg";
@@ -12,7 +11,7 @@ const CodeBlocks = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <div className="w-full flex py-12 rounded-md border-[1px] border-gray-200 mt-8">
+    <div className="w-full flex py-12 rounded-md border-[1px] border-gray-200 dark:border-0 mt-8 bg-white dark:bg-black">
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
         <Image src={CodeBlocksImage} alt="codeBlocks" />
         <div className="w-full flex flex-col items-center text-center gap-2 md:block md:text-left md:w-1/2">

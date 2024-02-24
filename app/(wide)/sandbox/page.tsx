@@ -52,7 +52,7 @@ const Sandbox = () => {
           <ResizablePanel
             defaultSize={50}
             minSize={30}
-            className="border-[1px] border-gray-200 rounded-md"
+            className="border-[1px] border-gray-200 dark:border-0 rounded-md"
           >
             <CodeEditor
               value={code}
@@ -67,7 +67,7 @@ const Sandbox = () => {
           <ResizablePanel
             defaultSize={50}
             minSize={30}
-            className="border-gray-200 border-[1px] p-2 rounded-md"
+            className="border-gray-200 dark:border-0 border-[1px] p-2 rounded-md"
           >
             <OutputWindow
               isLoading={isLoading}

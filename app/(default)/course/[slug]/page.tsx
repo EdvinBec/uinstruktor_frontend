@@ -15,12 +15,12 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   // Fetching courses and extracting the correct one
   const courses: Course[] = await getCourses(username as string);
   const filteredCourse: Course | undefined = courses.find(
-    (item: Course) => item.courseID === params.slug,
+    (item: Course) => item.courseID === params.slug
   );
 
   const chapters = await getCourseChapters(
     filteredCourse?.courseID!,
-    username as string,
+    username as string
   );
 
   const currentModule = await resumeLearning(username as string);
@@ -39,7 +39,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
         ]}
         className="mb-4"
       />
-      <div className="flex mb-12 gap-12">
+      <div className="flex mb-12 gap-12 border-gray-200 border-[1px] dark:border-0 bg-white dark:bg-black px-8 py-6 rounded-md">
         <CourseHeader
           firstChapter={chapters[0].chapterID}
           courseId={filteredCourse?.courseID!}
@@ -62,7 +62,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
               ? chapters[0]
               : chapters.find(
                   (item: Chapter) =>
-                    currentModule.nextChapter === item.chapterID,
+                    currentModule.nextChapter === item.chapterID
                 )!
           }
         />

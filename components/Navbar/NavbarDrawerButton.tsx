@@ -23,7 +23,13 @@ const NavbarDrawerButton = ({
             ? "default"
             : "ghost"
         }
-        className="flex gap-4 h-auto py-3 px-2 w-full justify-start "
+        className={`flex gap-4 h-auto py-3 px-2 w-full justify-start ${
+          label === "Create new classroom" &&
+          "bg-[#2B44E7] hover:bg-[#2B44E7] hover:opacity-75"
+        } ${
+          label === "Join new classroom" &&
+          "bg-[#2B44E7] hover:bg-[#2B44E7] hover:opacity-75"
+        }`}
       >
         <LucideIcon size={18} />
         {label}

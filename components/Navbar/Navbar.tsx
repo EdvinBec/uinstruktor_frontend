@@ -47,7 +47,7 @@ const Navbar = () => {
   const [code, setCode] = useState("");
 
   return (
-    <nav className="w-full lg:min-w-[1100px] mb-2">
+    <nav className="w-full lg:min-w-[1100px] mb-2 border-[1px] border-t-0 border-gray-200 dark:border-0 px-4 py-2 rounded-b-md bg-white dark:bg-black">
       <div className="w-full py-2 flex items-center justify-between">
         <Link href={"/explore"} className="flex gap-3 items-center lg:w-1/6">
           <Bot size={32} />
@@ -92,11 +92,8 @@ const Navbar = () => {
                   return (
                     <Dialog key={itemIdx}>
                       <DialogTrigger>
-                        <Button className="bg-[#000] text-white dark:text-black text-sm font-medium tracking-wide p-0 flex gap-2 h-auto dark:bg-[#f6fff8] py-2 px-4 rounded-2xl hover:opacity-80 transition-all ease-in-out duration-150">
-                          <LucideIcon
-                            className="text-white dark:text-black"
-                            size={18}
-                          />
+                        <Button className="bg-[#2B44E7] hover:bg-blue-500 dark:bg-[#2B44E7] dark:hover:bg-blue-500 text-white dark:text-white text-sm font-medium tracking-wide p-0 flex gap-2 h-auto py-2 px-4 rounded-2xl hover:opacity-80 transition-all ease-in-out duration-150">
+                          <LucideIcon className="text-white" size={18} />
                           {item.label}
                         </Button>
                       </DialogTrigger>
@@ -126,7 +123,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!,
+                                auth?.username!
                               );
 
                               if (res.status !== "error") {

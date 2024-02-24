@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        noise: "url('../assets/img/noise.png')",
+      },
       fontFamily: {
         code: ["Fira Code"],
       },

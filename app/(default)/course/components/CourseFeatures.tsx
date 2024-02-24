@@ -16,7 +16,7 @@ const CourseFeatures = ({
         return (
           <div
             key={itemIdx}
-            className="flex items-center gap-4 border-b-[1px] py-2 border-black"
+            className="flex items-center gap-4 border-b-[1px] py-2 border-black dark:border-white"
           >
             {itemIdx == 0 && <BrainCircuit strokeWidth={1.5} size={26} />}
             {itemIdx == 1 && <Sparkle strokeWidth={1.5} size={26} />}
@@ -25,7 +25,7 @@ const CourseFeatures = ({
           </div>
         );
       })}
-      <div className="flex items-center gap-4 border-b-[1px] py-2 border-black">
+      <div className="flex items-center gap-4 border-b-[1px] py-2 border-black dark:border-white">
         <Rocket strokeWidth={1.5} size={26} />
         <Label className="font-normal text-sm capitalize">{skillLevel}</Label>
       </div>
