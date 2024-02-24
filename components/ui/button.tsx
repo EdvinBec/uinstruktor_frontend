@@ -21,8 +21,8 @@ const buttonVariants = cva(
         link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50",
         active:
           "scale-110 bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90",
-        landing: "bg-blue-500 text-neutral-100",
-        blue: "bg-[#2B44E7] hover:bg-blue-500 text-white font-medium",
+        landing: "bg-blue text-neutral-100",
+        blue: "bg-blue hover:bg-blue-500 text-white font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",

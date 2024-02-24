@@ -1,5 +1,10 @@
 import RoadmapItem from "@/components/Roadmap/roadmapItem";
-import { getChapterTasks, getCourseChapters } from "@/lib/Services";
+import Paginator from "@/components/ui/paginator";
+import {
+  getChapterData,
+  getChapterTasks,
+  getCourseChapters,
+} from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Task } from "@/types";
 import { cookies } from "next/headers";
@@ -7,11 +12,19 @@ import { cookies } from "next/headers";
 const ChapterPage = async ({ params }: { params: { slug: string } }) => {
   const cookie = cookies();
   const username = await decryptToken(cookie.get("token")?.value!);
-
+  const chapter = await getChapterData(params.slug);
   const tasks: Task[] = await getChapterTasks(params.slug, username as string);
 
+  console.log(chapter);
   return (
     <div>
+      <Paginator
+        links={[
+          { display: "Tečaji", href: "/explore" },
+          { display: chapter.courseTitle, href: `/course/${chapter.courseID}` },
+          { display: chapter.name, href: "", current: true },
+        ]}
+      />
       <div className="flex flex-col gap-4">
         {tasks.map((item: Task, itemIdx: number) => {
           const wordsArray = item?.taglines
