@@ -8,8 +8,7 @@ import { Inputs } from "@/types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useContext, useState } from "react";
-import { UserContext } from "./layout";
+import { useState } from "react";
 import Image from "next/image";
 import LoginImage from "@/assets/img/loginImage.jpg";
 import GoogleLogo from "@/assets/img/GoogleLogo.svg";
@@ -32,7 +31,12 @@ const SignUpPage = () => {
 
   const router = useRouter();
   const cookies = new Cookies();
-  const { user, setUser } = useContext(UserContext);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    username: "",
+    role: "",
+  });
   const [authError, setAuthError] = useState("");
   const [authMessage, setAuthMessage] = useState("");
   const [isChecked, setIsChecked] = useState(false);
@@ -49,12 +53,11 @@ const SignUpPage = () => {
         setUser({
           email: email,
           password: password,
-          username: username,
+          username: username!,
           role: "",
         });
 
         const res: SignUpResponse = await RegisterUser();
-        console.log(res);
         if (res.token) {
           setAuthMessage("You have successfully registered. Redirecting...");
           cookies.set("token", res.token);
