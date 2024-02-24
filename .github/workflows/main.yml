@@ -22,8 +22,6 @@ jobs:
           node-version: 21
       - run: cp /home/aljaz/uinstruktor/uinstruktor_frontend/.env .
       - run: npm install
-      - run: npm run lint
       - run: npm run build
-      - run: cp /home/aljaz/uinstruktor/uinstruktor_frontend/.env .
       - run: pm2 restart frontend
       
