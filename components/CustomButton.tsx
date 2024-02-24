@@ -17,7 +17,7 @@ const CustomButton = ({
   label,
   className,
 }: Props) => {
-  const LucideIcon = icon;
+  const LucideIcon: LucideIcon = icon!;
 
   return (
     <Button
