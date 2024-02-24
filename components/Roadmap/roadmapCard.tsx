@@ -37,7 +37,7 @@ const RoadmapCard = ({
           return (
             <div
               key={itemIdx}
-              className="bg-blue-400 px-4 py-1 font-medium text-white text-xs rounded-full w-auto"
+              className="bg-black px-4 py-1 font-medium text-white text-xs rounded-full w-auto"
             >
               {item}
             </div>
@@ -65,7 +65,9 @@ const RoadmapCard = ({
           </Button>
         ) : (
           <Button
-            className={`w-full  ${isCompleted && "bg-green-500"}`}
+            className={`w-full bg-black hover:bg-black hover:opacity-80 transition-all ease-in-out duration-150  ${
+              isCompleted && "bg-green-500"
+            }`}
             variant="default"
             onClick={() => setIsLoading(true)}
           >
@@ -80,7 +82,7 @@ const RoadmapCard = ({
         )
       ) : (
         <Button
-          className={`w-full  ${isCompleted && "bg-green-500"}`}
+          className={`w-full bg-black  ${isCompleted && "bg-green-500"}`}
           variant="default"
           disabled
         >

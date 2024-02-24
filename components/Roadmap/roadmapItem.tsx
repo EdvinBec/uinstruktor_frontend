@@ -22,8 +22,8 @@ const RoadmapItem = ({
   isCompleted: boolean;
 }) => {
   return (
-    <div className="w-full flex">
-      <div className="w-2/5 flex items-center justify-end">
+    <div className="w-full flex justify-between">
+      <div className="md:w-2/5 w-3/4 flex items-center justify-end">
         {side === "left" && (
           <RoadmapCard
             isCompleted={isCompleted}
@@ -36,7 +36,7 @@ const RoadmapItem = ({
           />
         )}
       </div>
-      <div className="w-1/5 flex justify-center">
+      <div className="md:w-1/5 flex justify-center">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col items-center gap-4">
             <div className="w-[32px] h-[32px] border-[1px] border-black dark:border-white rounded-full flex items-center justify-center">
@@ -46,7 +46,7 @@ const RoadmapItem = ({
           </div>
         </div>
       </div>
-      <div className="w-2/5 flex justify-start items-center">
+      <div className="md:w-2/5 w-3/4 md:flex hidden justify-start items-center">
         {side === "right" && (
           <RoadmapCard
             isCompleted={isCompleted}
