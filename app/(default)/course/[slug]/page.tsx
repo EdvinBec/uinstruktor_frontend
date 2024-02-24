@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import CourseFeatures from "../components/CourseFeatures";
 import CourseHeader from "../components/CourseHeader";
 import ChapterDrawer from "../components/ChapterDrawer";
+import Paginator from "@/components/ui/paginator";
 
 const CoursePage = async ({ params }: { params: { slug: string } }) => {
   const cookie = cookies();
@@ -14,12 +15,12 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   // Fetching courses and extracting the correct one
   const courses: Course[] = await getCourses(username as string);
   const filteredCourse: Course | undefined = courses.find(
-    (item: Course) => item.courseID === params.slug
+    (item: Course) => item.courseID === params.slug,
   );
 
   const chapters = await getCourseChapters(
     filteredCourse?.courseID!,
-    username as string
+    username as string,
   );
 
   const currentModule = await resumeLearning(username as string);
@@ -31,7 +32,14 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="w-full">
-      <div className="flex my-12 gap-12">
+      <Paginator
+        links={[
+          { display: "Tečaji", href: "/explore" },
+          { display: filteredCourse?.title!, href: "", current: true },
+        ]}
+        className="mb-4"
+      />
+      <div className="flex mb-12 gap-12">
         <CourseHeader
           firstChapter={chapters[0].chapterID}
           courseId={filteredCourse?.courseID!}
@@ -54,7 +62,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
               ? chapters[0]
               : chapters.find(
                   (item: Chapter) =>
-                    currentModule.nextChapter === item.chapterID
+                    currentModule.nextChapter === item.chapterID,
                 )!
           }
         />

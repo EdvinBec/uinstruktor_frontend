@@ -11,11 +11,10 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cm } from "@/lib/utils";
+import Paginator from "@/components/ui/paginator";
 
 function getToken() {
   const cookieStore = cookies();
@@ -36,6 +35,12 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="md:p-6 p-2 w-full">
+      <Paginator
+        links={[
+          { display: "Učilnice", href: "/class" },
+          { display: classData.className, href: "", current: true },
+        ]}
+      />
       <h1 className="text-4xl font-bold pb-2">{classData.className}</h1>
       <div className="pb-4">
         <p>{classData.description}</p>
