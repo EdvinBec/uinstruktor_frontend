@@ -21,5 +21,4 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npm run dev
       - run: pm2 restart frontend
