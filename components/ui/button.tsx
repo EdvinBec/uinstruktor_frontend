@@ -9,12 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90",
+        default: "bg-blue hover:bg-blue/90 text-neutral-50",
         destructive:
           "bg-red-500 text-neutral-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-neutral-50 dark:hover:bg-red-900/90",
         outline:
-          "border border-neutral-200 bg-white hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
+          "border border-blue bg-white hover:bg-neutral-100 //hover:text-neutral-900 dark:border-bg-[#2B44E7] dark:bg-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
         secondary:
           "bg-neutral-100 text-neutral-900 hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-800/80",
         ghost:
@@ -23,6 +22,7 @@ const buttonVariants = cva(
         active:
           "scale-110 bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90",
         landing: "bg-blue-500 text-neutral-100",
+        blue: "bg-[#2B44E7] hover:bg-blue-500 text-white font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -36,7 +36,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 export interface ButtonProps
@@ -55,7 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       />
     );
-  }
+  },
 );
 Button.displayName = "Button";
 

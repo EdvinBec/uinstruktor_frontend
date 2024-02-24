@@ -78,3 +78,10 @@ export type Task = {
   };
   taskID: string; //ID tega taska
 };
+export type ClassT = {
+  className: string;
+  description: string;
+  src?: string;
+  classID: string;
+  progress?: number;
+};

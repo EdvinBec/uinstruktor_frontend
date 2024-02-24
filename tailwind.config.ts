@@ -22,6 +22,9 @@ module.exports = {
       backgroundColor: {
         body: "#181a1b",
       },
+      colors: {
+        blue: "#2B44E7",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

@@ -33,48 +33,26 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
       completedCount++;
     }
   });
-  console.log((completedCount / classData.assigments.length) * 100);
+
   return (
     <div className="md:p-6 p-2 w-full">
-      <div className="pb-2">
-        <div className="flex flex-row justify-between">
-          <h3 className="text-2xl  font-medium">Class progress</h3>
-          <h3 className="text-2xl  font-medium">
-            {(completedCount / classData.assigments.length) * 100}%
-          </h3>
-        </div>
-        <div className=" flex flex-row">
-          <div
-            style={{
-              width: `${(completedCount / classData.assigments.length) * 100}%`,
-            }}
-            className="h-2 rounded-l-lg bg-green-400"
-          ></div>
-          <div
-            style={{
-              width: `${
-                100 - (completedCount / classData.assigments.length) * 100
-              }%`,
-            }}
-            className={cm(
-              "h-2 rounded-r-lg bg-gray-400",
-              completedCount === 0 ? "rounded-lg" : "",
-            )}
-          ></div>
-        </div>
+      <h1 className="text-4xl font-bold pb-2">{classData.className}</h1>
+      <div className="pb-4">
+        <p>{classData.description}</p>
       </div>
-      {classData && classData.classCreator === user?.username! ? (
+
+      {classData && classData.classCreator === user?.username! && (
         <div className="flex flex-row items-center gap-4 pb-4">
           <Dialog>
             <DialogTrigger>
-              <div className="bg-neutral-900 h-10 px-4 py-2 p-2 rounded-lg text-neutral-50 hover:bg-neutral-900/90 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90">
+              <div className="bg-[#2B44E7] h-10 px-4 py-2 p-2 rounded-lg text-white ">
                 <Share2 />
               </div>
             </DialogTrigger>
             <DialogContent className="bg-white dark:bg-black text-center w-3/4 md:w-full rounded-xl">
-              <DialogTitle>Class join code</DialogTitle>
+              <DialogTitle></DialogTitle>
               <DialogDescription>
-                <h2 className="text-5xl font-bold text-indigo-700 dark:text-indigo-400">
+                <h2 className="text-6xl font-bold text-blue dark:blue">
                   {classData.joinCode}
                 </h2>
               </DialogDescription>
@@ -86,23 +64,16 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
               <BookPlus />
             </Link>
           </Button>
-
           <Button className="block">
             <Link href={`/class/${params.slug}/settings`}></Link>
             <Settings2 />
           </Button>
         </div>
-      ) : (
-        ""
       )}
-      <h1 className="text-4xl font-bold pb-2">{classData.className}</h1>
-      <div className="pb-4">
-        <p>{classData.description}</p>
-      </div>
 
       <div className="mt-6 font-semibold">
         <h2 className="text-3xl pb-2">Assigments</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {classData.assigments.map((assigment, index) => (
             <AssigmentCard
               key={index}
