@@ -28,15 +28,15 @@ const Filter = ({ filter, setFilter, values }: Props) => {
   };
 
   return (
-    <div className="p-2">
-      <Button onClick={clearFilters} className="ml-4" size="sm">
-        Pocisti filtre
+    <div className="bg-white px-8 py-8 rounded-md border-gray-200 border-[1px]">
+      <Button onClick={clearFilters} className="w-full" size="sm">
+        Počisti filtre
       </Button>
-      <div className="flex flex-col mt-6 gap-6 divide-y">
+      <div className="flex flex-col mt-6 gap-2">
         {values.map((value, idx) => {
           return (
             <div className="py-2 space-y-2" key={idx}>
-              <h3 className="font-semibold">{value.value}</h3>
+              <h3 className="font-bold text-sm">{value.value}</h3>
               {value.options.map((option, idx) => {
                 return (
                   <div
@@ -58,9 +58,9 @@ const Filter = ({ filter, setFilter, values }: Props) => {
                           ? handleDifficultyChange("")
                           : handleCategoryChange("")
                       }
-                      className="scale-[120%]"
+                      className=""
                     />
-                    <p>{option}</p>
+                    <p className="text-sm">{option}</p>
                   </div>
                 );
               })}

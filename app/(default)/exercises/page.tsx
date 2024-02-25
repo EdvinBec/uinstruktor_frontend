@@ -4,6 +4,7 @@ import Exercise from "./components/Exercise";
 import Filter from "./components/Filter";
 import { Exercise as ExerciseT } from "@/types";
 import { getExercises } from "@/lib/Services";
+import PageHeader from "./components/PageHeader";
 
 const ExercisesPage = () => {
   const [filter, setFilter] = useState<{
@@ -38,24 +39,14 @@ const ExercisesPage = () => {
   }
 
   return (
-    <div className="mt-16 h-screen">
-      <h1 className="text-5xl font-bold">Vaje</h1>
-      <p className="my-4">
-        Želiš izboljšati svoje znanje v jeziku C++? Raziščite našo obsežno
-        knjižnico vaj za C ++, ki so posebej zasnovane tako za začetnike kot za
-        bolj napredne programerje. Ponujamo velik izbor vaj za kodiranje, ki
-        pokrivajo vse pomembne teme, vključno z razredi, predmeti, nizi,
-        matrikami in kazalci.
-      </p>
-      <div className="mt-16">
-        <h2 className="border-b text-3xl font-semibold pb-2">
-          C++ Vaje{" "}
-          <span className="text-xl font-medium text-neutral-600 ml-8">
-            {exercises.length} {pravaOblika(exercises.length)}
-          </span>
-        </h2>
+    <div className="mt-8 h-full">
+      <PageHeader
+        title="Vaje"
+        descritpion="Razišči našo obsežno knjižnico vaj za C++, ki so posebej zasnovane tako za začetnike kot za bolj napredne programerje. Z reševanjem nalog pridobijate točke, s katerimi lahko tekmujete z ostalimi uporabniki."
+      />
+      <div className="mt-8">
         <div className="flex flex-row py-6 px-1 gap-6">
-          <div className="flex-1">
+          <div className="flex-1 hidden md:flex">
             <Filter
               values={[
                 { value: "Tezavnost", options: ["Lahko", "Srednje", "Tezko"] },
@@ -68,7 +59,7 @@ const ExercisesPage = () => {
               setFilter={setFilter}
             />
           </div>
-          <div className="flex-[5] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+          <div className="flex-[5] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {exercises
               .filter((vaja: ExerciseT) => {
                 if (filter.difficulty === "" && filter.category === "") {
