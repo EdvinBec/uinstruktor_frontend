@@ -266,3 +266,19 @@ export const getChapterData = async (chapterID: string) => {
 
   return data.data;
 };
+
+export const getExercises = async () => {
+  const result = await fetch(baseURL + `/api/exercise/list`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
