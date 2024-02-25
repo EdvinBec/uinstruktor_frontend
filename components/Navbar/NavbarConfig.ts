@@ -16,19 +16,19 @@ export type NavbarItem = {
 
 export const NavbarItems: NavbarItem[] = [
   {
-    label: "Explore",
+    label: "Razišči",
     href: "/explore",
     variant: "default",
     icon: ClipboardListIcon,
   },
   {
-    label: "Courses",
-    href: "/course",
+    label: "Vaje",
+    href: "/exercises",
     variant: "default",
     icon: HelpCircle,
   },
   {
-    label: "Tutorials",
+    label: "Gradivo",
     href: "/tutorials",
     variant: "default",
     icon: HelpCircle,
@@ -37,13 +37,13 @@ export const NavbarItems: NavbarItem[] = [
 
 export const TeacherNavbarItems: NavbarItem[] = [
   {
-    label: "My Classrooms",
+    label: "Moje učilnice",
     href: "/class",
     variant: "default",
     icon: Shapes,
   },
   {
-    label: "Create new classroom",
+    label: "Ustvari učilnico",
     href: "/create-new-classroom",
     variant: "default",
     icon: PlusCircle,
@@ -52,13 +52,13 @@ export const TeacherNavbarItems: NavbarItem[] = [
 
 export const StudentNavbarItems: NavbarItem[] = [
   {
-    label: "My Classrooms",
+    label: "Moje učilnice",
     href: "/class",
     variant: "default",
     icon: Shapes,
   },
   {
-    label: "Join new classroom",
+    label: "Pridruži se učilnici",
     href: "/join-classroom",
     variant: "default",
     icon: PlusCircle,
