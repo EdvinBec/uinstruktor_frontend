@@ -85,3 +85,12 @@ export type ClassT = {
   classID: string;
   progress?: number;
 };
+
+export type Exercise = {
+  title: string;
+  exerciseID: string;
+  description: string;
+  difficulty: string;
+  points: number;
+  tags: string;
+};

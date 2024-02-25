@@ -17,6 +17,7 @@ const badgeVariants = cva(
         outline: "text-foreground",
         failed: "bg-red-500 border-0",
         passed: "bg-emerald-500 border-0",
+        tag: "bg-[#2B44E7] capitalize text-white rounded-md font-medium",
       },
     },
     defaultVariants: {
