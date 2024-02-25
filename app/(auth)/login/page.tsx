@@ -11,10 +11,7 @@ import Cookies from "universal-cookie";
 import { Inputs } from "@/types";
 import Link from "next/link";
 import { useState } from "react";
-import Spinner from "@/components/ui/Spinner";
-import GoogleLogo from "@/assets/img/GoogleLogo.svg";
-import LoginImage from "@/assets/img/loginImage.jpg";
-import Image from "next/image";
+import { Loader } from "lucide-react";
 
 type LoginResponse = {
   message: string;
@@ -51,8 +48,7 @@ const LoginPage = () => {
 
     if (res.token) {
       cookies.set("token", res.token);
-      location.reload();
-      router.refresh();
+      router.push("/explore");
     } else {
       console.log(res);
       if (res.message === "auth/wrong-password") {
@@ -65,86 +61,79 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      {isLoading && (
-        <div className="w-full h-full absolute flex items-center justify-center bg-black bg-opacity-50">
-          <Spinner size={32} />
-        </div>
-      )}
-      <div className="flex w-full py-20 items-center justify-center">
-        <div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full flex justify-center lg:block"
-          >
-            <div className="flex w-[300px] md:w-[450px] flex-col gap-8 items-start">
-              <div className="w-full mb-1">
-                <h1 className="font-bold text-3xl mb-2">Dobrodošli nazaj!</h1>
-                <Label className="text-sm font-light tracking-wide opacity-80">
-                  Vnesite svoj e-naslov in geslo da se vpišete v svoj
-                  uinstruktor račun.
-                </Label>
-              </div>
+    <div className="flex w-full py-20 items-center justify-center">
+      <div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex justify-center lg:block"
+        >
+          <div className="flex w-[300px] md:w-[450px] flex-col gap-8 items-start">
+            <div className="w-full mb-1">
+              <h1 className="font-bold text-3xl mb-2">Dobrodošli nazaj!</h1>
+              <Label className="text-sm font-light tracking-wide opacity-80">
+                Vnesite svoj e-naslov in geslo da se vpišete v svoj uinstruktor
+                račun.
+              </Label>
+            </div>
+            <div>
               <div>
-                <div>
-                  <Label>Email</Label>
-                  <Input
-                    defaultValue=""
-                    {...register("email", {
-                      required: "Please enter your email adress",
-                    })}
-                    type="email"
-                    className="w-[300px] md:w-[450px] mt-2"
-                  ></Input>
-                  {errors.email && (
-                    <Label className="text-red-500">
-                      {errors.email.message}
-                    </Label>
-                  )}
-                </div>
-                <div className="mt-6">
-                  <Label>Geslo</Label>
-                  <Input
-                    {...register("password", {
-                      required: "Please enter your password",
-                    })}
-                    type="password"
-                    className="w-[300px] md:w-[450px] mt-2"
-                  ></Input>
-                  {errors.password && (
-                    <Label className="text-red-500">
-                      {errors.password.message}
-                    </Label>
-                  )}
-                  {}
-                </div>
-                <Button className="w-[300px] md:w-[450px] mt-6" type="submit">
-                  Prijavi se
-                </Button>
-                {authError && (
-                  <Label className="text-red-500">{authError}</Label>
+                <Label>Email</Label>
+                <Input
+                  defaultValue=""
+                  {...register("email", {
+                    required: "Please enter your email adress",
+                  })}
+                  type="email"
+                  className="w-[300px] md:w-[450px] mt-2"
+                ></Input>
+                {errors.email && (
+                  <Label className="text-red-500">{errors.email.message}</Label>
                 )}
               </div>
-            </div>
-          </form>
-          <div className="w-full flex flex-col md:flex-row justify-between mt-4">
-            <div className="flex items-center gap-2">
-              <Label className="text-xs font-light tracking-wide opacity-75">
-                Nimate še računa?
-              </Label>
-              <Button variant="link" className="px-0 text-xs">
-                <Link href="/signup">Ustvari račun</Link>
+              <div className="mt-6">
+                <Label>Geslo</Label>
+                <Input
+                  {...register("password", {
+                    required: "Please enter your password",
+                  })}
+                  type="password"
+                  className="w-[300px] md:w-[450px] mt-2"
+                ></Input>
+                {errors.password && (
+                  <Label className="text-red-500">
+                    {errors.password.message}
+                  </Label>
+                )}
+                {}
+              </div>
+              <Button
+                className="w-[300px] md:w-[450px] mt-6 flex gap-2"
+                type="submit"
+              >
+                {isLoading && <Loader className="animate-spin" size={24} />}
+                Prijavi se
               </Button>
+              {authError && <Label className="text-red-500">{authError}</Label>}
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="link" className="px-0 py-0 text-xs">
-                Pozabili ste geslo?
-              </Button>
-            </div>
+          </div>
+        </form>
+        <div className="w-full flex flex-col md:flex-row justify-between mt-4">
+          <div className="flex items-center gap-2">
+            <Label className="text-xs font-light tracking-wide opacity-75">
+              Nimate še računa?
+            </Label>
+            <Button variant="link" className="px-0 text-xs">
+              <Link href="/signup">Ustvari račun</Link>
+            </Button>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="link" className="px-0 py-0 text-xs">
+              Pozabili ste geslo?
+            </Button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
