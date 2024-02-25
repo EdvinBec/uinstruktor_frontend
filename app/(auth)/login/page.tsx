@@ -67,32 +67,23 @@ const LoginPage = () => {
   return (
     <>
       {isLoading && (
-        <div className="w-full h-full absolute flex items-center justify-center bg-black bg-opacity-50 z-30">
+        <div className="w-full h-full absolute flex items-center justify-center bg-black bg-opacity-50">
           <Spinner size={32} />
         </div>
       )}
-      <div className="flex gap-16 w-full h-screen items-center justify-center lg:justify-normal">
+      <div className="flex w-full py-20 items-center justify-center">
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full flex justify-center lg:block"
           >
             <div className="flex w-[300px] md:w-[450px] flex-col gap-8 items-start">
-              <div>
-                <div className="w-full mb-8">
-                  <h1 className="font-bold text-3xl mb-2">Welcome back!</h1>
-                  <Label className="text-sm font-light tracking-wide opacity-80">
-                    Enter your username and password to log in to your profile
-                  </Label>
-                </div>
-                <Button variant="secondary">
-                  <Image
-                    className="text-white mr-2"
-                    src={GoogleLogo}
-                    alt="googleLogo"
-                  />
-                  Log in with Google
-                </Button>
+              <div className="w-full mb-1">
+                <h1 className="font-bold text-3xl mb-2">Dobrodošli nazaj!</h1>
+                <Label className="text-sm font-light tracking-wide opacity-80">
+                  Vnesite svoj e-naslov in geslo da se vpišete v svoj
+                  uinstruktor račun.
+                </Label>
               </div>
               <div>
                 <div>
@@ -112,7 +103,7 @@ const LoginPage = () => {
                   )}
                 </div>
                 <div className="mt-6">
-                  <Label>Password</Label>
+                  <Label>Geslo</Label>
                   <Input
                     {...register("password", {
                       required: "Please enter your password",
@@ -128,7 +119,7 @@ const LoginPage = () => {
                   {}
                 </div>
                 <Button className="w-[300px] md:w-[450px] mt-6" type="submit">
-                  Log in
+                  Prijavi se
                 </Button>
                 {authError && (
                   <Label className="text-red-500">{authError}</Label>
@@ -139,25 +130,18 @@ const LoginPage = () => {
           <div className="w-full flex flex-col md:flex-row justify-between mt-4">
             <div className="flex items-center gap-2">
               <Label className="text-xs font-light tracking-wide opacity-75">
-                Don{"'"}t have account yet?
+                Nimate še računa?
               </Label>
               <Button variant="link" className="px-0 text-xs">
-                <Link href="/signup">Sign up</Link>
+                <Link href="/signup">Ustvari račun</Link>
               </Button>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="link" className="px-0 py-0 text-xs">
-                Forgot your password?
+                Pozabili ste geslo?
               </Button>
             </div>
           </div>
-        </div>
-        <div className="w-full h-full items-center justify-center hidden lg:flex">
-          <Image
-            src={LoginImage}
-            className="h-[85%] w-auto rounded-lg"
-            alt="uinstruktor-male-with-glasses"
-          />
         </div>
       </div>
     </>
