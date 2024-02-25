@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import Logo from "../Logo";
 
 const LandingNavbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -14,7 +15,7 @@ const LandingNavbar = () => {
   return (
     <>
       <div className="p-8 flex flex-row justify-between items-center">
-        <h2 className="text-3xl font-bold">uinstruktor.</h2>
+        <Logo />
         <div className="hidden lg:block self-center">
           <Button variant={"link"}>
             <Link href={""}>Produkt</Link>

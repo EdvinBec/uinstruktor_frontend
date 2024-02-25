@@ -36,6 +36,7 @@ import { ApiResponse } from "@/types";
 import { joinNewClass } from "@/lib/class";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
+import Logo from "../Logo";
 
 const Navbar = () => {
   const auth = useAuth();
@@ -49,12 +50,7 @@ const Navbar = () => {
   return (
     <nav className="w-full lg:min-w-[1100px] mb-2 border-[1px] border-t-0 border-gray-200 dark:border-0 px-4 py-2 rounded-b-md bg-white dark:bg-black">
       <div className="w-full py-2 flex items-center justify-between">
-        <Link href={"/explore"} className="flex gap-3 items-center lg:w-1/6">
-          <Bot size={32} />
-          <Label className="font-bold text-xl mt-1 cursor-pointer">
-            UInstruktor
-          </Label>
-        </Link>
+        <Logo />
         <div className="lg:flex gap-4 hidden">
           <div className="gap-4 flex">
             {NavbarItems.map((item: NavbarItem, itemIdx: number) => {
