@@ -66,7 +66,7 @@ const SignUpPage = () => {
           if (res.status === "error") {
             // setError("There is an issue with the server. Please try again later.");
             console.log(
-              "There is an issue with the server. Please try again later.",
+              "There is an issue with the server. Please try again later."
             );
           }
         }
@@ -85,140 +85,119 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex gap-16 h-screen items-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex justify-center lg:block"
-      >
-        <div className="flex w-[300px] md:w-[450px] flex-col gap-8 items-start">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full flex justify-center py-8"
+    >
+      <div className="flex w-[300px] md:w-[450px] flex-col gap-8 items-start">
+        <div className="w-full">
+          <h1 className="font-bold text-3xl mb-2">Začni zdaj!</h1>
+          <Label className="text-sm font-light tracking-wide opacity-80">
+            Dobrodošli na našo platformo, ustvari račun in začni svojo avanturo!
+          </Label>
+        </div>
+        <div>
+          <h2 className="text-2xl font-semibold text-blue-300">
+            {authMessage}
+          </h2>
           <div>
-            <div className="w-full mb-8">
-              <h1 className="font-bold text-3xl mb-2">Get Started Now</h1>
-              <Label className="text-sm font-light tracking-wide opacity-80">
-                Welcome to our platform, create account to start your journey.
-              </Label>
-            </div>
-            <Button variant="secondary">
-              <Image
-                className="text-white mr-2"
-                src={GoogleLogo}
-                alt="googleLogo"
-              />
-              Sign up with Google
-            </Button>
+            <Label>Uporabniško ime</Label>
+            <Input
+              defaultValue=""
+              {...register("username", {
+                required: "Prosim vnesite uporabniško ime",
+              })}
+              type="text"
+              className="w-[300px] md:w-[450px] mt-2"
+            ></Input>
+            {errors.username && (
+              <Label className="text-red-500">{errors.username.message}</Label>
+            )}
           </div>
-          <div>
-            <h2 className="text-2xl font-semibold text-blue-300">
-              {authMessage}
-            </h2>
-            <div>
-              <Label>Username</Label>
+          <div className="mt-6">
+            <Label>Email</Label>
+            <Input
+              defaultValue=""
+              {...register("email", {
+                required: "Prosim vnesite vaš e-naslov",
+              })}
+              type="email"
+              className="w-[300px] md:w-[450px] mt-2"
+            ></Input>
+            {errors.email && (
+              <Label className="text-red-500">{errors.email.message}</Label>
+            )}
+          </div>
+          <div className="flex gap-4">
+            <div className="mt-6">
+              <Label>Geslo</Label>
               <Input
-                defaultValue=""
-                {...register("username", {
-                  required: "Please enter your username",
+                {...register("password", {
+                  required: "Prosim vnesite geslo",
                 })}
-                type="text"
-                className="w-[300px] md:w-[450px] mt-2"
+                type="password"
+                className="w-[142px] md:w-[217px] mt-2"
               ></Input>
-              {errors.username && (
+              {errors.password && (
                 <Label className="text-red-500">
-                  {errors.username.message}
+                  {errors.password.message}
                 </Label>
               )}
+              {}
             </div>
             <div className="mt-6">
-              <Label>Email</Label>
+              <Label>Ponovi geslo</Label>
               <Input
-                defaultValue=""
-                {...register("email", {
-                  required: "Please enter your email adress",
+                {...register("repeatPassword", {
+                  required: "Prosim ponovno vnesite svoje geslo",
                 })}
-                type="email"
-                className="w-[300px] md:w-[450px] mt-2"
+                type="password"
+                className="w-[142px] md:w-[216px] mt-2"
               ></Input>
-              {errors.email && (
-                <Label className="text-red-500">{errors.email.message}</Label>
+              {errors.password && (
+                <Label className="text-red-500">
+                  {errors.password.message}
+                </Label>
               )}
+              {}
             </div>
-            <div className="flex gap-4">
-              <div className="mt-6">
-                <Label>Password</Label>
-                <Input
-                  {...register("password", {
-                    required: "Please enter your password",
-                  })}
-                  type="password"
-                  className="w-[142px] md:w-[217px] mt-2"
-                ></Input>
-                {errors.password && (
-                  <Label className="text-red-500">
-                    {errors.password.message}
-                  </Label>
-                )}
-                {}
-              </div>
-              <div className="mt-6">
-                <Label>Repeat password</Label>
-                <Input
-                  {...register("repeatPassword", {
-                    required: "Please repeat your password",
-                  })}
-                  type="password"
-                  className="w-[142px] md:w-[216px] mt-2"
-                ></Input>
-                {errors.password && (
-                  <Label className="text-red-500">
-                    {errors.password.message}
-                  </Label>
-                )}
-                {}
-              </div>
-            </div>
-            <Label className="text-red-500">{authError}</Label>
-            <div className="flex items-center space-x-2 mt-6">
-              <Checkbox
-                id="terms"
-                onClick={() => {
-                  if (!isChecked) {
-                    setIsChecked(true);
-                  } else {
-                    setIsChecked(false);
-                  }
-                }}
-              />
-              <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Accept{" "}
-                <Button variant="link" className="p-0">
-                  <Link href="/terms"> terms and conditions</Link>
-                </Button>
-              </label>
-            </div>
-            <Button className="w-[300px] md:w-[450px] mt-6">Sign up</Button>
           </div>
-          <div className="w-full flex flex-col md:flex-row justify-between">
-            <div className="flex items-center gap-2">
-              <Label className="text-xs font-light tracking-wide opacity-75">
-                Already have an account?
-              </Label>
-              <Button variant="link" className="px-0 text-xs">
-                <Link href="/login">Log in</Link>
+          <Label className="text-red-500">{authError}</Label>
+          <div className="flex items-center space-x-2 mt-6">
+            <Checkbox
+              id="terms"
+              onClick={() => {
+                if (!isChecked) {
+                  setIsChecked(true);
+                } else {
+                  setIsChecked(false);
+                }
+              }}
+            />
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Sprejmi{" "}
+              <Button variant="link" className="p-0">
+                <Link href="/terms">pogoje zasebnosti</Link>
               </Button>
-            </div>
+            </label>
+          </div>
+          <Button className="w-[300px] md:w-[450px] mt-6">Ustvari račun</Button>
+        </div>
+        <div className="w-full flex flex-col md:flex-row justify-between">
+          <div className="flex items-center gap-2">
+            <Label className="text-xs font-light tracking-wide opacity-75">
+              Že imate račun?
+            </Label>
+            <Button variant="link" className="px-0 text-xs">
+              <Link href="/login">Prijavi se</Link>
+            </Button>
           </div>
         </div>
-      </form>
-      <div className="w-full h-full items-center justify-center hidden lg:flex">
-        <Image
-          src={LoginImage}
-          className="h-[85%] w-auto rounded-lg"
-          alt="uinstruktor-male-with-glasses"
-        />
       </div>
-    </div>
+    </form>
   );
 };
 
