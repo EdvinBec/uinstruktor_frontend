@@ -23,7 +23,7 @@ module.exports = {
         code: ["Fira Code"],
       },
       backgroundColor: {
-        body: "#181a1b",
+        body: "#000",
       },
       colors: {
         blue: "#2B44E7",
