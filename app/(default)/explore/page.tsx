@@ -12,7 +12,6 @@ const ExplorePage = async () => {
   const course = await getCourses(username as string);
   return (
     <div className="py-8">
-      <h1 className="font-bold text-2xl mb-4">Seznam tečajev</h1>
       <div className="flex gap-8 flex-wrap lg:flex-nowrap">
         {course.map((item: Course, itemIdx: number) => {
           const wordsArray = item?.skills.split(",").map((word) => word.trim());

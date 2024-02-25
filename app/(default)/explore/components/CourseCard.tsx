@@ -31,7 +31,7 @@ const CourseCard = ({
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <div className="p-4 border-[1px] border-gray-200 rounded-md max-w-[350px]">
+    <div className="p-4 border-[1px] border-gray-200 dark:border-0 rounded-md max-w-[350px] bg-white dark:bg-black">
       {itemIdx === 0 && (
         <Image className="rounded-md" src={CourseImage1} alt="course" />
       )}
@@ -43,15 +43,15 @@ const CourseCard = ({
       )}
       <div className="py-2 mt-2 flex justify-between">
         <div className="flex gap-1 items-center">
-          <BarChart size={24} strokeWidth={2.5} />
-          <Label className="capitalize font-medium">{skillLevel}</Label>
+          <BarChart size={24} strokeWidth={2.5} color="#2B44E7" />
+          <Label className="capitalize font-semibold">{skillLevel}</Label>
         </div>
         <div className="flex gap-2">
           {wordsArray.slice(0, 2).map((item: string, itemIdx: number) => {
             return (
               <Badge
                 key={itemIdx}
-                className="bg-blue-500 capitalize text-white rounded-md font-medium"
+                className="bg-[#2B44E7] capitalize text-white rounded-md font-medium"
               >
                 {item}
               </Badge>
@@ -60,7 +60,7 @@ const CourseCard = ({
         </div>
       </div>
       <div className="mt-2 mb-8">
-        <h4 className="font-semibold text-xl">{name}</h4>
+        <h4 className="font-bold text-xl">{name}</h4>
       </div>
       <div className="mt-4 flex items-center justify-between">
         <Link

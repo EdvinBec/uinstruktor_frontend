@@ -33,7 +33,7 @@ const ChapterDrawer = ({
 
   return (
     <div
-      className={`w-full mt-4 gap-1 px-16 py-4 border-[1px] border-gray-200 rounded-md h-auto`}
+      className={`w-full mt-4 gap-1 px-16 py-4 border-[1px] border-gray-200 dark:border-0 rounded-md h-auto bg-white dark:bg-black`}
     >
       <div className="flex justify-between items-center w-full">
         <div>
