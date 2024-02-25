@@ -18,7 +18,7 @@ interface NavigationContextProp {
 }
 
 const NavigationTreeContext = createContext<NavigationContextProp>(
-  {} as NavigationContextProp,
+  {} as NavigationContextProp
 );
 
 export const NavigationItem = ({ children, id }: NavigationItemProps) => {
@@ -26,6 +26,7 @@ export const NavigationItem = ({ children, id }: NavigationItemProps) => {
   return (
     <a
       href={"#" + id}
+      className="hover:opacity-70 transition-all ease-in-out duration-150"
       onClick={() => {
         context.toogle();
         context.setActiveItem(id!);
@@ -33,8 +34,8 @@ export const NavigationItem = ({ children, id }: NavigationItemProps) => {
     >
       <p
         className={cm(
-          "p-2 ml-2 border-l border-l-neutral-200",
-          id === context.active ? "border-l-neutral-700" : "",
+          "p-2 ml-2 border-l border-l-neutral-200 text-sm",
+          id === context.active ? "border-l-neutral-700" : ""
         )}
       >
         {children}
@@ -44,10 +45,10 @@ export const NavigationItem = ({ children, id }: NavigationItemProps) => {
 };
 
 export const NavigationHeading = ({ children }: NavigationItemProps) => {
-  return <h3 className="text-xl">{children}</h3>;
+  return <h3 className="text-base font-bold">{children}</h3>;
 };
 export const NavigationChapter = ({ children }: NavigationItemProps) => {
-  return <div className="my-2 ml-6">{children}</div>;
+  return <div className="mb-6">{children}</div>;
 };
 
 export const Navigation = ({
@@ -69,8 +70,8 @@ export const Navigation = ({
     <NavigationTreeContext.Provider
       value={{ isOpen, toogle, active, setActiveItem }}
     >
-      <div className="sticky md:hidden top-0 mb-8 bg-white dark:bg-neutral-900 border-b">
-        <div className="flex flexrow justify-between items-center">
+      <div className="hidden top-0 mb-8 bg-white dark:bg-neutral-900">
+        <div className="flex flex-row justify-between items-center">
           <div
             className="py-2 flex flex-row items-center cursor-pointer"
             onClick={toogle}
@@ -95,7 +96,7 @@ export const Navigation = ({
           </div>
         )}
       </div>
-      <div className="hidden p-2 overflow-x-auto md:block border-r h-full animate-fade-in flex-col justify-center items-start">
+      <div className="hidden px-8 pt-4 overflow-hidden md:block border-[1px] border-gray-200 dark:border-0 rounded-md bg-white dark:bg-black animate-fade-in flex-col justify-center items-start">
         {children}
       </div>
     </NavigationTreeContext.Provider>
