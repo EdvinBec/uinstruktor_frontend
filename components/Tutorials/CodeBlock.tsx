@@ -19,9 +19,9 @@ const CodeBlock = ({ header, id, description, code, language }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <div className="" id={id}>
-      <h3 className="text-3xl font-semibold mb-4">{header}</h3>
-      <p className="my-2">{description}</p>
+    <div id={id} className="bg-white dark:bg-black px-8 py-4 rounded-md">
+      <h3 className="text-2xl font-bold mb-1">{header}</h3>
+      <p className="mb-4">{description}</p>
       <SyntaxHighlighter
         style={theme === "light" ? atelierCaveLight : atelierCaveDark}
         className="rounded-xl"
