@@ -52,7 +52,11 @@ const Navbar = () => {
       <div className="w-full py-2 flex items-center justify-between">
         <Logo />
         <div className="lg:flex gap-4 hidden">
-          <div className="gap-4 flex">
+          <div
+            className={`gap-4 flex ${pathname === "/login" && "hidden"} ${
+              pathname === "/signup" && "hidden"
+            }`}
+          >
             {NavbarItems.map((item: NavbarItem, itemIdx: number) => {
               return (
                 <NavbarButton
@@ -83,7 +87,7 @@ const Navbar = () => {
           {auth?.role == "student" && (
             <div className="gap-4 flex">
               {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
-                if (item.label === "Join new classroom") {
+                if (item.label === "Pridruži se učilnici") {
                   const LucideIcon = item.icon;
                   return (
                     <Dialog key={itemIdx}>

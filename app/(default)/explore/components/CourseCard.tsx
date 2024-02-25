@@ -31,7 +31,7 @@ const CourseCard = ({
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <div className="p-4 border-[1px] border-gray-200 dark:border-0 rounded-md max-w-[350px] bg-white dark:bg-black">
+    <div className="p-4 border-[1px] border-gray-200 dark:border-0 rounded-md lg:max-w-full md:max-w-[350px] w-full bg-white dark:bg-black">
       {itemIdx === 0 && (
         <Image className="rounded-md" src={CourseImage1} alt="course" />
       )}
