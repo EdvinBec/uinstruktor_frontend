@@ -28,7 +28,7 @@ const Filter = ({ filter, setFilter, values }: Props) => {
   };
 
   return (
-    <div className="bg-white px-8 py-8 rounded-md border-gray-200 border-[1px]">
+    <div className="bg-white dark:bg-black px-8 py-8 rounded-md border-gray-200 dark:border-0 border-[1px]">
       <Button onClick={clearFilters} className="w-full" size="sm">
         Počisti filtre
       </Button>
