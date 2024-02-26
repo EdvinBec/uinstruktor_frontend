@@ -2,7 +2,7 @@ import React from "react";
 
 const CppTutorialPage = () => {
   return (
-    <div className="pr-8 space-y-6">
+    <div className="md:pr-8 space-y-6">
       <h1 className="text-4xl font-bold">C++</h1>
       <p>
         C++ je zelo zmogljiv programski jezik za aplikacije, kritične za
