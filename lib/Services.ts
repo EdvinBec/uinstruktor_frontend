@@ -282,3 +282,35 @@ export const getExercises = async () => {
 
   return data.data;
 };
+export const getTutorialChapters = async () => {
+  const result = await fetch(baseURL + `/api/tutorial/chapters`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
+export const getTutorialItem = async (slug: string) => {
+  const result = await fetch(baseURL + `/api/tutorial/item/${slug}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};

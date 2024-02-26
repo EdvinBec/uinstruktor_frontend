@@ -20,6 +20,10 @@ export function groupProblems(problems: Problem[]) {
 export function cm(...classNames: string[]) {
   return classNames.join(" ");
 }
+/*
+  @description: Capitalize the first letter of a string
+  @param {string} string
+*/
 
 export function letterToUpper(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
