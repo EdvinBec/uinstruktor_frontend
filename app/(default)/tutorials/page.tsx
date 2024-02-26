@@ -1,63 +1,28 @@
-"use client";
-import CodeBlock from "@/components/Tutorials/CodeBlock";
-import {
-  Navigation,
-  NavigationChapter,
-  NavigationHeading,
-  NavigationItem,
-} from "@/components/Tutorials/Navigation";
-
-import React, { useState } from "react";
-import { ListItem, VariablesChapter } from "./config";
+import React from "react";
 
 const CppTutorialPage = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-  const test = `type function_name(type1 param1, type2 param2, ...) {
-  // code
-}`;
-
   return (
-    <div className="w-full flex gap-8">
-      <div className="hidden md:block">
-        <Navigation setIsOpen={toggleMenu}>
-          <NavigationChapter>
-            <NavigationHeading>Variables</NavigationHeading>
-            {VariablesChapter.map((item: ListItem, itemIdx: number) => {
-              return (
-                <NavigationItem key={itemIdx} id="variables-declaration">
-                  {item.header}
-                </NavigationItem>
-              );
-            })}
-          </NavigationChapter>
-          <NavigationChapter>
-            <NavigationHeading>Functions</NavigationHeading>
-            <NavigationItem id="function-declaration">
-              Declaration{" "}
-            </NavigationItem>
-            <NavigationItem id="function-calling">Calling</NavigationItem>
-            <NavigationItem id="function-params">Parameters</NavigationItem>
-          </NavigationChapter>
-        </Navigation>
-      </div>
-      <div className="md:overflow-y-auto md:h-[90vh] space-y-8 w-[400px] md:w-full">
-        {VariablesChapter.map((item: ListItem, itemIdx: number) => {
-          return (
-            <CodeBlock
-              key={itemIdx}
-              id={item.id}
-              header={item.header}
-              description={item.description}
-              code={item.code}
-              language="cpp"
-            />
-          );
-        })}
-      </div>
+    <div className="pr-8 space-y-6">
+      <h1 className="text-4xl font-bold">C++</h1>
+      <p>
+        C++ je zelo zmogljiv programski jezik za aplikacije, kritične za
+        zmogljivost, ki se zanašajo na hitrost in učinkovito upravljanje
+        pomnilnika. Uporablja se v številnih panogah, vključno z razvojem
+        programske opreme in iger, robotiko, mikrokontrolerji, VR / AR in
+        znanstvenim računalništvom.
+      </p>
+      <p>
+        Jezik C++ je ustvaril Bjarne Stroustrup v Bellovih laboratorijih leta
+        1979. Kot že ime pove, je C++ izpeljan iz jezika C; Bjarnov cilj je bil
+        dodati objektno usmerjeno programiranje v C, jezik, ki je zelo spoštovan
+        zaradi svoje prenosljivosti in funkcionalnosti na nizki ravni.
+      </p>
+      <p>
+        Obstaja veliko različic programskega jezika C++. Te različice jezika so
+        izvedbe prevajalnikov, ki temeljijo na specifikacijah, ki jih je
+        izdelala skupnost ISO C++, skupnost, ki nadzoruje razvoj jezika. V
+        nadaljevanju so navedene različice jezika:
+      </p>
     </div>
   );
 };

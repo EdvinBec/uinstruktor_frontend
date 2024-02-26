@@ -5,27 +5,27 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import {
   atelierCaveLight,
   atelierCaveDark,
+  githubGist,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 type Props = {
-  header: string;
+  title: string;
   description: string;
   code: string;
-  id: string;
-  language: "cpp" | "python" | "java";
+  language?: "cpp" | "python";
 };
 
-const CodeBlock = ({ header, id, description, code, language }: Props) => {
+const CodeBlock = ({ title, description, code, language }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <div id={id} className="bg-white dark:bg-black px-8 py-4 rounded-md">
-      <h3 className="text-2xl font-bold mb-1">{header}</h3>
-      <p className="mb-4">{description}</p>
+    <div className="bg-white dark:bg-black px-8 py-4 rounded-md">
+      <h3 className="text-2xl font-bold mb-1">{title}</h3>
+      <p className="my-4">{description}</p>
       <SyntaxHighlighter
-        style={theme === "light" ? atelierCaveLight : atelierCaveDark}
-        className="rounded-xl"
-        language={language}
+        style={theme === "light" ? githubGist : atelierCaveDark}
+        className="rounded-xl bg-neutral-100"
+        language={language ? language : "cpp"}
       >
         {code}
       </SyntaxHighlighter>
