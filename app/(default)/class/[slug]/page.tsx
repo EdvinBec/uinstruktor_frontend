@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Paginator from "@/components/ui/paginator";
+import PageHeader from "../../exercises/components/PageHeader";
 
 function getToken() {
   const cookieStore = cookies();
@@ -41,10 +42,11 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
           { display: classData.className, href: "", current: true },
         ]}
       />
-      <h1 className="text-4xl font-bold pb-2">{classData.className}</h1>
-      <div className="pb-4">
-        <p>{classData.description}</p>
-      </div>
+      <PageHeader
+        title={classData.className}
+        descritpion={classData.description}
+        classname="my-4"
+      />
 
       {classData && classData.classCreator === user?.username! && (
         <div className="flex flex-row items-center gap-4 pb-4">
@@ -77,7 +79,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
       )}
 
       <div className="mt-6 font-semibold">
-        <h2 className="text-3xl pb-2">Assigments</h2>
+        <h2 className="text-2xl font-semibold mb-2">Naloge</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {classData.assigments.map((assigment, index) => (
             <AssigmentCard
@@ -87,7 +89,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 classData.assigments[index].completedUsers !== null &&
                 classData.assigments[index].completedUsers !== undefined
                   ? classData.assigments[index].completedUsers?.includes(
-                      user?.username!,
+                      user?.username!
                     )!
                   : false
               }

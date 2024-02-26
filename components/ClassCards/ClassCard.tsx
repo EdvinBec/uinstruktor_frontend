@@ -19,19 +19,18 @@ type Props = {
 
 const ClassCard = ({ title, description, src, progress }: Props) => {
   return (
-    <div className="w-full h-full min-h-[200px] rounded-xl border border-gray-200 hover:shadow-2xl shadow-lg transition-all duration-300">
-      <div className="rounded-t-xl relative min-h-[100px] flex flex-col justify-end p-4">
+    <div className="w-full h-full min-h-[200px] rounded-md border border-gray-200 hover:shadow-2xl shadow-lg transition-all duration-300">
+      <div className="rounded-t-xl relative min-h-[150px] flex flex-col justify-end p-4">
         <Image
-          className="absolute w-full h-[100px] -z-20 top-0 left-0 rounded-t-xl inset-0"
+          className="absolute w-full h-full -z-20 top-0 left-0 rounded-t-md inset-0"
           src={Math.floor(Math.random() * 100) % 2 === 0 ? Banner0 : Banner1}
           alt="Class Banner Image"
         />
         <h1 className="text-xl text-white self-start font-bold">{title}</h1>
-        <p className="text-neutral-300 text-sm">{"Author name"}</p>
       </div>
-      <div className="p-4 flex min-h-[150px] flex-col justify-between mt-1">
-        <p className="text-neutral-600 font-medium">{description}</p>
-        <Button variant={"blue"} className="flex-[0] self-end">
+      <div className="p-4 flex justify-between items-center mt-1">
+        <p className="text-black font-semibold text-base">{description}</p>
+        <Button variant={"blue"}>
           <ArrowRight />
         </Button>
       </div>
