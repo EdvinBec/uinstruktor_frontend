@@ -26,7 +26,7 @@ interface NavigationContextProp {
 }
 
 const NavigationTreeContext = createContext<NavigationContextProp>(
-  {} as NavigationContextProp,
+  {} as NavigationContextProp
 );
 
 export const TutorialNavigation = ({ children }: TutorialRootProps) => {
@@ -36,7 +36,7 @@ export const TutorialNavigation = ({ children }: TutorialRootProps) => {
   };
   return (
     <NavigationTreeContext.Provider value={{ active, setActiveItem }}>
-      <div className="hidden p-6 overflow-hidden md:block border-[1px] border-gray-200 dark:border-0 rounded-md bg-white dark:bg-black animate-fade-in gap-4 flex-col justify-center items-start">
+      <div className="p-6 overflow-hidden md:block border-[1px] border-gray-200 dark:border-0 rounded-md bg-white dark:bg-black animate-fade-in gap-4 flex-col justify-center items-start">
         {children}
       </div>
     </NavigationTreeContext.Provider>
@@ -50,11 +50,13 @@ export const TutorialLi = ({ children, href }: TutorialListElement) => {
     <li
       className={cm(
         "pl-4 border-l py-2",
-        context.active === href ? "border-l-blue/50" : "",
+        context.active === href ? "border-l-blue/50" : ""
       )}
       onClick={() => context.setActiveItem(href)}
     >
-      <Link href={`/tutorials/${href}`}>{children}</Link>
+      <Link className="text-sm" href={`/tutorials/${href}`}>
+        {children}
+      </Link>
     </li>
   );
 };
@@ -77,8 +79,12 @@ export const TutorialChapter = ({ title, children }: ChapterProps) => {
         }}
         className="flex flex-row justify-between"
       >
-        <h3 className="font-semibold">{title}</h3>
-        {!isOpen ? <ChevronRight /> : <ChevronDown />}
+        <h3 className="font-semibold text-base">{title}</h3>
+        {!isOpen ? (
+          <ChevronRight size={24} strokeWidth={1.5} />
+        ) : (
+          <ChevronDown size={24} strokeWidth={1.5} />
+        )}
       </div>
       <AnimatePresence>
         {isOpen && (
@@ -88,7 +94,7 @@ export const TutorialChapter = ({ title, children }: ChapterProps) => {
             exit={{ height: "0.1px", opacity: 0 }}
             className="mt-2"
           >
-            <ul className="">{children}</ul>
+            <ul>{children}</ul>
           </motion.div>
         )}
       </AnimatePresence>
