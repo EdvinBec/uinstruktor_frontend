@@ -49,6 +49,7 @@ const LoginPage = () => {
     if (res.token) {
       cookies.set("token", res.token);
       router.push("/explore");
+      location.reload();
     } else {
       console.log(res);
       if (res.message === "auth/wrong-password") {
