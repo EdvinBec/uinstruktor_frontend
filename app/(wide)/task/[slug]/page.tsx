@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getSavedCode, getTask, saveCode, uploadCode } from "@/lib/Services";
-import { Task, TestCase } from "@/types";
+import { Task } from "@/types";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -19,6 +19,7 @@ import TaskDescription from "../components/TaskDescription";
 import { Label } from "@/components/ui/label";
 import CustomButton from "@/components/CustomButton";
 import OutputTab from "../../sandbox/components/OutputTab";
+import { useRouter } from "next/navigation";
 
 type ApiResponse = {
   compileStatus: boolean;
@@ -26,6 +27,13 @@ type ApiResponse = {
   message: string;
   output?: TestCase[];
   status: string;
+};
+
+type TestCase = {
+  actualOutput: string;
+  expectedOutput: string;
+  input: string;
+  matching: boolean;
 };
 
 const TaskPage = ({
@@ -47,6 +55,7 @@ const TaskPage = ({
   const [error, setError] = useState(false);
 
   const auth = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     getTask(params.slug)
@@ -114,86 +123,221 @@ const TaskPage = ({
 
   return (
     <div className="w-full h-[85vh] p-2">
-      <ResizablePanelGroup className="space-x-2" direction="horizontal">
-        <ResizablePanel className="border-gray-200 border-[1px] rounded-md">
-          <CodeEditor
-            value={code}
-            onChange={(value) => {
-              setCode(value!);
-            }}
-            setEditorDidMount={setEditorDidMount}
-            defaultLanguage="cpp"
-            defaultValue=""
-            className="py-4 px-4 dark:bg-[#1c1b22]"
-          />
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel className="border-neutral-300 border p-2 rounded-lg">
-          <Tabs value={tab} onValueChange={(value) => setTab(value)}>
-            <div className="p-2 flex justify-between gap-2">
-              <div className="flex gap-4">
-                <TabsList className="space-x-2">
-                  <TabsTrigger value="description">Description</TabsTrigger>
-                  <TabsTrigger value="tests">Tests</TabsTrigger>
-                </TabsList>
+      <div className="hidden md:block">
+        <ResizablePanelGroup
+          className="space-x-2 space-y-2 hidden md:block"
+          direction="horizontal"
+        >
+          <ResizablePanel className="border-gray-200 border-[1px] rounded-md">
+            <CodeEditor
+              value={code}
+              onChange={(value) => {
+                setCode(value!);
+              }}
+              setEditorDidMount={setEditorDidMount}
+              defaultLanguage="cpp"
+              defaultValue=""
+              className="py-4 px-4 dark:bg-[#1c1b22]"
+            />
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel className="border-neutral-300 border p-2 rounded-lg">
+            <Tabs value={tab} onValueChange={(value) => setTab(value)}>
+              <div className="p-2 flex justify-between gap-2">
+                <div className="flex gap-4">
+                  <TabsList className="space-x-2 hidden md:block">
+                    <TabsTrigger value="description">Description</TabsTrigger>
+                    <TabsTrigger value="tests">Tests</TabsTrigger>
+                  </TabsList>
 
-                <Button onClick={handleSaveCode} variant={"outline"}>
-                  <Label className="flex gap-2 items-center text-xs font-bold">
-                    Shrani
-                    {isWaiting && <Loader size={18} className="animate-spin" />}
-                    {!isWaiting && <Save size={22} />}
-                  </Label>
-                </Button>
-                {apiResponse && (
-                  <CustomButton
-                    isLoading={aiWaiting}
-                    onClick={handleUseAI}
-                    label="Pomoč umetne inteligence"
-                    icon={Play}
-                  />
-                )}
-              </div>
-              <CustomButton
-                isLoading={isWaiting}
-                onClick={handleUploadCode}
-                label="Zaženi"
-                icon={Play}
-              />
-            </div>
-            <TabsContent value="description" className="p-4">
-              <TaskDescription task={task} />
-            </TabsContent>
-            <TabsContent value="tests" className="p-4">
-              {apiResponse?.compileStatus && (
-                <h2 className="font-bold text-blue-500">
-                  Compiled successfully
-                </h2>
-              )}
-              <div className="mt-6 mr-2 pr-6">
-                {apiResponse?.compileStatus &&
-                  apiResponse.output &&
-                  apiResponse?.output.map((testCase, index) => (
-                    <TestCaseCard
-                      input={testCase.input}
-                      index={index + 1}
-                      passed={testCase.matching}
-                      key={index}
-                      output={testCase.expectedOutput}
-                      actualOutput={testCase.actualOutput}
+                  <Button onClick={handleSaveCode} variant={"outline"}>
+                    <Label className="flex gap-2 items-center text-xs font-bold">
+                      Shrani
+                      {isWaiting && (
+                        <Loader size={18} className="animate-spin" />
+                      )}
+                      {!isWaiting && <Save size={22} />}
+                    </Label>
+                  </Button>
+                  {apiResponse && (
+                    <CustomButton
+                      isLoading={aiWaiting}
+                      onClick={handleUseAI}
+                      label="Pomoč umetne inteligence"
+                      icon={Play}
                     />
-                  ))}
-              </div>
-              {help && (
-                <OutputTab
-                  output={help}
-                  height={200}
-                  title="Pomoč umetne inteligence: "
+                  )}
+                </div>
+                <CustomButton
+                  isLoading={isWaiting}
+                  onClick={handleUploadCode}
+                  label="Zaženi"
+                  icon={Play}
                 />
-              )}
-            </TabsContent>
-          </Tabs>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+              </div>
+              <TabsContent value="description" className="p-4">
+                <TaskDescription task={task} />
+              </TabsContent>
+              <TabsContent value="tests" className="p-4 flex flex-col">
+                <div>
+                  {apiResponse?.compileStatus && (
+                    <h2 className="font-bold text-blue-500">
+                      Compiled successfully
+                    </h2>
+                  )}
+                  <div className="mt-6 mr-2 pr-6">
+                    {apiResponse?.compileStatus &&
+                      apiResponse.output &&
+                      apiResponse?.output.map((testCase, index) => (
+                        <TestCaseCard
+                          input={testCase.input}
+                          index={index + 1}
+                          passed={testCase.matching}
+                          key={index}
+                          output={testCase.expectedOutput}
+                          actualOutput={testCase.actualOutput}
+                        />
+                      ))}
+                  </div>
+                  {help && (
+                    <OutputTab
+                      output={help}
+                      height={200}
+                      title="Pomoč umetne inteligence: "
+                    />
+                  )}
+                </div>
+                {apiResponse?.output?.map((item: TestCase, itemIdx: number) => {
+                  let x = 0;
+                  if (item.matching) {
+                    x++;
+
+                    if (x === apiResponse?.output?.length) {
+                      return (
+                        <CustomButton
+                          key={itemIdx}
+                          label="Nadaljuj na naslednjo nalogo"
+                          onClick={() => {
+                            router.back();
+                          }}
+                        />
+                      );
+                    }
+                  }
+                })}
+              </TabsContent>
+            </Tabs>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
+      <div className="block md:hidden h-full">
+        <ResizablePanelGroup className="space-y-2" direction="vertical">
+          <ResizablePanel className="border-neutral-300 border p-2 rounded-md h-screen">
+            <Tabs
+              className="h-full overflow-y-scroll"
+              value={tab}
+              onValueChange={(value) => setTab(value)}
+            >
+              <div className="p-2 flex justify-between gap-2">
+                <div className="flex gap-4">
+                  <TabsList className="space-x-2 hidden md:block">
+                    <TabsTrigger value="description">Description</TabsTrigger>
+                    <TabsTrigger value="tests">Tests</TabsTrigger>
+                  </TabsList>
+
+                  <Button onClick={handleSaveCode} variant={"outline"}>
+                    <Label className="flex gap-2 items-center text-xs font-bold">
+                      Shrani
+                      {isWaiting && (
+                        <Loader size={18} className="animate-spin" />
+                      )}
+                      {!isWaiting && <Save size={22} />}
+                    </Label>
+                  </Button>
+                  {apiResponse && (
+                    <CustomButton
+                      isLoading={aiWaiting}
+                      onClick={handleUseAI}
+                      label="Pomoč umetne inteligence"
+                      icon={Play}
+                    />
+                  )}
+                </div>
+                <CustomButton
+                  isLoading={isWaiting}
+                  onClick={handleUploadCode}
+                  label="Zaženi"
+                  icon={Play}
+                />
+              </div>
+              <TabsContent value="description" className="p-4">
+                <TaskDescription task={task} />
+              </TabsContent>
+              <TabsContent value="tests" className="p-4 flex flex-col">
+                <div>
+                  {apiResponse?.compileStatus && (
+                    <h2 className="font-bold text-blue-500">
+                      Compiled successfully
+                    </h2>
+                  )}
+                  <div className="mt-6 mr-2 pr-6">
+                    {apiResponse?.compileStatus &&
+                      apiResponse.output &&
+                      apiResponse?.output.map((testCase, index) => (
+                        <TestCaseCard
+                          input={testCase.input}
+                          index={index + 1}
+                          passed={testCase.matching}
+                          key={index}
+                          output={testCase.expectedOutput}
+                          actualOutput={testCase.actualOutput}
+                        />
+                      ))}
+                  </div>
+                  {help && (
+                    <OutputTab
+                      output={help}
+                      height={200}
+                      title="Pomoč umetne inteligence: "
+                    />
+                  )}
+                </div>
+                {apiResponse?.output?.map((item: TestCase, itemIdx: number) => {
+                  let x = 0;
+                  if (item.matching) {
+                    x++;
+
+                    if (x === apiResponse?.output?.length) {
+                      return (
+                        <CustomButton
+                          key={itemIdx}
+                          label="Nadaljuj na naslednjo nalogo"
+                          onClick={() => {
+                            router.back();
+                          }}
+                        />
+                      );
+                    }
+                  }
+                })}
+              </TabsContent>
+            </Tabs>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel className="border-gray-200 border-[1px] rounded-md">
+            <CodeEditor
+              value={code}
+              onChange={(value) => {
+                setCode(value!);
+              }}
+              setEditorDidMount={setEditorDidMount}
+              defaultLanguage="cpp"
+              defaultValue=""
+              className="py-4 px-4 dark:bg-[#1c1b22]"
+            />
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
     </div>
   );
 };

@@ -87,7 +87,7 @@ const ChapterDrawer = ({
               </div>
               <div
                 className={`p-1 rounded-full border-[1px] border-gray-200  ${
-                  item.isCompleted && "bg-blue-500 border-0 text-white"
+                  item.isCompleted && "bg-blue border-0 text-white"
                 }`}
               >
                 <Check size={18} strokeWidth={2} />

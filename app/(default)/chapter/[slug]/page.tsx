@@ -1,10 +1,6 @@
 import RoadmapItem from "@/components/Roadmap/roadmapItem";
 import Paginator from "@/components/ui/paginator";
-import {
-  getChapterData,
-  getChapterTasks,
-  getCourseChapters,
-} from "@/lib/Services";
+import { getChapterData, getChapterTasks } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Task } from "@/types";
 import { cookies } from "next/headers";
@@ -14,8 +10,6 @@ const ChapterPage = async ({ params }: { params: { slug: string } }) => {
   const username = await decryptToken(cookie.get("token")?.value!);
   const chapter = await getChapterData(params.slug);
   const tasks: Task[] = await getChapterTasks(params.slug, username as string);
-
-  console.log(chapter);
   return (
     <div>
       <Paginator
