@@ -23,46 +23,44 @@ const TestCaseCard = ({
 
   return (
     <div
-      className={`my-4 w-1/2 border shadow  rounded-xl flex flex-col justify-center transition-all`}
+      className={`my-4 px-2 w-3/5 border-[1px] border-gray-200 bg-white dark:bg-black dark:border-0 rounded-md flex flex-col justify-center transition-all`}
     >
       <div
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className={`flex flex-row justify-between cursor-pointer p-2 ${
+        className={`flex flex-row justify-between items-center cursor-pointer p-2 ${
           !isCollapsed && "border-b-2"
         }`}
       >
-        <div>
+        <div className="flex gap-2">
           {isCollapsed ? (
-            <ChevronRight className="inline" />
+            <ChevronRight className="inline" size={20} />
           ) : (
-            <ChevronDown className="inline" />
+            <ChevronDown className="inline" size={20} />
           )}
-          <h3 className="inline">Test case {index}</h3>
+          <h3 className="inline text-sm font-semibold">
+            Testni primer {index}
+          </h3>
         </div>
-        <Badge variant={passed ? "passed" : "failed"}>
-          {passed ? "passed" : "failed"}
+        <Badge className="text-white" variant={passed ? "passed" : "failed"}>
+          {passed ? "Opravljneo" : "Ni uspelo"}
         </Badge>
       </div>
 
       <div
-        className={`animate-open-dropdown p-2 ${
+        className={`animate-open-dropdown py-4 px-2 flex flex-col gap-1 ${
           isCollapsed ? "hidden h-0" : "block h-full"
         }`}
       >
-        <p>
-          Input:
-          <span className=" font-medium">{input}</span>
+        <p className="text-base font-medium">
+          Vhod:
+          <span className="font-bold">{input}</span>
         </p>
-        <p>
-          Output: <span className=" font-medium">{actualOutput}</span>
+        <p className="text-base font-medium">
+          Izpis: <span className="font-bold">{actualOutput}</span>
         </p>
-        <p>
-          Expected output:<span className=" font-medium"> {output}</span>
+        <p className="text-base font-medium">
+          Pričakovan izpis:<span className="font-bold"> {output}</span>
         </p>
-        <div className="mt-2 border-t flex flex-row items-center justify-end">
-          <Flag size={17} />
-          <Button variant={"link"}>Report a problem</Button>
-        </div>
       </div>
     </div>
   );

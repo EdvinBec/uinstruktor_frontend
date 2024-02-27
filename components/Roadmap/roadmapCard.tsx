@@ -46,23 +46,23 @@ const RoadmapCard = ({
       </div>
       {!disabled ? (
         isCompleted ? (
-          <Button
-            className={`w-full flex gap-2 opacity-80 ${
-              isCompleted && "bg-green-500"
-            }`}
-            variant="default"
-            disabled
+          <Link
+            href={`/task/${taskID}`}
+            className="w-full flex justify-center gap-2"
           >
-            <Link
-              href={`/task/${taskID}`}
-              className="w-full flex justify-center gap-2"
+            <Button
+              className={`w-full flex gap-2 opacity-80 ${
+                isCompleted && "bg-green-500"
+              }`}
+              variant="default"
+              disabled
             >
               <div className=" text-white">
                 <Check size={18} />
               </div>
               Rešeno
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         ) : (
           <Button
             className={`w-full bg-black hover:bg-black hover:opacity-80 transition-all ease-in-out duration-150  ${
