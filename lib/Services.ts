@@ -314,3 +314,41 @@ export const getTutorialItem = async (slug: string) => {
 
   return data.data;
 };
+
+export const uploadExerciseCode = async (
+  source: string,
+  exerciseID: string,
+  lang: string,
+) => {
+  const result = await fetch(baseURL + "/api/code/exercise", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      lang,
+      exerciseID,
+      source,
+    }),
+  });
+  const data = await result.json();
+
+  return data;
+};
+
+export const getExercise = async (slug: string) => {
+  const result = await fetch(baseURL + `/api/exercise/${slug}`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};

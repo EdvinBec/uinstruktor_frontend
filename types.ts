@@ -94,3 +94,4 @@ export type Exercise = {
   points: number;
   tags: string;
 };
+export type EditorType = "sandbox" | "task" | "exercise" | "assigment";
