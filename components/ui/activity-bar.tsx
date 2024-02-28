@@ -14,24 +14,19 @@ type Day = {
 };
 
 const Day = ({ value }: { value: number }) => {
-  const [isHovered, setIsHovered] = useState(false);
   return (
-    <div
-      className="relative"
-      onMouseOver={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="relative">
       <div
         style={{
           backgroundColor: value !== 0 ? `rgba(0, 200, 0, ${value / 10})` : "",
         }}
         className={cm(
           "w-3 h-3 rounded-sm",
-          value === 0 ? "bg-neutral-800" : "",
+          value === 0 ? "bg-neutral-300 dark:bg-neutral-600 relative" : "",
         )}
       ></div>
-      {isHovered && (
-        <div className="absolute z-50 top-[-30px] bg-neutral-700 left-1/2 translate-x-[-50%] px-2 py-1 rounded-lg">
+      {false && (
+        <div className="absolute z-50 top-[-30px] dark:bg-neutral-700 bg-neutral-400 left-1/2 translate-x-[-50%] px-2 py-1 rounded-lg">
           {/* <ChevronDown className="absolute left-1/2 bottom-[-15px] translate-x-[-50%] " /> */}
           <p className="text-sm whitespace-nowrap">
             Completed {value / 5} tasks
@@ -77,7 +72,7 @@ const ActivityBar = ({ username }: Props) => {
           <p key={index}>{month}</p>
         ))}
       </div> */}
-          <div className=" overflow-x-auto p-2 rounded-lg flex-row flex gap-1">
+          <div className="overflow-x-auto relative p-2 rounded-lg flex-row flex gap-1 w-full">
             {entries.map((week, weekIndex) => {
               return (
                 <div key={weekIndex} className="flex flex-col gap-1">
