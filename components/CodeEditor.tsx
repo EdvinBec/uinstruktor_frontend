@@ -64,6 +64,13 @@ const CodeEditor = ({
   const handleSaveCode = (type: EditorType) => {
     switch (type) {
       case "task":
+        if (code.length > 1) {
+          try {
+            saveCode(auth?.username!, code, ID!).then((data) => {});
+          } catch (error) {
+            console.log(error);
+          }
+        }
         break;
       case "exercise":
         break;
@@ -143,7 +150,10 @@ const CodeEditor = ({
   return (
     <div>
       <ResizablePanelGroup className="space-x-2" direction="horizontal">
-        <ResizablePanel className="border-gray-200 border-[1px] rounded-md">
+        <ResizablePanel
+          minSize={30}
+          className="border-gray-200 border-[1px] rounded-md"
+        >
           <Editor
             value={code}
             onChange={(value) => {
@@ -156,7 +166,10 @@ const CodeEditor = ({
           />
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel className="border-neutral-300 border p-2 rounded-lg">
+        <ResizablePanel
+          minSize={30}
+          className="border-neutral-300 border p-2 rounded-lg"
+        >
           <Tabs value={tab} onValueChange={(value) => setTab(value)}>
             <div className="p-2 flex justify-between gap-2">
               <div className="flex gap-4">
