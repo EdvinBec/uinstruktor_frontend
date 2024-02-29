@@ -1,27 +1,42 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
 
-import Footer from "./Footer/Footer";
-import Navbar from "./Navbar/Navbar";
-import { Toaster } from "./ui/sonner";
+import { TourProvider, useTour } from "@reactour/tour";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { steps } from "@/steps";
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      <div className="flex overflow-hidden h-dvh">
-        <div className="flex-1 flex flex-col h-screen overflow-hidden items-center">
-          <Navbar />
-          <div
-            className={`overflow-x-hidden overflow-y-auto transition-all h-full w-full`}
-          >
-            <div className="px-8">{children}</div>
-            <Footer />
-          </div>
-        </div>
-      </div>
-      <Toaster />
-    </>
-  );
+  const pathname = usePathname();
+  const { setSteps, setCurrentStep } = useTour();
+
+  useEffect(() => {
+    setCurrentStep(0);
+
+    if (pathname === "/course/5af3a800") {
+      setSteps!([
+        {
+          selector: '[data-tour="step-page-course"]',
+          content: "text page",
+        },
+      ]);
+    } else if (pathname === "/page-2") {
+      setSteps!([
+        {
+          selector: '[data-tour="step-page-2"]',
+          content: "text page 2",
+        },
+        {
+          selector: '[data-tour="step-page-3"]',
+          content: "text page 3",
+        },
+      ]);
+    } else {
+      setSteps!(steps);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, setCurrentStep, setSteps]);
+
+  return <TourProvider steps={steps}>{children}</TourProvider>;
 };
 
 export default DefaultLayout;

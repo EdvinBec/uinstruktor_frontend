@@ -1,12 +1,9 @@
 import { getCourseChapters, getCourses, resumeLearning } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
-import { Chapter, Course } from "@/types";
+import { Course } from "@/types";
 
 import { cookies } from "next/headers";
-import CourseFeatures from "../components/CourseFeatures";
-import CourseHeader from "../components/CourseHeader";
-import ChapterDrawer from "../components/ChapterDrawer";
-import Paginator from "@/components/ui/paginator";
+import CourseComponent from "../components/CourseComponent";
 
 const CoursePage = async ({ params }: { params: { slug: string } }) => {
   const cookie = cookies();
@@ -31,55 +28,13 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
     .map((word) => word.trim());
 
   return (
-    <div className="w-full">
-      <Paginator
-        links={[
-          { display: "Tečaji", href: "/explore" },
-          { display: filteredCourse?.title!, href: "", current: true },
-        ]}
-        className="mb-4"
-      />
-      <div className="flex mb-12 gap-12 border-gray-200 border-[1px] dark:border-0 bg-white dark:bg-black px-8 py-6 rounded-md">
-        <CourseHeader
-          firstChapter={chapters[0].chapterID}
-          courseId={filteredCourse?.courseID!}
-          username={username as string}
-          title={filteredCourse?.title!}
-          description={filteredCourse?.description!}
-          progress={filteredCourse?.progress!}
-        />
-        <CourseFeatures
-          skillLevel={filteredCourse?.skillLevel!}
-          skills={wordsArray!}
-        />
-      </div>
-      <div>
-        <h2 className="font-bold text-2xl">Trenutno poglavje</h2>
-        <ChapterDrawer
-          username={username as string}
-          currentModule={
-            currentModule.nextChapter === null
-              ? chapters[0]
-              : chapters.find(
-                  (item: Chapter) =>
-                    currentModule.nextChapter === item.chapterID
-                )!
-          }
-        />
-      </div>
-      <div className="mt-8">
-        <h2 className="font-bold text-2xl">Kazalo vsebine</h2>
-        {chapters.map((item: Chapter, itemIdx) => {
-          return (
-            <ChapterDrawer
-              key={itemIdx}
-              username={username as string}
-              currentModule={item}
-            />
-          );
-        })}
-      </div>
-    </div>
+    <CourseComponent
+      filteredCourse={filteredCourse!}
+      currentModule={currentModule}
+      wordsArray={wordsArray!}
+      chapters={chapters}
+      username={username as string}
+    />
   );
 };
 

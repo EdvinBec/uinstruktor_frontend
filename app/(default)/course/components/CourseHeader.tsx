@@ -56,15 +56,19 @@ const CourseHeader = ({
   return (
     <div className="w-full md:w-3/5">
       <h1 className="font-bold text-3xl tracking-wide">{title}</h1>
-      <CustomButton
-        className="my-4"
-        isLoading={isLoading}
-        label="Nadaljuj z učenjem"
-        onClick={handeResumeCourse}
-      />
+      <div className="flex justify-start">
+        <div data-tour="step-course-2">
+          <CustomButton
+            className="my-4"
+            isLoading={isLoading}
+            label="Nadaljuj z učenjem"
+            onClick={handeResumeCourse}
+          />
+        </div>
+      </div>
 
       <p className="mt-2">{description}</p>
-      <div className="mt-4">
+      <div className="mt-4" data-tour="step-course-3">
         <h2 className="mb-2 font-bold text-xl">Napredek</h2>
         <div className="flex gap-4 w-full items-center">
           <Progress value={Math.floor(progress)} />
