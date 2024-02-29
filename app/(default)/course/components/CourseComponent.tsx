@@ -49,7 +49,7 @@ const CourseComponent = ({
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full dark:text-white">
       <Paginator
         links={[
           { display: "Tečaji", href: "/explore" },

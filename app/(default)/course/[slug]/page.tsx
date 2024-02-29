@@ -1,12 +1,8 @@
 import { getCourseChapters, getCourses, resumeLearning } from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
-import { Chapter, Course } from "@/types";
+import { Course } from "@/types";
 
 import { cookies } from "next/headers";
-import CourseFeatures from "../components/CourseFeatures";
-import CourseHeader from "../components/CourseHeader";
-import ChapterDrawer from "../components/ChapterDrawer";
-import Paginator from "@/components/ui/paginator";
 import CourseComponent from "../components/CourseComponent";
 
 const CoursePage = async ({ params }: { params: { slug: string } }) => {

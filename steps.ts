@@ -79,12 +79,41 @@ export const courseSteps = [
   {
     selector: '[data-tour="step-course-5"]',
     content:
-      "V kazalu vsebbine pa si lahko ogledate vsa poglavja in lekcije, ki vas čakajo v nadaljevanju tečaja.",
+      "V kazalu vsebine pa si lahko ogledate vsa poglavja in lekcije, ki vas čakajo v nadaljevanju tečaja.",
     style: {
       color: "black",
     },
     action: () => {
       localStorage.setItem("courseTour", "true");
+    },
+  },
+];
+export const exerciseSteps = [
+  {
+    selector: '[data-tour="step-exercise"]',
+    content:
+      "Na tej strani lahko najdete vse vaje, ki so na voljo za učenje programiranja v jeziku C++.",
+    style: {
+      color: "black",
+    },
+  },
+  {
+    selector: '[data-tour="step-exercise-2"]',
+    content:
+      "S pomočjo filtrov lahko izberete vaje glede na težavnost in kategorijo.",
+    style: {
+      color: "black",
+    },
+  },
+  {
+    selector: '[data-tour="step-exercise-3"]',
+    content:
+      "S klikom na eno izmed vaj, se vam odpre možnost za reševanje iste.",
+    style: {
+      color: "black",
+    },
+    action: () => {
+      localStorage.setItem("exerciseTour", "true");
     },
   },
 ];

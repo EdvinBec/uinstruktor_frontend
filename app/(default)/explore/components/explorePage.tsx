@@ -38,7 +38,7 @@ const ExplorePageComponent = ({ course }: Props) => {
   }, []);
 
   return (
-    <div className="py-8" data-tour="step-explore">
+    <div className="py-8 dark:text-white" data-tour="step-explore">
       <div className="flex gap-8 flex-wrap lg:flex-nowrap">
         {course.map((item: Course, itemIdx: number) => {
           const wordsArray = item?.skills.split(",").map((word) => word.trim());

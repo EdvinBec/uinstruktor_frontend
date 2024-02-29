@@ -4,7 +4,11 @@ import { courseSteps } from "@/steps";
 import { TourProvider } from "@reactour/tour";
 
 const CourseLayout = ({ children }: { children: React.ReactNode }) => {
-  return <TourProvider steps={courseSteps}>{children}</TourProvider>;
+  return (
+    <div className="dark:text-black">
+      <TourProvider steps={courseSteps}>{children}</TourProvider>
+    </div>
+  );
 };
 
 export default CourseLayout;
