@@ -100,3 +100,11 @@ export type Resume = {
   nextChapter: null | string;
   proceed: boolean;
 };
+
+export type EditorValue = {
+  id: string;
+  type: string;
+  children: {
+    text: string;
+  }[];
+};
