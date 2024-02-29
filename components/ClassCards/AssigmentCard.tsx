@@ -87,11 +87,13 @@ const AssigmentCard = ({
         )}
       </div>
 
-      <div className="p-4 border-t dark:border-t-neutral-700 flex items-center">
+      <div className="p-4 border-t dark:bg-black bg-white dark:border-t-neutral-700 flex items-center">
         <div>
           <h2 className="text-xl font-semibold">{title}</h2>
           <div className="pt-2">
-            <p className="font-normal text-neutral-600">{description}</p>
+            <p className="font-normal text-neutral-600 dark:text-gray-300">
+              {description}
+            </p>
           </div>
         </div>
         <Button>
