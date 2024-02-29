@@ -95,3 +95,8 @@ export type Exercise = {
   tags: string;
 };
 export type EditorType = "sandbox" | "task" | "exercise" | "assigment";
+
+export type Resume = {
+  nextChapter: null | string;
+  proceed: boolean;
+};

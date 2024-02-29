@@ -1,9 +1,9 @@
 "use client";
 
 import { TourProvider, useTour } from "@reactour/tour";
-import { steps } from "@/steps";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { steps } from "@/steps";
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -33,6 +33,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
     } else {
       setSteps!(steps);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, setCurrentStep, setSteps]);
 
   return <TourProvider steps={steps}>{children}</TourProvider>;

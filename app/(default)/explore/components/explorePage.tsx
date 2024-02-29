@@ -14,25 +14,26 @@ type Props = {
 
 const ExplorePageComponent = ({ course }: Props) => {
   const { setIsOpen } = useTour();
-
   const { toast } = useToast();
 
   useEffect(() => {
-    toast({
-      title: "Uvod",
-      description:
-        "Z klikom na gumb, si lahko ogledate voden uvod skozi našo aplikacijo.",
-      action: (
-        <ToastAction
-          altText="Poglej uvod"
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          Poglej uvod
-        </ToastAction>
-      ),
-    });
+    if (!localStorage.getItem("exploreTour")) {
+      toast({
+        title: "Uvod",
+        description:
+          "Z klikom na gumb, si lahko ogledate voden uvod skozi našo aplikacijo.",
+        action: (
+          <ToastAction
+            altText="Poglej uvod"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            Poglej uvod
+          </ToastAction>
+        ),
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -38,5 +38,53 @@ export const steps = [
     style: {
       color: "black",
     },
+    action: () => {
+      localStorage.setItem("exploreTour", "true");
+    },
+  },
+];
+
+export const courseSteps = [
+  {
+    selector: '[data-tour="step-course"]',
+    content:
+      "Tukaj si lahko ogledate vse osnovne informacije o trenutnem tečaju.",
+    style: {
+      color: "black",
+    },
+  },
+  {
+    selector: '[data-tour="step-course-2"]',
+    content:
+      "S klikom na ta gumb lahko nadaljujete z učenjem, tam kjer ste se zadnjič ustavili.",
+    style: {
+      color: "black",
+    },
+  },
+  {
+    selector: '[data-tour="step-course-3"]',
+    content: "Tukaj pa je napredek, katerega ste dosegli v celotnem tečaju.",
+    style: {
+      color: "black",
+    },
+  },
+  {
+    selector: '[data-tour="step-course-4"]',
+    content:
+      "Trenutno poglavje predstavlja snov in lekcije na katerih ste se nazadnje ustavili.",
+    style: {
+      color: "black",
+    },
+  },
+  {
+    selector: '[data-tour="step-course-5"]',
+    content:
+      "V kazalu vsebbine pa si lahko ogledate vsa poglavja in lekcije, ki vas čakajo v nadaljevanju tečaja.",
+    style: {
+      color: "black",
+    },
+    action: () => {
+      localStorage.setItem("courseTour", "true");
+    },
   },
 ];
