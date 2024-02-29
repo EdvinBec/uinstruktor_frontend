@@ -27,6 +27,7 @@ type ApiResponse = {
   message: string;
   output?: TestCase[];
   status: string;
+  err: string;
 };
 
 type TestCase = {
@@ -84,6 +85,7 @@ const TaskPage = ({
         if (result.compileStatus) {
           setApiResponse(result);
           setError(false);
+          console.log(result);
         }
       })
       .finally(() => {
@@ -122,7 +124,7 @@ const TaskPage = ({
   if (isLoading) return <div className="w-full h-full p-2">Loading...</div>;
 
   return (
-    <div className="w-full h-[85vh] p-2">
+    <div className="w-full min-h-[85vh] h-full p-2">
       <div className="hidden md:block">
         <ResizablePanelGroup
           className="space-x-2 space-y-2 hidden md:block"
@@ -136,7 +138,7 @@ const TaskPage = ({
               }}
               setEditorDidMount={setEditorDidMount}
               defaultLanguage="cpp"
-              defaultValue=""
+              defaultValue={task.infoPage.exampleCode}
               className="py-4 px-4 dark:bg-[#1c1b22]"
             />
           </ResizablePanel>
@@ -180,6 +182,12 @@ const TaskPage = ({
               </TabsContent>
               <TabsContent value="tests" className="p-4 flex flex-col">
                 <div>
+                  <OutputTab
+                    output={apiResponse?.err!}
+                    isError={true}
+                    height={200}
+                    title="Pomoč umetne inteligence: "
+                  />
                   {apiResponse?.compileStatus && (
                     <h2 className="font-bold text-blue-500">
                       Compiled successfully
@@ -207,24 +215,16 @@ const TaskPage = ({
                     />
                   )}
                 </div>
-                {apiResponse?.output?.map((item: TestCase, itemIdx: number) => {
-                  let x = 0;
-                  if (item.matching) {
-                    x++;
-
-                    if (x === apiResponse?.output?.length) {
-                      return (
-                        <CustomButton
-                          key={itemIdx}
-                          label="Nadaljuj na naslednjo nalogo"
-                          onClick={() => {
-                            router.back();
-                          }}
-                        />
-                      );
-                    }
-                  }
-                })}
+                {apiResponse?.output?.every(
+                  (item: TestCase) => item.matching
+                ) && (
+                  <CustomButton
+                    label="Nadaljuj na naslednjo nalogo"
+                    onClick={() => {
+                      router.back();
+                    }}
+                  />
+                )}
               </TabsContent>
             </Tabs>
           </ResizablePanel>

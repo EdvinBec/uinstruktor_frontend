@@ -193,7 +193,7 @@ export const getTask = async (taskID: string) => {
   });
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    console.log(result);
   }
   const data = await result.json();
 
@@ -318,7 +318,7 @@ export const getTutorialItem = async (slug: string) => {
 export const uploadExerciseCode = async (
   source: string,
   exerciseID: string,
-  lang: string,
+  lang: string
 ) => {
   const result = await fetch(baseURL + "/api/code/exercise", {
     method: "POST",

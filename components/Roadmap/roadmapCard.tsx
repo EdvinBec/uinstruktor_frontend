@@ -76,7 +76,7 @@ const RoadmapCard = ({
               className="w-full flex justify-center gap-2"
             >
               {isLoading && <Loader size={18} className="animate-spin" />}
-              Start!
+              Začni!
             </Link>
           </Button>
         )
@@ -86,7 +86,7 @@ const RoadmapCard = ({
           variant="default"
           disabled
         >
-          Start!
+          {isCompleted ? "Rešeno" : "Začni!"}
         </Button>
       )}
     </div>
