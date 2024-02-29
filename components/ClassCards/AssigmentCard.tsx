@@ -95,7 +95,7 @@ const AssigmentCard = ({
           </div>
         </div>
         <Button>
-          <Link href={`/class/${classID}/assigment/${assigmentID}`}>
+          <Link href={`/assigment/${assigmentID}`}>
             <ArrowRight />
           </Link>
         </Button>
