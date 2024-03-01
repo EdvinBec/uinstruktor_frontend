@@ -1,4 +1,4 @@
-import CodeEditor from "@/components/CodeEditor";
+import IDE from "@/components/IDE";
 import { getExercise } from "@/lib/Services";
 import { Exercise } from "@/types";
 import React from "react";
@@ -9,7 +9,7 @@ const ExercisePage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div>
-      <CodeEditor
+      <IDE
         type="exercise"
         title={exercise.title}
         ID={slug}

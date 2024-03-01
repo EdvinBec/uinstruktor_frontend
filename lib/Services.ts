@@ -318,7 +318,7 @@ export const getTutorialItem = async (slug: string) => {
 export const uploadExerciseCode = async (
   source: string,
   exerciseID: string,
-  lang: string
+  lang: string,
 ) => {
   const result = await fetch(baseURL + "/api/code/exercise", {
     method: "POST",
@@ -375,6 +375,43 @@ export const uploadNewAssigment = async (
       classID,
       template,
       lang,
+    }),
+  });
+  const data = await result.json();
+
+  return data;
+};
+
+export const getTestCases = async (slug: string) => {
+  const result = await fetch(baseURL + `/api/course/task/${slug}/tests`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+
+  return data.data;
+};
+
+export const updateTask = async (
+  task: Task,
+  testCases: {}[],
+  taskID: string,
+) => {
+  const result = await fetch(baseURL + `/api/course/task/${taskID}/edit`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      task,
+      testCases,
     }),
   });
   const data = await result.json();
