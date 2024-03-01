@@ -34,7 +34,7 @@ type CodeEditorProps = {
   ID?: string;
 };
 
-const CodeEditor = ({
+const IDE = ({
   title,
   description,
   taglines,
@@ -262,4 +262,4 @@ const CodeEditor = ({
   );
 };
 
-export default CodeEditor;
+export default IDE;

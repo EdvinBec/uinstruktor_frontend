@@ -85,7 +85,8 @@ import { TooltipProvider } from "@/components/plate-ui/tooltip";
 
 import { serializeHtml } from "@udecode/plate-serializer-html";
 import { EditorValue } from "@/types";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { Transforms } from "slate";
 
 const plugins = createPlugins(
   [
@@ -184,7 +185,12 @@ const initialValue = [
   {
     id: "1",
     type: "p",
-    children: [{ text: "Hello, World!" }],
+    children: [{ text: "Hello world" }],
+  },
+  {
+    id: "2",
+    type: "p",
+    children: [{ text: "Hello world2" }],
   },
 ];
 
@@ -203,7 +209,7 @@ export default function TextEditor({ onChange, value }: EditorProps) {
           onChange(value);
         }}
         plugins={plugins}
-        initialValue={initialValue}
+        value={value}
       >
         <FixedToolbar className="mt-2">
           <FixedToolbarButtons />

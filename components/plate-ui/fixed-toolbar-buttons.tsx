@@ -29,7 +29,7 @@ export function FixedToolbarButtons() {
       >
         {!readOnly && (
           <>
-            <ToolbarGroup noSeparator>
+            <ToolbarGroup>
               <InsertDropdownMenu />
               <TurnIntoDropdownMenu />
             </ToolbarGroup>

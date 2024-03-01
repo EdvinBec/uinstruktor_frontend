@@ -16,16 +16,15 @@ const Paginator = ({ links, className }: PaginatorProps) => {
           return <p key={idx + 2}>{link.display}</p>;
         }
         return (
-          <>
+          <div className="flex flex-row gap-3 items-center" key={idx}>
             <Link
               className="text-neutral-500 hover:underline underline-offset-4"
               href={link.href}
-              key={idx}
             >
               {link.display}
             </Link>
-            <ChevronRight key={idx + 1} color="rgb(115, 115, 115)" />
-          </>
+            <ChevronRight color="rgb(115, 115, 115)" />
+          </div>
         );
       })}
     </div>
