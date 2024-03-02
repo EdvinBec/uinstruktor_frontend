@@ -61,11 +61,11 @@ export function FixedToolbarButtons() {
           </>
         )}
 
-        <div className="grow" />
+        {/* <div className="grow" /> */}
 
-        <ToolbarGroup noSeparator>
+        {/* <ToolbarGroup noSeparator>
           <ModeDropdownMenu />
-        </ToolbarGroup>
+        </ToolbarGroup> */}
       </div>
     </div>
   );

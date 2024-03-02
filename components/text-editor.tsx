@@ -9,6 +9,7 @@ import {
   createPlateEditor,
   useEditorRef,
   deserializeHtml,
+  usePlateStore,
 } from "@udecode/plate-common";
 import {
   createParagraphPlugin,
@@ -197,11 +198,18 @@ const initialValue = [
 type EditorProps = {
   onChange: (value: EditorValue[]) => void;
   value: EditorValue[];
+  readOnly?: boolean;
 };
 
 const editor = createPlateEditor({ plugins });
 
-export default function TextEditor({ onChange, value }: EditorProps) {
+const ReadOnlyPlugin = () => {
+  const setReadOnly = usePlateStore().set.readOnly();
+  setReadOnly(true);
+  return null;
+};
+
+export default function TextEditor({ onChange, value, readOnly }: EditorProps) {
   return (
     <TooltipProvider>
       <Plate
@@ -215,6 +223,7 @@ export default function TextEditor({ onChange, value }: EditorProps) {
           <FixedToolbarButtons />
         </FixedToolbar>
         <Editor className="mt-2" />
+        {readOnly && <ReadOnlyPlugin />}
       </Plate>
     </TooltipProvider>
   );
