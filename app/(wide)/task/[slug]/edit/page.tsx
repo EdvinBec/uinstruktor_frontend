@@ -109,25 +109,24 @@ const TaskEditPage = ({ params }: { params: { slug: string } }) => {
               <Button onClick={handleSaveTask}>Shrani</Button>
             </div>
           </div>
+
           <div>
             {task.infoPage && (
-              <Label>
-                Navodila za nalogo
-                <TextEditor
-                  onChange={(value) => {
-                    setTask({
-                      ...task,
-                      infoPage: {
-                        ...task.infoPage,
-                        description: JSON.stringify(value),
-                      },
-                    });
-                  }}
-                  value={JSON.parse(task.infoPage.description)}
-                />
-              </Label>
+              <TextEditor
+                onChange={(value) => {
+                  setTask({
+                    ...task,
+                    infoPage: {
+                      ...task.infoPage,
+                      description: JSON.stringify(value),
+                    },
+                  });
+                }}
+                value={JSON.parse(task.infoPage.description)}
+              />
             )}
           </div>
+
           <div>
             <Label>
               Testi

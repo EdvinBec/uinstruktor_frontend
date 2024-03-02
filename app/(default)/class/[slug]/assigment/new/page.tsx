@@ -11,7 +11,13 @@ import { uploadNewAssigment } from "@/lib/Services";
 
 const NewAssigmentPage = ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
-  const [editorValue, setEditorValue] = React.useState<EditorValue[]>([]);
+  const [editorValue, setEditorValue] = React.useState<EditorValue[]>([
+    {
+      id: "1",
+      type: "p",
+      children: [{ text: "Navodilo naloge" }],
+    },
+  ]);
   const [testCases, setTestCases] = React.useState<TestCase[]>([]);
   const [date, setDate] = useState<Date>(new Date());
   const [title, setTitle] = useState<string>("");
