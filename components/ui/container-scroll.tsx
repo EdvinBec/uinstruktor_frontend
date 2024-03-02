@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
-import AppShowcase from "@/assets/app_screenshot.png";
+import CodeEditor from "@/assets/CodeEditor.png";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -36,11 +36,11 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="h-[80rem] flex items-center justify-center relative p-20"
+      className=" lex items-center justify-center relative p-20"
       ref={containerRef}
     >
       <div
-        className="py-40 w-full relative"
+        className="w-full relative"
         style={{
           perspective: "1000px",
         }}
@@ -86,7 +86,7 @@ export const Card = ({
     >
       <Image
         className="rounded-[30px] p-2"
-        src={AppShowcase}
+        src={CodeEditor}
         alt="App Showcase"
       />
     </motion.div>
