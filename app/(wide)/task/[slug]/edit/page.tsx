@@ -145,7 +145,7 @@ const TaskEditPage = ({ params }: { params: { slug: string } }) => {
                       input: "",
                       output: "",
                       deleted: false,
-                      id: testCases[testCases.length - 1].id + 1,
+                      id: Math.floor(Math.random() * 2000),
                       new: true,
                     },
                   ]);
