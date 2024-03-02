@@ -7,13 +7,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Paginator from "@/components/ui/paginator";
 import { getTask, getTestCases, updateTask } from "@/lib/Services";
+import { cm } from "@/lib/utils";
 import { ApiResponse, EditorValue, Task, TestCase } from "@/types";
 import React, { Suspense, useState } from "react";
 
 const TaskEditPage = ({ params }: { params: { slug: string } }) => {
   const [task, setTask] = React.useState<Task>({} as Task);
   const [testCases, setTestCases] = React.useState<
-    { input: string; output: string }[]
+    {
+      input: string;
+      output: string;
+      deleted: boolean;
+      id: number;
+      new: boolean;
+    }[]
   >([]);
   const [resp, setResp] = useState<ApiResponse<{}>>();
 
@@ -128,46 +135,90 @@ const TaskEditPage = ({ params }: { params: { slug: string } }) => {
           </div>
 
           <div>
-            <Label>
-              Testi
-              <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-                {testCases.map((testCase, idx) => {
-                  return (
-                    <div
-                      className="space-y-2 bg-white rounded-lg p-4"
-                      key={idx}
-                    >
-                      <div>
-                        <Label>
-                          Vhod
-                          <Input
-                            value={testCase.input}
-                            onValueChange={(value) => {
-                              const newTestCases = [...testCases];
-                              newTestCases[idx].input = value;
-                              setTestCases(newTestCases);
-                            }}
-                          />
-                        </Label>
-                      </div>
-                      <div>
-                        <Label>
-                          Izhod
-                          <Input
-                            value={testCase.output}
-                            onValueChange={(value) => {
-                              const newTestCases = [...testCases];
-                              newTestCases[idx].output = value;
-                              setTestCases(newTestCases);
-                            }}
-                          />
-                        </Label>
-                      </div>
+            <div className="flex flex-row items-center gap-4 my-4">
+              <h2 className="text-xl font-semibold">Testi</h2>
+              <Button
+                onClick={() => {
+                  setTestCases([
+                    ...testCases,
+                    {
+                      input: "",
+                      output: "",
+                      deleted: false,
+                      id: testCases[testCases.length - 1].id + 1,
+                      new: true,
+                    },
+                  ]);
+                }}
+                size={"sm"}
+              >
+                Dodaj
+              </Button>
+            </div>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+              {testCases.map((testCase, idx) => {
+                return (
+                  <div
+                    className={cm(
+                      "space-y-2 bg-white rounded-lg p-4 border ",
+                      testCase.deleted
+                        ? " border-red-500"
+                        : "border-transparent",
+                    )}
+                    key={idx}
+                  >
+                    <div>
+                      <Label>
+                        Vhod
+                        <Input
+                          value={testCase.input}
+                          onValueChange={(value) => {
+                            const newTestCases = [...testCases];
+                            newTestCases[idx].input = value;
+                            setTestCases(newTestCases);
+                          }}
+                        />
+                      </Label>
                     </div>
-                  );
-                })}
-              </div>
-            </Label>
+                    <div>
+                      <Label>
+                        Izhod
+                        <Input
+                          value={testCase.output}
+                          onValueChange={(value) => {
+                            const newTestCases = [...testCases];
+                            newTestCases[idx].output = value;
+                            setTestCases(newTestCases);
+                          }}
+                        />
+                      </Label>
+                    </div>
+                    {testCase.deleted ? (
+                      <Button
+                        onClick={() => {
+                          const newTestCases = [...testCases];
+                          newTestCases[idx].deleted = false;
+                          setTestCases(newTestCases);
+                        }}
+                      >
+                        Obnovi
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          const newTestCases = [...testCases];
+                          newTestCases[idx].deleted = true;
+                          setTestCases(newTestCases);
+                        }}
+                        variant={"destructive"}
+                      >
+                        Izbrisi
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div>
             {task.infoPage && (
