@@ -64,21 +64,18 @@ const RoadmapCard = ({
             </Button>
           </Link>
         ) : (
-          <Button
-            className={`w-full bg-black hover:bg-black hover:opacity-80 transition-all ease-in-out duration-150  ${
-              isCompleted && "bg-green-500"
-            }`}
-            variant="default"
-            onClick={() => setIsLoading(true)}
-          >
-            <Link
-              href={`/task/${taskID}`}
-              className="w-full flex justify-center gap-2"
+          <Link href={`/task/${taskID}`} className="w-full">
+            <Button
+              className={`w-full bg-black flex gap-2 hover:bg-black hover:opacity-80 transition-all ease-in-out duration-150  ${
+                isCompleted && "bg-green-500"
+              }`}
+              variant="default"
+              onClick={() => setIsLoading(true)}
             >
               {isLoading && <Loader size={18} className="animate-spin" />}
               Začni!
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         )
       ) : (
         <Button
