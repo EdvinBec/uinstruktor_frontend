@@ -5,6 +5,8 @@ export const protectedRoutes = [
   "/settings",
   "/exercises",
   "/tutorials",
+  "/course",
+  "/class/[A-Za-z0-9]+",
 ];
 export const adminRoutes = [
   /class\/[A-Za-z0-9]+\/settings/,
