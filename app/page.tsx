@@ -62,7 +62,7 @@ export default function Home() {
           tvojemu trenutnemu nivoju znanja.
         </p>
         <div className="text-center mt-4">
-          <div className="mt-12 mb-2 self-center flex gap-4 items-center justify-center">
+          <div className="mt-12 mb-2 self-center flex flex-col md:flex-row gap-4 items-center justify-center">
             <Link href="/login">
               <Button
                 className="rounded-full hover:opacity-75 transition-all ease-in-out duration-150"
