@@ -42,7 +42,7 @@ const TestCaseCard = ({
           </h3>
         </div>
         <Badge className="text-white" variant={passed ? "passed" : "failed"}>
-          {passed ? "Opravljneo" : "Ni uspelo"}
+          {passed ? "Opravljeno" : "Ni uspelo"}
         </Badge>
       </div>
 

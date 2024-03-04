@@ -286,7 +286,10 @@ const TaskPage = ({
             </ResizablePanelGroup>
           </div>
           <div className="block md:hidden h-full">
-            <ResizablePanelGroup className="space-y-2" direction="vertical">
+            <ResizablePanelGroup
+              className="space-y-2 h-full"
+              direction="vertical"
+            >
               <ResizablePanel className="border-neutral-300 border p-2 rounded-md h-screen">
                 <Tabs
                   className="h-full overflow-y-scroll"

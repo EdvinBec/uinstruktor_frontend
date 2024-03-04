@@ -48,35 +48,71 @@ const Sandbox = () => {
   return (
     <>
       <div className="w-full h-[85vh] p-2">
-        <ResizablePanelGroup className="space-x-2" direction="horizontal">
-          <ResizablePanel
-            defaultSize={50}
-            minSize={30}
-            className="border-[1px] border-gray-200 dark:border-0 rounded-md"
+        <div className="hidden md:block">
+          <ResizablePanelGroup className="space-x-2" direction="horizontal">
+            <ResizablePanel
+              defaultSize={50}
+              minSize={30}
+              className="border-[1px] border-gray-200 dark:border-0 rounded-md"
+            >
+              <CodeEditor
+                value={code}
+                onChange={(value) => {
+                  setCode(value!);
+                }}
+                defaultLanguage="cpp"
+                className="py-4 dark:bg-[#1c1b22]"
+              />
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel
+              defaultSize={50}
+              minSize={30}
+              className="border-gray-200 dark:border-0 border-[1px] p-2 rounded-md"
+            >
+              <OutputWindow
+                isLoading={isLoading}
+                error={error!}
+                output={apiResponse?.output!}
+                uploadCodeToServer={uploadCodeToServer}
+              />
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </div>
+        <div className="block md:hidden h-full">
+          <ResizablePanelGroup
+            className="space-x-2 h-full"
+            direction="vertical"
           >
-            <CodeEditor
-              value={code}
-              onChange={(value) => {
-                setCode(value!);
-              }}
-              defaultLanguage="cpp"
-              className="py-4 dark:bg-[#1c1b22]"
-            />
-          </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel
-            defaultSize={50}
-            minSize={30}
-            className="border-gray-200 dark:border-0 border-[1px] p-2 rounded-md"
-          >
-            <OutputWindow
-              isLoading={isLoading}
-              error={error!}
-              output={apiResponse?.output!}
-              uploadCodeToServer={uploadCodeToServer}
-            />
-          </ResizablePanel>
-        </ResizablePanelGroup>
+            <ResizablePanel
+              defaultSize={50}
+              minSize={30}
+              className="border-[1px] border-gray-200 dark:border-0 rounded-md"
+            >
+              <CodeEditor
+                value={code}
+                onChange={(value) => {
+                  setCode(value!);
+                }}
+                defaultLanguage="cpp"
+                className="py-4 dark:bg-[#1c1b22]"
+              />
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel
+              defaultSize={50}
+              minSize={30}
+              className="border-gray-200 dark:border-0 border-[1px] p-2 rounded-md"
+            >
+              <OutputWindow
+                isLoading={isLoading}
+                error={error!}
+                output={apiResponse?.output!}
+                uploadCodeToServer={uploadCodeToServer}
+              />
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </div>
       </div>
     </>
   );

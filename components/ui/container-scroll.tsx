@@ -36,7 +36,7 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className=" lex items-center justify-center relative p-20"
+      className="flex items-center justify-center relative py-20"
       ref={containerRef}
     >
       <div
