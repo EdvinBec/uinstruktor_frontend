@@ -270,16 +270,17 @@ const TaskPage = ({
                         />
                       )}
                     </div>
-                    {apiResponse?.output?.every(
-                      (item: TestCase) => item.matching
-                    ) && (
-                      <CustomButton
-                        label="Nadaljuj na naslednjo nalogo"
-                        onClick={() => {
-                          router.back();
-                        }}
-                      />
-                    )}
+                    {apiResponse?.output?.length !== 0 &&
+                      apiResponse?.output?.every(
+                        (item: TestCase) => item.matching
+                      ) && (
+                        <CustomButton
+                          label="Nadaljuj na naslednjo nalogo"
+                          onClick={() => {
+                            router.back();
+                          }}
+                        />
+                      )}
                   </TabsContent>
                 </Tabs>
               </ResizablePanel>
