@@ -27,6 +27,13 @@ const CourseComponent = ({
 }: Props) => {
   const { toast } = useToast();
   const { setIsOpen } = useTour();
+  const currentChapter =
+    currentModule.nextChapter === null ||
+    currentModule.nextChapter === "finished"
+      ? chapters[0]
+      : chapters.find(
+          (item: Chapter) => currentModule.nextChapter === item.chapterID
+        )!;
 
   useEffect(() => {
     if (!localStorage.getItem("courseTour")) {
@@ -78,14 +85,10 @@ const CourseComponent = ({
         <h2 className="font-bold text-2xl">Trenutno poglavje</h2>
         <ChapterDrawer
           username={username as string}
-          currentModule={
-            currentModule.nextChapter === null
-              ? chapters[0]
-              : chapters.find(
-                  (item: Chapter) =>
-                    currentModule.nextChapter === item.chapterID
-                )!
-          }
+          name={currentChapter.name}
+          totalLessons={currentChapter.totalLessons}
+          solvedLessons={currentChapter.solvedLessons}
+          chapterID={currentChapter.chapterID}
         />
       </div>
       <div className="mt-8" data-tour="step-course-5">
@@ -95,7 +98,10 @@ const CourseComponent = ({
             <ChapterDrawer
               key={itemIdx}
               username={username as string}
-              currentModule={item}
+              name={item.name}
+              totalLessons={item.totalLessons}
+              solvedLessons={item.solvedLessons}
+              chapterID={item.chapterID}
             />
           );
         })}

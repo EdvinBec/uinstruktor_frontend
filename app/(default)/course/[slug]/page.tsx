@@ -21,6 +21,7 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   );
 
   const currentModule = await resumeLearning(username as string);
+  console.log(currentModule);
 
   // Splitting skills from single string into string[]
   const wordsArray = filteredCourse?.skills
