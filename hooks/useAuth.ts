@@ -8,7 +8,7 @@ import Cookies from "universal-cookie";
 type Auth = {
   token: JWTPayload | null;
   username: string;
-  role: string;
+  permissions: { isAdmin: boolean; isTeacher: boolean };
   profilePic: string;
 };
 
@@ -21,7 +21,7 @@ const useAuth = () => {
     setAuth({
       token: cookies.get("token"),
       username: decryptedToken?.username!,
-      role: decryptedToken?.role!,
+      permissions: decryptedToken?.permissions!,
       profilePic: decryptedToken?.profilePicUrl!,
     });
   };

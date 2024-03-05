@@ -14,12 +14,7 @@ export const Login = (email: string, password: string) => {
   return result;
 };
 
-export const Signup = (
-  email: string,
-  password: string,
-  username: string,
-  role: string,
-) => {
+export const Signup = (email: string, password: string, username: string) => {
   const result = fetch(baseURL + "/api/auth/register", {
     method: "POST",
     headers: {
@@ -29,7 +24,6 @@ export const Signup = (
       username: username,
       password: password,
       email: email,
-      role: role,
     }),
   });
 

@@ -6,7 +6,11 @@ import {
 } from "./NavbarConfig";
 import NavbarDrawerButton from "./NavbarDrawerButton";
 
-const NavbarDrawer = ({ role }: { role: string }) => {
+const NavbarDrawer = ({
+  permissions,
+}: {
+  permissions: { isAdmin: boolean; isTeacher: boolean };
+}) => {
   return (
     <div className="w-full flex gap-2 flex-col">
       {NavbarItems.map((item: NavbarItem, itemIdx: number) => {
@@ -19,7 +23,7 @@ const NavbarDrawer = ({ role }: { role: string }) => {
           />
         );
       })}
-      {role === "teacher" && (
+      {permissions.isTeacher && (
         <div>
           {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
             return (
@@ -33,7 +37,7 @@ const NavbarDrawer = ({ role }: { role: string }) => {
           })}
         </div>
       )}
-      {role === "student" && (
+      {!permissions.isTeacher && (
         <div className="flex flex-col gap-2">
           {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
             return (
