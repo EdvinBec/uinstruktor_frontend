@@ -84,7 +84,7 @@ const Navbar = () => {
               })}
             </div>
           )}
-          {!auth?.permissions?.isTeacher && (
+          {!auth?.permissions?.isTeacher && auth?.token && (
             <div className="gap-4 flex">
               {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
                 if (item.label === "Pridruži se učilnici") {
@@ -123,7 +123,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!
+                                auth?.username!,
                               );
 
                               if (res.status !== "error") {
