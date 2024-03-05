@@ -123,7 +123,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!,
+                                auth?.username!
                               );
 
                               if (res.status !== "error") {

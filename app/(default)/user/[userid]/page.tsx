@@ -13,9 +13,11 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
   }
 
   return (
-    <div className="h-screen flex justify-center mt-16">
-      <div className="">
-        <User />
+    <div className="h-screen mt-16">
+      <div className="inline-block">
+        <div className="bg-white dark:bg-black rounded-full p-16">
+          <User size={128} />
+        </div>
 
         <div className="text-center md:text-left">
           <p>{userData.data?.username}</p>
