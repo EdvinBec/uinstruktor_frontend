@@ -17,16 +17,13 @@ export const middleware = async (request: NextRequest) => {
     route.test(request.nextUrl.pathname),
   );
 
-  if (isAdminRoute && !user?.permissions.isAdmin) {
+  if (isAdminRoute && !user?.permissions?.isAdmin) {
     return NextResponse.redirect(new URL("/not-found", request.url));
   }
 
   if (isProtectedRoute && !user) {
     request.cookies.delete("token");
-    const response = NextResponse.redirect(new URL("/login", request.url));
-    response.cookies.delete("token");
-
-    return response;
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (authRoutes.includes(request.nextUrl.pathname) && user) {
