@@ -31,11 +31,7 @@ const SignUpPage = () => {
 
   const router = useRouter();
   const cookies = new Cookies();
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-    username: "",
-  });
+
   const [authError, setAuthError] = useState("");
   const [authMessage, setAuthMessage] = useState("");
   const [isChecked, setIsChecked] = useState(false);
@@ -51,12 +47,6 @@ const SignUpPage = () => {
       if (!isChecked) {
         setAuthError("You have to accept the terms and conditions.");
       } else {
-        setUser({
-          email: email,
-          password: password,
-          username: username!,
-        });
-
         const res: SignUpResponse = await RegisterUser({
           email,
           password,
@@ -118,6 +108,7 @@ const SignUpPage = () => {
               defaultValue=""
               {...register("username", {
                 required: "Prosim vnesite uporabniško ime",
+                pattern: /[a-zA-Z0-9]/g,
               })}
               type="text"
               className="w-[300px] md:w-[450px] mt-2"
@@ -132,6 +123,7 @@ const SignUpPage = () => {
               defaultValue=""
               {...register("email", {
                 required: "Prosim vnesite vaš e-naslov",
+                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
               })}
               type="email"
               className="w-[300px] md:w-[450px] mt-2"
@@ -146,6 +138,8 @@ const SignUpPage = () => {
               <Input
                 {...register("password", {
                   required: "Prosim vnesite geslo",
+                  minLength: 8,
+                  pattern: /[a-zA-Z0-9!-=]/g,
                 })}
                 type="password"
                 className="w-[142px] md:w-[217px] mt-2"
@@ -162,6 +156,8 @@ const SignUpPage = () => {
               <Input
                 {...register("repeatPassword", {
                   required: "Prosim ponovno vnesite svoje geslo",
+                  minLength: 8,
+                  pattern: /[a-zA-Z0-9!-=]/g,
                 })}
                 type="password"
                 className="w-[142px] md:w-[216px] mt-2"
