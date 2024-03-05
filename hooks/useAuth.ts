@@ -8,7 +8,7 @@ import Cookies from "universal-cookie";
 type Auth = {
   token: JWTPayload | null;
   username: string;
-  permissions: { isAdmin: boolean; isTeacher: boolean };
+  permissions?: { isAdmin: boolean; isTeacher: boolean };
   profilePic: string;
 };
 

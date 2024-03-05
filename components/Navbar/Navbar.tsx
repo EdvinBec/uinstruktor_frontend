@@ -69,7 +69,7 @@ const Navbar = () => {
               );
             })}
           </div>
-          {auth?.permissions.isTeacher && (
+          {auth?.permissions?.isTeacher && (
             <div className="gap-4 flex">
               {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
                 return (
@@ -84,7 +84,7 @@ const Navbar = () => {
               })}
             </div>
           )}
-          {!auth?.permissions.isTeacher && (
+          {!auth?.permissions?.isTeacher && (
             <div className="gap-4 flex">
               {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
                 if (item.label === "Pridruži se učilnici") {
