@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { getChapterTasks } from "@/lib/Services";
-import { Chapter, Task } from "@/types";
+import { Task } from "@/types";
 import { ArrowDown, Check, GraduationCap, Loader } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -89,7 +89,11 @@ const ChapterDrawer = ({
                   <GraduationCap size={28} strokeWidth={1.5} />
                   <Label className="font-medium text-sm">Lekcija</Label>
                 </div>
-                <Label className="font-bold">{item.title}</Label>
+                <Link href={`/task/${item.taskID}`}>
+                  <Label className="font-bold cursor-pointer">
+                    {item.title}
+                  </Label>
+                </Link>
               </div>
               <div
                 className={`p-1 rounded-full border-[1px] border-gray-200  ${
