@@ -4,7 +4,6 @@ import { decryptAuthToken } from "./lib/auth";
 
 export const middleware = async (request: NextRequest) => {
   const currentUserToken = request.cookies.get("token")?.value;
-
   const user = await decryptAuthToken(currentUserToken!);
 
   if (!user) {
@@ -18,8 +17,8 @@ export const middleware = async (request: NextRequest) => {
     route.test(request.nextUrl.pathname),
   );
 
-  if (isAdminRoute && user?.username !== "developer") {
-    return NextResponse.json({ Authorized: false });
+  if (isAdminRoute && !user?.permissions.isAdmin) {
+    return NextResponse.redirect(new URL("/not-found", request.url));
   }
 
   if (isProtectedRoute && !user) {

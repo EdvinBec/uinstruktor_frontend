@@ -69,7 +69,7 @@ const Navbar = () => {
               );
             })}
           </div>
-          {auth?.role === "teacher" && (
+          {auth?.permissions.isTeacher && (
             <div className="gap-4 flex">
               {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
                 return (
@@ -84,7 +84,7 @@ const Navbar = () => {
               })}
             </div>
           )}
-          {auth?.role == "student" && (
+          {!auth?.permissions.isTeacher && (
             <div className="gap-4 flex">
               {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
                 if (item.label === "Pridruži se učilnici") {
@@ -123,7 +123,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!
+                                auth?.username!,
                               );
 
                               if (res.status !== "error") {
@@ -192,7 +192,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {isNavOpen && <NavbarDrawer role={auth?.role!} />}
+      {isNavOpen && <NavbarDrawer permissions={auth?.permissions!} />}
     </nav>
   );
 };

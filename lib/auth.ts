@@ -19,9 +19,12 @@ export const decryptAuthToken = async (token: string) => {
   try {
     const { payload } = await jwtVerify(token, GetJwtSecretKey());
     const username = payload.username as string;
-    const role = payload.role as string;
+    const permissions = payload.permissions as {
+      isAdmin: boolean;
+      isTeacher: boolean;
+    };
     const profilePicUrl = payload.profilePicture as string;
-    return { role, username, profilePicUrl };
+    return { permissions, username, profilePicUrl };
   } catch (error) {}
 };
 

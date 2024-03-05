@@ -8,7 +8,7 @@ import { Inputs } from "@/types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import LoginImage from "@/assets/img/loginImage.jpg";
 import GoogleLogo from "@/assets/img/GoogleLogo.svg";
@@ -35,7 +35,6 @@ const SignUpPage = () => {
     email: "",
     password: "",
     username: "",
-    role: "",
   });
   const [authError, setAuthError] = useState("");
   const [authMessage, setAuthMessage] = useState("");
@@ -43,6 +42,8 @@ const SignUpPage = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password, username, repeatPassword } = data;
+
+    console.log(email, password, username);
 
     if (password !== repeatPassword) {
       setAuthError("Passwords don't match. Please enter them again.");
@@ -54,10 +55,13 @@ const SignUpPage = () => {
           email: email,
           password: password,
           username: username!,
-          role: "",
         });
 
-        const res: SignUpResponse = await RegisterUser();
+        const res: SignUpResponse = await RegisterUser({
+          email,
+          password,
+          username,
+        });
         if (res.token) {
           setAuthMessage("You have successfully registered. Redirecting...");
           cookies.set("token", res.token);
@@ -66,7 +70,7 @@ const SignUpPage = () => {
           if (res.status === "error") {
             // setError("There is an issue with the server. Please try again later.");
             console.log(
-              "There is an issue with the server. Please try again later."
+              "There is an issue with the server. Please try again later.",
             );
           }
         }
@@ -74,10 +78,18 @@ const SignUpPage = () => {
     }
   };
 
-  const RegisterUser = async () => {
+  const RegisterUser = async ({
+    email,
+    password,
+    username,
+  }: {
+    email: string;
+    password: string;
+    username?: string;
+  }) => {
     {
       const response: SignUpResponse = await (
-        await Signup(user.email, user.password, user.username!, user.role!)
+        await Signup(email, password, username!)
       ).json();
 
       return response;
