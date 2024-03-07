@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSavedCode, getTask, saveCode, uploadCode } from "@/lib/Services";
+import {
+  getAiHelp,
+  getSavedCode,
+  getTask,
+  saveCode,
+  uploadCode,
+} from "@/lib/Services";
 import { Task } from "@/types";
 import {
   ResizableHandle,
@@ -125,12 +131,13 @@ const TaskPage = ({
     }
   }
 
-  function handleUseAI() {
+  function handleUseAI(aiType: "bug" | "explain" | "tip") {
     setAiWaiting(true);
-    AIHelp(code, undefined, params.slug)
+    getAiHelp(code, aiType)
       .then((response) => {
+        console.log(response);
         if (response.status === "success") {
-          setHelp(response.data.choices[0].message.content);
+          setHelp(response.data.message);
         }
       })
       .finally(() => {
@@ -150,6 +157,9 @@ const TaskPage = ({
             <SheetDescription className="flex flex-col gap-4">
               <Button
                 variant="outline"
+                onClick={() => {
+                  handleUseAI("bug");
+                }}
                 className="py-6 text-black dark:text-white flex items-center justify-between font-bold"
               >
                 <div className="flex gap-4">
@@ -161,6 +171,9 @@ const TaskPage = ({
               <Button
                 variant="outline"
                 className="py-6 text-black dark:text-white flex items-center justify-between font-bold"
+                onClick={() => {
+                  handleUseAI("explain");
+                }}
               >
                 <div className="flex gap-4">
                   <Languages size={20} />
@@ -171,6 +184,9 @@ const TaskPage = ({
               <Button
                 variant="outline"
                 className="py-6 text-black dark:text-white flex items-center justify-between font-bold"
+                onClick={() => {
+                  handleUseAI("tip");
+                }}
               >
                 <div className="flex gap-4">
                   <BadgeHelp size={20} />
@@ -239,7 +255,7 @@ const TaskPage = ({
                     <div>
                       <OutputTab
                         output={apiResponse?.err!}
-                        isError={true}
+                        isError={error}
                         height={200}
                         title="Pomoč umetne inteligence: "
                       />
@@ -272,7 +288,7 @@ const TaskPage = ({
                     </div>
                     {apiResponse?.output?.length !== 0 &&
                       apiResponse?.output?.every(
-                        (item: TestCase) => item.matching
+                        (item: TestCase) => item.matching,
                       ) && (
                         <CustomButton
                           label="Nadaljuj na naslednjo nalogo"
@@ -381,7 +397,7 @@ const TaskPage = ({
                             );
                           }
                         }
-                      }
+                      },
                     )}
                   </TabsContent>
                 </Tabs>

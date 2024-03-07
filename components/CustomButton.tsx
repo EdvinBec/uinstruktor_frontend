@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 
 type Props = {
-  onClick?: () => void;
+  onClick?: (...inputs: any | undefined) => void;
   icon?: LucideIcon;
   isLoading?: boolean;
   label: string;
