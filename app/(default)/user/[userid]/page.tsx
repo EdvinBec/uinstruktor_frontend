@@ -13,16 +13,21 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
   }
 
   return (
-    <div className="h-screen mt-16">
-      <div className="inline-block">
-        <div className="bg-white dark:bg-black rounded-full p-16">
-          <User size={128} />
+    <div className="h-screen w-full mt-16">
+      <div className="w-full flex flex-start bg-white dark:bg-black rounded-md px-16 py-8">
+        <div className="flex flex-col items-center text-center">
+          <User
+            size={128}
+            className="p-8 bg-black text-white dark:text-black dark:bg-white rounded-full"
+          />
+          <p className="font-bold text-2xl capitalize mt-2">
+            {userData.data?.username}
+          </p>
+          <p className="font-medium">{userData.data?.email}</p>
         </div>
-
-        <div className="text-center md:text-left">
-          <p>{userData.data?.username}</p>
-          <p>{userData.data?.email}</p>
-        </div>
+      </div>
+      <div className="w-full bg-white mt-4 py-12 px-12">
+        <h1 className="font-bold text-2xl ml-2 mb-2">Prikaz aktivnosti</h1>
         <ActivityBar username={userID} />
       </div>
     </div>

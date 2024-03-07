@@ -69,21 +69,21 @@ const Navbar = () => {
               );
             })}
           </div>
-          {auth?.permissions?.isTeacher && (
-            <div className="gap-4 flex">
-              {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
-                return (
-                  <NavbarButton
-                    key={itemIdx}
-                    href={item.href}
-                    label={item.label}
-                    isActive={pathname == item.href}
-                    icon={item.icon}
-                  />
-                );
-              })}
-            </div>
-          )}
+          <div
+            className={`gap-4 hidden ${auth?.permissions?.isTeacher && "flex"}`}
+          >
+            {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
+              return (
+                <NavbarButton
+                  key={itemIdx}
+                  href={item.href}
+                  label={item.label}
+                  isActive={pathname == item.href}
+                  icon={item.icon}
+                />
+              );
+            })}
+          </div>
           {!auth?.permissions?.isTeacher && auth?.token && (
             <div className="gap-4 flex">
               {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
@@ -123,7 +123,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!,
+                                auth?.username!
                               );
 
                               if (res.status !== "error") {
