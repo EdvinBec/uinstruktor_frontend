@@ -50,7 +50,7 @@ export default function Home() {
     <div className="bg-noise dark:bg-black">
       <LandingNavbar />
       <div className="mt-8 p-8 flex flex-col relative" suppressHydrationWarning>
-        <h1 className="text-center text-5xl md:text-7xl font-black">
+        <h1 className="text-center text-4xl md:text-7xl font-black">
           Samostojno učenje
           <br /> programiranja, <br />
           <span className="text-transparent bg-gradient-to-r from-sky-500 to-blue bg-clip-text">
