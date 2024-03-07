@@ -7,7 +7,7 @@ type Props = {
   isLoading: boolean;
   error: string;
   output: string;
-  uploadCodeToServer: () => {};
+  uploadCodeToServer: () => void;
 };
 
 const OutputWindow = ({

@@ -97,22 +97,22 @@ const Navbar = () => {
                           {item.label}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px] bg-black text-white">
+                      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-black ">
                         <DialogHeader>
-                          <DialogTitle>Join classroom</DialogTitle>
+                          <DialogTitle>Pridruži se učilnici</DialogTitle>
                           <DialogDescription>
-                            To join the classroom, please enter the code, that
-                            {"'"}s been provided by your profesor.
+                            Da se pridružiš učilnici, vpiši kodo učilnice, ki si
+                            jo dobil od svojega učitelja.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
                           <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="name" className="text-right">
-                              Code
+                              Koda
                             </Label>
                             <Input
                               id="name"
-                              placeholder="xxxxxx"
+                              placeholder="xxxx-xxxx"
                               className="col-span-3 text-black dark:text-white"
                               onChange={(e) => setCode(e.target.value)}
                             />
@@ -128,10 +128,10 @@ const Navbar = () => {
 
                               if (res.status !== "error") {
                                 toast({
-                                  title: "Joined new class.",
+                                  title: "Pridružil si se razredu..",
                                   action: (
                                     <ToastAction altText="Okay">
-                                      Okay
+                                      Okej
                                     </ToastAction>
                                   ),
                                 });
@@ -140,10 +140,10 @@ const Navbar = () => {
                                 }, 1500);
                               } else {
                                 toast({
-                                  title: "Incorrect code. Try again",
+                                  title: "Napačna koda. Poskusi še enkrat.",
                                   action: (
                                     <ToastAction altText="Okay.">
-                                      Okay
+                                      Okej
                                     </ToastAction>
                                   ),
                                 });
@@ -151,7 +151,7 @@ const Navbar = () => {
                             }}
                             type="submit"
                           >
-                            Join
+                            Pridruži se
                           </Button>
                         </DialogFooter>
                       </DialogContent>
