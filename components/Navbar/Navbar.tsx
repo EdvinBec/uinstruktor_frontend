@@ -10,7 +10,7 @@ import {
 import NavbarButton from "./NavbarButton";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
-import { Bot, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 //Hooks
 import useAuth from "@/hooks/useAuth";
@@ -19,7 +19,6 @@ import { usePathname, useRouter } from "next/navigation";
 //Redux
 import UserMenu from "@/components/ui/user-menu";
 import { Label } from "../ui/label";
-import Link from "next/link";
 import { useState } from "react";
 import NavbarDrawer from "./NavbarDrawer";
 import {
