@@ -427,3 +427,18 @@ export const getAiHelp = async (
   });
   return (await result).json();
 };
+export const getAssigmentInfo = async (slug: string) => {
+  const result = await fetch(baseURL + `/api/class/assigment/${slug}/info`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      "Cache-Control": "no-store",
+    },
+  });
+  if (!result.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
+  return data.data;
+};
