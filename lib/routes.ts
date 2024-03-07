@@ -12,8 +12,8 @@ export const adminRoutes = [
   /class\/[A-Za-z0-9]+\/settings/,
   /class\/[A-Za-z0-9]+\/assigment\/new/,
   /task\/[A-Za-z0-9]+\/edit/,
+  /assigment\/[A-Za-z0-9]+\/info/,
 ];
-
 
 export const authRoutes = ["/login"];
 export const publicRoutes = ["/"];

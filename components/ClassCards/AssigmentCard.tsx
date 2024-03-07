@@ -32,11 +32,12 @@ const AssigmentCard = ({
 }: Props) => {
   const completeDate = new Date(time);
   const rand = Math.floor(Math.random() * 100);
+  const auth = useAuth();
 
   return (
     <div
       className={cm(
-        "size-full perspective rounded-md border dark:border-neutral-700 hover:shadow-2xl shadow-lg transition-all duration-300"
+        "size-full perspective rounded-md border dark:border-neutral-700 hover:shadow-2xl shadow-lg transition-all duration-300",
       )}
     >
       <div className="shadow-inner relative">
@@ -97,7 +98,13 @@ const AssigmentCard = ({
           </div>
         </div>
         <Button>
-          <Link href={`/assigment/${assigmentID}`}>
+          <Link
+            href={
+              classCreator === auth?.username
+                ? `/assigment/${assigmentID}/info`
+                : `/assigment/${assigmentID}`
+            }
+          >
             <ArrowRight />
           </Link>
         </Button>

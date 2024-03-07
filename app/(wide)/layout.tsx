@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar/Navbar";
 
 const WideLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col h-screen bg-noise">
+    <div className="flex flex-col min-h-screen bg-noise">
       <div className="mx-2">
         <Navbar />
       </div>
