@@ -14,8 +14,8 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
 
   return (
     <div className="h-screen w-full mt-16">
-      <div className="w-full flex flex-start bg-white dark:bg-black rounded-md px-16 py-8">
-        <div className="flex flex-col items-center text-center">
+      <div className="w-full flex flex-col flex-start bg-white dark:bg-black rounded-md px-16 py-8">
+        <div className="flex flex-col items-center text-center self-center md:self-start">
           <User
             size={128}
             className="p-8 bg-black text-white dark:text-black dark:bg-white rounded-full"
@@ -26,9 +26,11 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
           <p className="font-medium">{userData.data?.email}</p>
         </div>
       </div>
-      <div className="w-full bg-white mt-4 py-12 px-12">
-        <h1 className="font-bold text-2xl ml-2 mb-2">Prikaz aktivnosti</h1>
-        <ActivityBar username={userID} />
+      <div className="w-full flex flex-col bg-white mt-4 p-4 md:py-12 md:px-12">
+        <div className="md:self-center">
+          <h1 className="font-bold text-2xl ml-2 mb-2">Prikaz aktivnosti</h1>
+          <ActivityBar username={userID} />
+        </div>
       </div>
     </div>
   );

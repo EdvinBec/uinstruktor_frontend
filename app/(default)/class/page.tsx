@@ -7,6 +7,7 @@ import ClassCard from "@/components/ClassCards/ClassCard";
 import { fetchClasses } from "@/lib/Services";
 import { ClassT } from "@/types";
 import PageHeader from "../exercises/components/PageHeader";
+import { Button } from "@/components/ui/button";
 
 function getToken() {
   const cookieStore = cookies();
@@ -24,6 +25,12 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         title="Učilnice"
         descritpion="Tukaj lahko vidite seznam učilnic, v katere ste se prijavili. Na tem mestu so zbrane informacije o vseh predavanjih, delavnicah, katerih član ste."
       />
+      <div className="mt-4 flex flex-row items-center p-2 w-max">
+        <h3 className="text-xl font-mediumd">Želiš ustvariti novo učilnico?</h3>
+        <Link href={"/class/new"}>
+          <Button variant={"link"}>Ustvari učilnico</Button>
+        </Link>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
         {classes.map((subject, index) => (
           <Link key={index} className="" href={`/class/${subject.classID}`}>
