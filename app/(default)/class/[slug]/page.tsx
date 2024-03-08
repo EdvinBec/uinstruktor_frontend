@@ -72,8 +72,9 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
             </Link>
           </Button>
           <Button className="block">
-            <Link href={`/class/${params.slug}/settings`}></Link>
-            <Settings2 />
+            <Link href={`/class/${params.slug}/settings`}>
+              <Settings2 />
+            </Link>
           </Button>
         </div>
       )}
@@ -89,7 +90,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 classData.assigments[index].completedUsers !== null &&
                 classData.assigments[index].completedUsers !== undefined
                   ? classData.assigments[index].completedUsers?.includes(
-                      user?.username!
+                      user?.username!,
                     )!
                   : false
               }

@@ -4,7 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { getChapterTasks } from "@/lib/Services";
 import { Task } from "@/types";
-import { ArrowDown, Check, GraduationCap, Loader } from "lucide-react";
+import {
+  ArrowDown,
+  Check,
+  GraduationCap,
+  Hourglass,
+  Loader,
+  ScrollText,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -49,9 +56,7 @@ const ChapterDrawer = ({
             </Label>
           </Link>
           <div className="flex gap-4 mt-2">
-            <Label className="font-medium text-sm">
-              {totalLessons} Lekcije
-            </Label>
+            <Label className="font-medium text-sm">{totalLessons} Naloge</Label>
             <Label className="font-medium text-sm">|</Label>
             <Label className="font-medium text-sm">
               {solvedLessons} Rešenih
@@ -86,8 +91,8 @@ const ChapterDrawer = ({
             <div key={itemIdx} className="flex justify-between items-center">
               <div className="flex items-center py-2">
                 <div className="flex items-center gap-4 mr-8">
-                  <GraduationCap size={28} strokeWidth={1.5} />
-                  <Label className="font-medium text-sm">Lekcija</Label>
+                  <ScrollText size={28} strokeWidth={1.5} />
+                  <Label className="font-medium text-sm">Naloga</Label>
                 </div>
                 <Link href={`/task/${item.taskID}`}>
                   <Label className="font-bold cursor-pointer">
@@ -95,13 +100,19 @@ const ChapterDrawer = ({
                   </Label>
                 </Link>
               </div>
-              <div
-                className={`p-1 rounded-full border-[1px] border-gray-200  ${
-                  item.isCompleted && "bg-blue border-0 text-white"
-                }`}
-              >
-                <Check size={18} strokeWidth={2} />
-              </div>
+              {item.isCompleted ? (
+                <div
+                  className={`p-1 rounded-full border border-transparent border-gray-200 bg-blue  text-white `}
+                >
+                  <Check size={18} strokeWidth={2} />
+                </div>
+              ) : (
+                <div
+                  className={`p-1 rounded-full border border-neutral-300  bg-neutral-200 text-black `}
+                >
+                  <Hourglass size={18} strokeWidth={2} />
+                </div>
+              )}
             </div>
           );
         })}

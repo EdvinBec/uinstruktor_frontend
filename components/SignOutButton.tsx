@@ -31,7 +31,7 @@ const SignOutButton = ({ classname, variant }: Props) => {
         location.reload();
       }}
     >
-      Odjavi se
+      Izpis
     </div>
   );
 };

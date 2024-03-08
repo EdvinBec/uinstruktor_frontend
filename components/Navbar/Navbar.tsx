@@ -52,9 +52,9 @@ const Navbar = () => {
         <Logo />
         <div className="lg:flex gap-4 hidden">
           <div
-            className={`gap-4 flex ${pathname === "/login" && "hidden"} ${
-              pathname === "/signup" && "hidden"
-            }`}
+            className={`gap-2 md:gap-4 flex ${
+              pathname === "/login" && "hidden"
+            } ${pathname === "/signup" && "hidden"}`}
           >
             {NavbarItems.map((item: NavbarItem, itemIdx: number) => {
               return (
@@ -122,7 +122,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!
+                                auth?.username!,
                               );
 
                               if (res.status !== "error") {
