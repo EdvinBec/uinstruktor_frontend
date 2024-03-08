@@ -39,7 +39,7 @@ function UserMenu() {
           <Sun />
         </DropdownMenuItem>
         <DropdownMenuItem className="text-start">
-          <Link href={`/user/${auth?.username}`}>Profil</Link>
+          <Link href={`/user/${auth?.username}`}>Račun</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link href={`/settings`}>Nastavitve</Link>
