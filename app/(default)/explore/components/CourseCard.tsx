@@ -77,7 +77,16 @@ const CourseCard = ({
               setIsLoading(true);
             }}
           >
-            <CustomButton isLoading={isLoading} label="Nadaljuj z učenjem" />
+            <CustomButton
+              isLoading={isLoading}
+              label={
+                progress === 100
+                  ? "Zaključen tečaj"
+                  : progress === 0
+                  ? "Začni z učenjem"
+                  : "Nadaljuj z učenjem"
+              }
+            />
           </Link>
           <div className="w-1/4 text-center">
             <Label className="font-semibold">{Math.floor(progress!)}%</Label>

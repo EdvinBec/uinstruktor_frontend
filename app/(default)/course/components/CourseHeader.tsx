@@ -3,7 +3,7 @@
 import CustomButton from "@/components/CustomButton";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { resumeLearning } from "@/lib/Services";
+import { getCurrentChapter } from "@/lib/Services";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -29,7 +29,8 @@ const CourseHeader = ({
 
   const continueLearning = async () => {
     try {
-      const result = await resumeLearning(username);
+      const result = await getCurrentChapter(username, courseId);
+      console.log(result);
       return result;
     } catch (error) {
       console.log(error);
@@ -39,18 +40,8 @@ const CourseHeader = ({
   const handeResumeCourse = async () => {
     setIsLoading(true);
     const result = await continueLearning();
-    if (result.nextChapter === null) {
-      router.push(`/chapter/${firstChapter}`);
-      setIsLoading(false);
-    } else if (result.nextChapter === "finished") {
-      router.push(`/course/${courseId}`);
-      setIsLoading(false);
-    } else {
-      if (result.proceed === true) {
-        router.push(`/chapter/${result.nextChapter}`);
-        setIsLoading(false);
-      }
-    }
+    setIsLoading(false);
+    router.push(`/chapter/${result.chapterID}`);
   };
 
   return (
@@ -61,7 +52,7 @@ const CourseHeader = ({
           <CustomButton
             className="my-4"
             isLoading={isLoading}
-            label="Nadaljuj z učenjem"
+            label={progress !== 0 ? "Nadaljuj z učenjem" : "Začni z učenjem"}
             onClick={handeResumeCourse}
           />
         </div>

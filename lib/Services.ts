@@ -194,8 +194,8 @@ export const getTask = async (taskID: string) => {
   return data.data;
 };
 
-export const resumeLearning = async (username: string) => {
-  const result = await fetch(baseURL + `/api/course/resume/${username}`, {
+export const getCurrentChapter = async (username: string, courseID: string) => {
+  const result = await fetch(baseURL + `/api/course/resume/${courseID}/${username}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json",

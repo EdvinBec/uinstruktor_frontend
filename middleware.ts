@@ -8,6 +8,7 @@ export const middleware = async (request: NextRequest) => {
 
   if (!user) {
     request.cookies.delete("token");
+    // return NextResponse.redirect(new URL("/login", request.url));
   }
 
   const isProtectedRoute = protectedRoutes.some((route) =>
