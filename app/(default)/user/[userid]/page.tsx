@@ -26,7 +26,7 @@ const UserPage = async ({ params }: { params: { userid: string } }) => {
           <p className="font-medium">{userData.data?.email}</p>
         </div>
       </div>
-      <div className="w-full flex flex-col bg-white mt-4 p-4 md:py-12 md:px-12">
+      <div className="w-full flex flex-col bg-white dark:bg-black mt-4 p-4 md:py-12 md:px-12">
         <div className="md:self-center">
           <h1 className="font-bold text-2xl ml-2 mb-2">Prikaz aktivnosti</h1>
           <ActivityBar username={userID} />

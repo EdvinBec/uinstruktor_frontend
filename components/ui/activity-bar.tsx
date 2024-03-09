@@ -32,19 +32,21 @@ const Day = ({ value, timestamp }: { value: number; timestamp: Date }) => {
     >
       <div
         style={{
-          backgroundColor: value !== 0 ? `rgba(0, 200, 0, ${value / 4})` : "",
+          backgroundColor: value !== 0 ? `rgba(0, 200, 0, ${value / 3})` : "",
         }}
         className={cm(
           "w-3 h-3 rounded-sm",
-          value === 0 ? "bg-neutral-300 dark:bg-neutral-600" : "",
+          value === 0 ? "bg-neutral-300 dark:bg-neutral-400" : "",
         )}
       ></div>
       {hovered && (
-        <div className="absolute  animate-fade-in z-50 dark:bg-neutral-700 bg-white translate-x-[-50%] translate-y-[-3rem]  border border-neutral-500 px-2 py-1 rounded-lg">
-          <p className="text-sm whitespace-nowrap text-neutral-500">
-            <span className="text-semibold text-black">{value}</span> nalog
-            resenih na{" "}
-            <span className="text-semibold text-black">
+        <div className="absolute animate-fade-in z-50 dark:bg-neutral-700 bg-white translate-x-[-48%] translate-y-[-3rem]  border border-neutral-500 px-2 py-1 rounded-lg">
+          <p className="text-sm whitespace-nowrap text-neutral-500 dark:text-neutral-00">
+            <span className="text-semibold text-black dark:text-white">
+              {value}
+            </span>{" "}
+            nalog resenih na{" "}
+            <span className="text-semibold text-black dark:text-white">
               {new Date(timestamp).toLocaleDateString("sl", {
                 day: "numeric",
                 month: "long",
@@ -139,10 +141,10 @@ const ActivityBar = ({ username }: Props) => {
                   <div
                     style={{
                       backgroundColor:
-                        idx !== 0 ? `rgba(0, 200, 0, ${idx / 4})` : "",
+                        idx !== 0 ? `rgba(0, 200, 0, ${idx / 3})` : "",
                     }}
                     key={idx}
-                    className="w-3 h-3 rounded-sm bg-neutral-300 dark:bg-neutral-600"
+                    className="w-3 h-3 rounded-sm bg-neutral-300 dark:bg-neutral-500"
                   ></div>
                 );
               })}
