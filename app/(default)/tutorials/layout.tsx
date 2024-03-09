@@ -44,7 +44,7 @@ const TutorialLayout = async ({ children }: { children: React.ReactNode }) => {
             })}
           </TutorialNavigation>
         </nav>
-        <div className="flex-[4]">{children}</div>
+        <div className="flex-[4] overflow-auto">{children}</div>
       </div>
     </div>
   );

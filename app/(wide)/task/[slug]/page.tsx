@@ -43,7 +43,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { IconMessageCircleQuestion } from "@tabler/icons-react";
 
 type ApiResponse = {
   compileStatus: boolean;
@@ -74,6 +73,7 @@ const TaskPage = ({
   const [code, setCode] = useState<string>("");
   const [tab, setTab] = useState<string>("description");
   const [help, setHelp] = useState("");
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const [apiResponse, setApiResponse] = useState<ApiResponse>();
   const [editorDidMount, setEditorDidMount] = useState(false);
@@ -133,7 +133,8 @@ const TaskPage = ({
 
   function handleUseAI(aiType: "bug" | "explain" | "tip") {
     setAiWaiting(true);
-    getAiHelp(code, aiType)
+    setSheetOpen(false);
+    getAiHelp(code, aiType, task.infoPage.description)
       .then((response) => {
         console.log(response);
         if (response.status === "success") {
@@ -150,7 +151,7 @@ const TaskPage = ({
 
   return (
     <>
-      <Sheet>
+      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent className="w-[400px] sm:w-[540px]">
           <SheetHeader>
             <SheetTitle>Uporabi pomoč umetne inteligence</SheetTitle>
@@ -222,10 +223,8 @@ const TaskPage = ({
                   <div className="p-2 flex justify-between gap-2">
                     <div className="flex gap-4">
                       <TabsList className="space-x-2 hidden md:block">
-                        <TabsTrigger value="description">
-                          Description
-                        </TabsTrigger>
-                        <TabsTrigger value="tests">Tests</TabsTrigger>
+                        <TabsTrigger value="description">Naloga</TabsTrigger>
+                        <TabsTrigger value="tests">Testiranje</TabsTrigger>
                       </TabsList>
 
                       <Button onClick={handleSaveCode} variant={"outline"}>
@@ -237,9 +236,13 @@ const TaskPage = ({
                           {!isWaiting && <Save size={22} />}
                         </Label>
                       </Button>
-                      <SheetTrigger>
-                        <CustomButton label="Pomoč umetne inteligence" />
-                      </SheetTrigger>
+
+                      <CustomButton
+                        onClick={() => {
+                          setSheetOpen(true);
+                        }}
+                        label="Pomoč umetne inteligence"
+                      />
                     </div>
                     <CustomButton
                       isLoading={isWaiting}
@@ -257,7 +260,7 @@ const TaskPage = ({
                         output={apiResponse?.err!}
                         isError={error}
                         height={200}
-                        title="Pomoč umetne inteligence: "
+                        title="Izhod: "
                       />
                       {apiResponse?.compileStatus && (
                         <h2 className="font-bold text-blue-500">
@@ -316,10 +319,8 @@ const TaskPage = ({
                   <div className="p-2 flex justify-between gap-2">
                     <div className="flex gap-4">
                       <TabsList className="space-x-2 hidden md:block">
-                        <TabsTrigger value="description">
-                          Description
-                        </TabsTrigger>
-                        <TabsTrigger value="tests">Tests</TabsTrigger>
+                        <TabsTrigger value="description">Naloga</TabsTrigger>
+                        <TabsTrigger value="tests">Testiranje</TabsTrigger>
                       </TabsList>
 
                       <Button onClick={handleSaveCode} variant={"outline"}>

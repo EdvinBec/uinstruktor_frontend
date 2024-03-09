@@ -415,6 +415,7 @@ export const updateTask = async (
 export const getAiHelp = async (
   code: string,
   helpType: "bug" | "explain" | "tip",
+  desc: string,
 ) => {
   const result = fetch(baseURL + `/api/ai/${helpType}`, {
     method: "POST",
@@ -423,6 +424,7 @@ export const getAiHelp = async (
     },
     body: JSON.stringify({
       userCode: code,
+      description: desc,
     }),
   });
   return (await result).json();
