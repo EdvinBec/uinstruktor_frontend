@@ -1,4 +1,8 @@
-import { getCourseChapters, getCourses, resumeLearning } from "@/lib/Services";
+import {
+  getCourseChapters,
+  getCourses,
+  getCurrentChapter,
+} from "@/lib/Services";
 import { decryptToken } from "@/lib/auth";
 import { Course } from "@/types";
 
@@ -12,16 +16,18 @@ const CoursePage = async ({ params }: { params: { slug: string } }) => {
   // Fetching courses and extracting the correct one
   const courses: Course[] = await getCourses(username as string);
   const filteredCourse: Course | undefined = courses.find(
-    (item: Course) => item.courseID === params.slug
+    (item: Course) => item.courseID === params.slug,
   );
 
   const chapters = await getCourseChapters(
     filteredCourse?.courseID!,
-    username as string
+    username as string,
   );
 
-  const currentModule = await resumeLearning(username as string);
-  console.log(currentModule);
+  const currentModule: { chapterID: string } = await getCurrentChapter(
+    username as string,
+    params.slug,
+  );
 
   // Splitting skills from single string into string[]
   const wordsArray = filteredCourse?.skills

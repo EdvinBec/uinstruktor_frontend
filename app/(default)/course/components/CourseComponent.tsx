@@ -13,7 +13,7 @@ import { useTour } from "@reactour/tour";
 type Props = {
   filteredCourse: Course;
   username: string;
-  currentModule: Resume;
+  currentModule: { chapterID: string } | undefined;
   chapters: Chapter[];
   wordsArray: string[];
 };
@@ -27,13 +27,6 @@ const CourseComponent = ({
 }: Props) => {
   const { toast } = useToast();
   const { setIsOpen } = useTour();
-  const currentChapter =
-    currentModule.nextChapter === null ||
-    currentModule.nextChapter === "finished"
-      ? chapters[0]
-      : chapters.find(
-          (item: Chapter) => currentModule.nextChapter === item.chapterID
-        )!;
 
   useEffect(() => {
     if (!localStorage.getItem("courseTour")) {
@@ -81,22 +74,13 @@ const CourseComponent = ({
           skills={wordsArray!}
         />
       </div>
-      <div data-tour="step-course-4">
-        <h2 className="font-bold text-2xl">Trenutno poglavje</h2>
-        <ChapterDrawer
-          username={username as string}
-          name={currentChapter.name}
-          totalLessons={currentChapter.totalLessons}
-          solvedLessons={currentChapter.solvedLessons}
-          chapterID={currentChapter.chapterID}
-        />
-      </div>
       <div className="mt-8" data-tour="step-course-5">
         <h2 className="font-bold text-2xl">Kazalo vsebine</h2>
         {chapters.map((item: Chapter, itemIdx: number) => {
           return (
             <ChapterDrawer
               key={itemIdx}
+              current={item.chapterID === currentModule?.chapterID}
               username={username as string}
               name={item.name}
               totalLessons={item.totalLessons}

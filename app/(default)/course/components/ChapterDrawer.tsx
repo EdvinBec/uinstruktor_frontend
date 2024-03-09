@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { getChapterTasks } from "@/lib/Services";
 import { Task } from "@/types";
+import { cn } from "@udecode/cn";
 import {
   ArrowDown,
   Check,
@@ -21,12 +22,14 @@ const ChapterDrawer = ({
   name,
   totalLessons,
   solvedLessons,
+  current,
 }: {
   chapterID: string;
   username: string;
   name: string;
   totalLessons: number;
   solvedLessons: number;
+  current?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +49,10 @@ const ChapterDrawer = ({
 
   return (
     <div
-      className={`w-full mt-4 gap-1 px-16 py-4 border-[1px] border-gray-200 dark:border-0 rounded-md h-auto bg-white dark:bg-black`}
+      className={cn(
+        `w-full  mt-4 gap-1 px-16 py-4 border-[1px] border-gray-200 rounded-md h-auto bg-white dark:bg-black`,
+        current ? "border-blue" : "dark:border-transparent",
+      )}
     >
       <div className="flex justify-between items-center w-full">
         <div>
