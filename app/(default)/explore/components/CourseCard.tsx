@@ -72,7 +72,7 @@ const CourseCard = ({
         </div>
         <div className="mt-4 flex items-center justify-between">
           <Link
-            href={itemIdx === 0 ? `course/${courseID}` : "/in-development"}
+            href={`course/${courseID}`}
             onClick={() => {
               setIsLoading(true);
             }}
