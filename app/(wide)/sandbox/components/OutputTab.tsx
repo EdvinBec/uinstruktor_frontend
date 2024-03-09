@@ -14,7 +14,7 @@ const OutputTab = ({ output, title, height, isError }: Props) => {
       <pre
         className={`${
           isError && "font-sans text-red-600 font-medium text-sm"
-        } font-bold text-base font-sans p-2 border rounded-md min-h-[${height}px] max-h-[400px] overflow-auto`}
+        } font-bold text-base whitespace-pre-wrap font-sans p-2 border rounded-md min-h-[${height}px] max-h-[400px] overflow-auto`}
       >
         {output}
       </pre>

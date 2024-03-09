@@ -17,6 +17,8 @@ const TutorialPage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
   const tutorial = (await getTutorialItem(slug)) as TutorialItem[];
 
+
+
   return (
     <div className="p-4">
       <Paginator
