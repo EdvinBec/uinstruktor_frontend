@@ -51,7 +51,13 @@ const CourseCard = ({
         )}
         <div className="py-2 mt-2 flex justify-between">
           <div className="flex gap-1 items-center">
-            <BarChart size={24} strokeWidth={2.5} color="#2B44E7" />
+            <BarChart
+              size={22}
+              strokeWidth={3}
+              className={`${skillLevel === "lahko" && "text-green-500"} ${
+                skillLevel === "srednje" && "text-yellow-500"
+              } ${skillLevel === "težko" && "text-red-500"}`}
+            />
             <Label className="capitalize font-semibold">{skillLevel}</Label>
           </div>
           <div className="flex gap-2">

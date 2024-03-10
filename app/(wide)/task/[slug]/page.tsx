@@ -259,7 +259,7 @@ const TaskPage = ({
                       <OutputTab
                         output={apiResponse?.err!}
                         isError={error}
-                        height={200}
+                        height={100}
                         title="Izhod: "
                       />
                       {apiResponse?.compileStatus && (
@@ -283,6 +283,7 @@ const TaskPage = ({
                       </div>
                       {help && (
                         <OutputTab
+                          className="font-semibold text-sm"
                           output={help}
                           height={200}
                           title="Pomoč umetne inteligence: "
@@ -291,9 +292,10 @@ const TaskPage = ({
                     </div>
                     {apiResponse?.output?.length !== 0 &&
                       apiResponse?.output?.every(
-                        (item: TestCase) => item.matching,
+                        (item: TestCase) => item.matching
                       ) && (
                         <CustomButton
+                          className="mt-4"
                           label="Nadaljuj na naslednjo nalogo"
                           onClick={() => {
                             router.back();
@@ -398,7 +400,7 @@ const TaskPage = ({
                             );
                           }
                         }
-                      },
+                      }
                     )}
                   </TabsContent>
                 </Tabs>

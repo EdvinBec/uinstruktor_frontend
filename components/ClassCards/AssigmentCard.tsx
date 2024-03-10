@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import Placeholder from "@/assets/img/gradient.jpg";
+import Placeholder from "@/assets/img/gradient.png";
 import Placeholder2 from "@/assets/img/bg.jpg";
 import Placeholder3 from "@/assets/img/bg2.jpg";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +37,7 @@ const AssigmentCard = ({
   return (
     <div
       className={cm(
-        "size-full perspective rounded-md border dark:border-neutral-700 hover:shadow-2xl shadow-lg transition-all duration-300",
+        "size-full perspective rounded-md border dark:border-neutral-700 hover:shadow-2xl shadow-lg transition-all duration-300"
       )}
     >
       <div className="shadow-inner relative">

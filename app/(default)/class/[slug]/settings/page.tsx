@@ -42,7 +42,7 @@ const ClassSettingsPage = ({ params }: { params: { slug: string } }) => {
       <h1 className="text-4xl font-semibold">Nastavitve učilnice</h1>
       <div className="mt-6 space-y-8">
         <div>
-          <h2 className="text-2xl pb-2">Udeleženci</h2>
+          <h2 className="text-xl font-bold pb-2">Udeleženci</h2>
           <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
             {loading
               ? Array.from({ length: 5 }).map((_, index) => (
@@ -50,17 +50,17 @@ const ClassSettingsPage = ({ params }: { params: { slug: string } }) => {
                 ))
               : classData?.users.map((user, index) => (
                   <div
-                    className="p-2 rounded-xl w-full bg-white flex items-center flex-row justify-between"
+                    className="py-2 px-4 rounded-xl w-full bg-white dark:bg-black flex items-center flex-row justify-between"
                     key={index}
                   >
                     <div className="space-y-2">
-                      <div className="">
-                        <User className="inline mr-2" />
-                        <p className="inline">{user.username}</p>
+                      <div className="flex items-center gap-4">
+                        <User strokeWidth={2} size={24} />
+                        <p className="capitalize font-bold">{user.username}</p>
                       </div>
-                      <div className="">
-                        <AtSign className="inline mr-2" />
-                        <p className="inline">{user.email}</p>
+                      <div className="flex items-center gap-4">
+                        <AtSign strokeWidth={2} size={24} />
+                        <p>{user.email}</p>
                       </div>
                     </div>
                     <div>

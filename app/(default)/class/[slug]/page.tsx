@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import Paginator from "@/components/ui/paginator";
 import PageHeader from "../../exercises/components/PageHeader";
+import { Label } from "@/components/ui/label";
 
 function getToken() {
   const cookieStore = cookies();
@@ -49,11 +50,36 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
       />
 
       {classData && classData.classCreator === user?.username! && (
-        <div className="flex flex-row items-center gap-4 pb-4">
+        <div className="flex items-center justify-between gap-4 pb-4">
+          <div className="flex gap-4">
+            <Link
+              href={`/class/${params.slug}/assigment/new`}
+              className="flex items-center gap-2"
+            >
+              <Label>Ustvari nalogo</Label>
+              <Button size={"sm"}>
+                <BookPlus size={20} strokeWidth={2} />
+              </Button>
+            </Link>
+
+            <Link
+              href={`/class/${params.slug}/settings`}
+              className="flex items-center gap-2"
+            >
+              <Label>Nastavitve</Label>
+              <Button size={"sm"}>
+                <Settings2 size={20} strokeWidth={2} />
+              </Button>
+            </Link>
+          </div>
+
           <Dialog>
             <DialogTrigger>
-              <div className="bg-[#2B44E7] h-10 px-4 py-2 p-2 rounded-lg text-white ">
-                <Share2 />
+              <div className="flex gap-2 items-center">
+                <Label>Deli kodo</Label>
+                <Button size={"sm"}>
+                  <Share2 size={20} strokeWidth={2} />
+                </Button>
               </div>
             </DialogTrigger>
             <DialogContent className="bg-white dark:bg-black text-center w-3/4 md:w-full rounded-xl">
@@ -65,17 +91,6 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
               </DialogDescription>
             </DialogContent>
           </Dialog>
-
-          <Button>
-            <Link href={`/class/${params.slug}/assigment/new`}>
-              <BookPlus />
-            </Link>
-          </Button>
-          <Button className="block">
-            <Link href={`/class/${params.slug}/settings`}>
-              <Settings2 />
-            </Link>
-          </Button>
         </div>
       )}
 
@@ -90,7 +105,7 @@ const AssigmentsPage = async ({ params }: { params: { slug: string } }) => {
                 classData.assigments[index].completedUsers !== null &&
                 classData.assigments[index].completedUsers !== undefined
                   ? classData.assigments[index].completedUsers?.includes(
-                      user?.username!,
+                      user?.username!
                     )!
                   : false
               }

@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "../ui/button";
 
-import Banner0 from "@/assets/img/gradient.jpg";
-import Banner1 from "@/assets/img/gradient2.jpg";
+import Banner0 from "@/assets/img/gradient.png";
+import Banner1 from "@/assets/img/gradient2.png";
 
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";

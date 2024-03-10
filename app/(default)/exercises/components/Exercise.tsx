@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { Coins, Dumbbell, Info, Weight } from "lucide-react";
+import { Coins, Info, BarChart } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -28,16 +28,6 @@ const Exercise = ({
   tags,
   exerciseID,
 }: Props) => {
-  let weightSize;
-
-  if (difficulty === "lahko") {
-    weightSize = 17;
-  } else if (difficulty === "srednje") {
-    weightSize = 25;
-  } else {
-    weightSize = 30;
-  }
-
   return (
     <Link className="h-[200px]" href={`/exercise/${exerciseID}`}>
       <div className="min-h-[220px] w-full flex flex-col justify-between border-gray-200 dark:border-0 border-[1px] rounded-md p-4 bg-white dark:bg-black">
@@ -58,7 +48,13 @@ const Exercise = ({
           </div>
           <div className="flex flex-row justify-between pb-1">
             <div className="flex flex-row items-center gap-2">
-              <Weight size={weightSize} strokeWidth={2} />
+              <BarChart
+                size={20}
+                strokeWidth={3}
+                className={`${difficulty === "lahko" && "text-green-600"} ${
+                  difficulty === "srednje" && "text-yellow-600"
+                } ${difficulty === "tezko" && "text-red-600"}`}
+              />
               <Label className="capitalize">{difficulty}</Label>
             </div>
             <div className="flex flex-row items-center gap-2">

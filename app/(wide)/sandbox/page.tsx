@@ -98,7 +98,10 @@ const Sandbox = () => {
       </Dialog>
       <div className="w-full h-[85vh] p-2">
         <div className="hidden md:block">
-          <ResizablePanelGroup className="space-x-2" direction="horizontal">
+          <ResizablePanelGroup
+            className="space-x-2 bg-white dark:bg-black"
+            direction="horizontal"
+          >
             <ResizablePanel
               defaultSize={50}
               minSize={30}
@@ -117,7 +120,7 @@ const Sandbox = () => {
             <ResizablePanel
               defaultSize={50}
               minSize={30}
-              className="border-gray-200 dark:border-0 border-[1px] p-2 rounded-md"
+              className="border-gray-200 dark:border-0 border-[1px] h-full p-2 rounded-md"
             >
               <OutputWindow
                 isLoading={isLoading}
@@ -130,7 +133,7 @@ const Sandbox = () => {
         </div>
         <div className="block md:hidden h-full">
           <ResizablePanelGroup
-            className="space-x-2 h-full"
+            className="space-x-2 h-full bg-white dark:bg-black"
             direction="vertical"
           >
             <ResizablePanel
