@@ -46,6 +46,8 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [code, setCode] = useState("");
 
+  console.log(auth);
+
   return (
     <nav className="w-full lg:min-w-[1100px] mb-2 border-[1px] border-t-0 border-gray-200 dark:border-0 px-4 py-2 rounded-b-md bg-white dark:bg-black">
       <div className="w-full py-2 flex items-center justify-between">
@@ -68,21 +70,21 @@ const Navbar = () => {
               );
             })}
           </div>
-          <div
-            className={`gap-4 hidden ${auth?.permissions?.isTeacher && "flex"}`}
-          >
-            {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
-              return (
-                <NavbarButton
-                  key={itemIdx}
-                  href={item.href}
-                  label={item.label}
-                  isActive={pathname == item.href}
-                  icon={item.icon}
-                />
-              );
-            })}
-          </div>
+          {auth?.permissions?.isTeacher && (
+            <div className={`gap-4 flex`}>
+              {TeacherNavbarItems.map((item: NavbarItem, itemIdx: number) => {
+                return (
+                  <NavbarButton
+                    key={itemIdx}
+                    href={item.href}
+                    label={item.label}
+                    isActive={pathname == item.href}
+                    icon={item.icon}
+                  />
+                );
+              })}
+            </div>
+          )}
           {!auth?.permissions?.isTeacher && auth?.token && (
             <div className="gap-4 flex">
               {StudentNavbarItems.map((item: NavbarItem, itemIdx: number) => {
