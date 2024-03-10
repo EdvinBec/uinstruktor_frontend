@@ -46,8 +46,6 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [code, setCode] = useState("");
 
-  console.log(auth);
-
   return (
     <nav className="w-full lg:min-w-[1100px] mb-2 border-[1px] border-t-0 border-gray-200 dark:border-0 px-4 py-2 rounded-b-md bg-white dark:bg-black">
       <div className="w-full py-2 flex items-center justify-between">
@@ -124,7 +122,7 @@ const Navbar = () => {
                             onClick={async () => {
                               const res: ApiResponse<{}> = await joinNewClass(
                                 code,
-                                auth?.username!,
+                                auth?.username!
                               );
 
                               if (res.status !== "error") {

@@ -109,7 +109,6 @@ const TaskPage = ({
         if (result.compileStatus) {
           setApiResponse(result);
           setError(false);
-          console.log(result);
         }
       })
       .finally(() => {
@@ -136,7 +135,6 @@ const TaskPage = ({
     setSheetOpen(false);
     getAiHelp(code, aiType, task.infoPage.description)
       .then((response) => {
-        console.log(response);
         if (response.status === "success") {
           setHelp(response.data.message);
         }

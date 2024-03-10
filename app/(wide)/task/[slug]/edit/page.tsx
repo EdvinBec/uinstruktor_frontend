@@ -26,12 +26,10 @@ const TaskEditPage = ({ params }: { params: { slug: string } }) => {
 
   React.useEffect(() => {
     getTask(params.slug).then((data) => {
-      console.log(data);
       setTask(data);
     });
 
     getTestCases(params.slug).then((data) => {
-      console.log(data);
       setTestCases(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -163,7 +161,7 @@ const TaskEditPage = ({ params }: { params: { slug: string } }) => {
                       "space-y-2 bg-white rounded-lg p-4 border ",
                       testCase.deleted
                         ? " border-red-500"
-                        : "border-transparent",
+                        : "border-transparent"
                     )}
                     key={idx}
                   >

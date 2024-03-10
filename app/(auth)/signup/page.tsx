@@ -39,8 +39,6 @@ const SignUpPage = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password, username, repeatPassword } = data;
 
-    console.log(email, password, username);
-
     if (password !== repeatPassword) {
       setAuthError("Passwords don't match. Please enter them again.");
     } else {
@@ -60,7 +58,7 @@ const SignUpPage = () => {
           if (res.status === "error") {
             // setError("There is an issue with the server. Please try again later.");
             console.log(
-              "There is an issue with the server. Please try again later.",
+              "There is an issue with the server. Please try again later."
             );
           }
         }

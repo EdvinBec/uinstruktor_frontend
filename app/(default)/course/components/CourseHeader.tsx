@@ -30,7 +30,6 @@ const CourseHeader = ({
   const continueLearning = async () => {
     try {
       const result = await getCurrentChapter(username, courseId);
-      console.log(result);
       return result;
     } catch (error) {
       console.log(error);

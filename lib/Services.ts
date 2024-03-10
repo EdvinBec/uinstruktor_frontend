@@ -72,7 +72,7 @@ export const getCourseChapters = async (courseID: string, username: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    },
+    }
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -91,7 +91,7 @@ export const getChapterTasks = async (chapterID: string, username: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    },
+    }
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -120,7 +120,7 @@ export const fetchCourses = async () => {
 export const saveCode = async (
   username: string,
   code: string,
-  taskID: string,
+  taskID: string
 ) => {
   const result = await fetch(baseURL + `/api/code/save`, {
     method: "POST",
@@ -146,7 +146,7 @@ export const getSavedCode = async (username: string, taskID: string) => {
       headers: {
         "Content-type": "application/json",
       },
-    },
+    }
   );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -161,7 +161,7 @@ export const uploadCode = (
   code: string,
   taskID: string,
   lang: string,
-  username: string,
+  username: string
 ) => {
   const result = fetch(baseURL + "/api/code/submit/task", {
     method: "POST",
@@ -187,7 +187,6 @@ export const getTask = async (taskID: string) => {
   });
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
-    console.log(result);
   }
   const data = await result.json();
 
@@ -195,12 +194,15 @@ export const getTask = async (taskID: string) => {
 };
 
 export const getCurrentChapter = async (username: string, courseID: string) => {
-  const result = await fetch(baseURL + `/api/course/resume/${courseID}/${username}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
+  const result = await fetch(
+    baseURL + `/api/course/resume/${courseID}/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    }
+  );
   if (!result.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -213,7 +215,7 @@ export const getCurrentChapter = async (username: string, courseID: string) => {
 export const uploadSandboxCode = async (
   source: string,
   input: string,
-  lang: string,
+  lang: string
 ) => {
   const result = await fetch(baseURL + "/api/code/sandbox", {
     method: "POST",
@@ -312,7 +314,7 @@ export const getTutorialItem = async (slug: string) => {
 export const uploadExerciseCode = async (
   source: string,
   exerciseID: string,
-  lang: string,
+  lang: string
 ) => {
   const result = await fetch(baseURL + "/api/code/exercise", {
     method: "POST",
@@ -354,7 +356,7 @@ export const uploadNewAssigment = async (
   title: string,
   classID: string,
   template: string,
-  lang: string,
+  lang: string
 ) => {
   const result = await fetch(baseURL + "/api/code/exercise", {
     method: "POST",
@@ -396,7 +398,7 @@ export const getTestCases = async (slug: string) => {
 export const updateTask = async (
   task: Task,
   testCases: {}[],
-  taskID: string,
+  taskID: string
 ) => {
   const result = await fetch(baseURL + `/api/course/task/${taskID}/edit`, {
     method: "POST",
@@ -415,7 +417,7 @@ export const updateTask = async (
 export const getAiHelp = async (
   code: string,
   helpType: "bug" | "explain" | "tip",
-  desc: string,
+  desc: string
 ) => {
   const result = fetch(baseURL + `/api/ai/${helpType}`, {
     method: "POST",

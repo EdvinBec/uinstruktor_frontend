@@ -36,7 +36,7 @@ const Day = ({ value, timestamp }: { value: number; timestamp: Date }) => {
         }}
         className={cm(
           "w-3 h-3 rounded-sm",
-          value === 0 ? "bg-neutral-300 dark:bg-neutral-400" : "",
+          value === 0 ? "bg-neutral-300 dark:bg-neutral-400" : ""
         )}
       ></div>
       {hovered && (
@@ -66,7 +66,6 @@ const ActivityBar = ({ username }: Props) => {
   useEffect(() => {
     const populateEntries = async () => {
       const userActivity = await fetchUserActivity(username);
-      console.log(userActivity);
       if (userActivity.status === "error") setErr(true);
       if (userActivity.data) {
         setEntries([]);
@@ -92,13 +91,13 @@ const ActivityBar = ({ username }: Props) => {
       const date = new Date();
       date.setMonth(12 - i);
       months.push(
-        date.toLocaleString("sl", { month: "short" }).replace(".", ""),
+        date.toLocaleString("sl", { month: "short" }).replace(".", "")
       );
     } else {
       const date = new Date();
       date.setMonth(currentMonth - i);
       months.push(
-        date.toLocaleString("sl", { month: "short" }).replace(".", ""),
+        date.toLocaleString("sl", { month: "short" }).replace(".", "")
       );
     }
   }

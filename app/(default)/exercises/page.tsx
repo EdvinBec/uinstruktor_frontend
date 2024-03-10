@@ -46,10 +46,6 @@ const ExercisesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
-
   function pravaOblika(stVaj: number) {
     if (stVaj === 1) {
       return "Vaja";
