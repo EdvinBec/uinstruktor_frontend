@@ -18,6 +18,15 @@ const useAuth = () => {
 
   const decryptToken = async () => {
     const decryptedToken = await decryptAuthToken(cookies.get("token"));
+    if (decryptedToken) {
+      decryptedToken.permissions.isAdmin = Boolean(
+        decryptedToken?.permissions.isAdmin,
+      );
+      decryptedToken.permissions.isTeacher = Boolean(
+        decryptedToken?.permissions.isTeacher,
+      );
+    }
+
     setAuth({
       token: cookies.get("token"),
       username: decryptedToken?.username!,

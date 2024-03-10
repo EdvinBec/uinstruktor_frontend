@@ -42,12 +42,6 @@ export const TeacherNavbarItems: NavbarItem[] = [
     variant: "default",
     icon: Shapes,
   },
-  {
-    label: "Ustvari učilnico",
-    href: "/create-new-classroom",
-    variant: "default",
-    icon: PlusCircle,
-  },
 ];
 
 export const StudentNavbarItems: NavbarItem[] = [
