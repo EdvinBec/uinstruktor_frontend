@@ -290,7 +290,7 @@ const TaskPage = ({
                     </div>
                     {apiResponse?.output?.length !== 0 &&
                       apiResponse?.output?.every(
-                        (item: TestCase) => item.matching
+                        (item: TestCase) => item.matching,
                       ) && (
                         <CustomButton
                           className="mt-4"
@@ -307,12 +307,12 @@ const TaskPage = ({
           </div>
           <div className="block md:hidden h-full">
             <ResizablePanelGroup
-              className="space-y-2 h-full"
+              className="space-y-2 h-full min-h-screen"
               direction="vertical"
             >
-              <ResizablePanel className="border-neutral-300 border p-2 rounded-md h-screen">
+              <ResizablePanel className="border-neutral-300 border p-2 rounded-md h-1/2">
                 <Tabs
-                  className="h-full overflow-y-scroll"
+                  className=" overflow-y-scroll"
                   value={tab}
                   onValueChange={(value) => setTab(value)}
                 >
@@ -398,13 +398,13 @@ const TaskPage = ({
                             );
                           }
                         }
-                      }
+                      },
                     )}
                   </TabsContent>
                 </Tabs>
               </ResizablePanel>
               <ResizableHandle />
-              <ResizablePanel className="border-gray-200 border-[1px] rounded-md">
+              <ResizablePanel className="border-gray-200 border-[1px] rounded-md ">
                 <CodeEditor
                   value={code}
                   onChange={(value) => {
